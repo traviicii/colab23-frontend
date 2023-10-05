@@ -1,7 +1,10 @@
-import React from 'react'
-import Navbar from './Navbar'
-import { Route, Routes } from 'react-router-dom'
-import Home from './Home'
+import React from 'react';
+import Navbar from './Components/Navbar/Navbar';
+import { Route, Routes } from 'react-router-dom';
+import Welcome from './Views/Welcome/Welcome';
+import './index.css';
+import Footer from './Components/Footer/Footer';
+
 
 export default function App() {
   return (
@@ -9,9 +12,10 @@ export default function App() {
       <Navbar />
 
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Welcome />} />
       </Routes>
       
+      <Footer />
     </div>
   )
 }

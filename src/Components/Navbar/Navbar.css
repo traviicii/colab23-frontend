@@ -1,0 +1,12 @@
+#nav-wrapper {
+    padding: 10px;
+    height: 10vh;
+  }
+
+  #auth-link button {
+    background-color: rgb(40, 40, 40);
+    width: 150px;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+  }

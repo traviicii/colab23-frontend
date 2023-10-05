@@ -1,7 +1,14 @@
 import React from 'react';
 import './Welcome.css'
+import SignIn from './SignIn';
+import { useNavigate } from 'react-router-dom';
 
 export default function Welcome() {
+  const navigate = useNavigate();
+  const navigateToSignIn = () => {
+    navigate('/signin')
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-screen" id='welcome-wrapper'>
       <div className="w-3/4 text-center">
@@ -16,7 +23,7 @@ export default function Welcome() {
           </p>
         </div>
         
-        <button className="bg-gray-800 text-white py-2 px-4 mt-8 w-full rounded-md hover:bg-gray-700">
+        <button onClick={navigateToSignIn} className="bg-gray-800 text-white py-2 px-4 mt-8 w-full rounded-md hover:bg-gray-700">
           Join a Team Today
         </button>
         

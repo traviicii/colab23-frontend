@@ -1,8 +1,14 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css'
 
 export default function Navbar() {
+
+  const navigate = useNavigate();
+  const navigateToSignIn = () => {
+    navigate('/signin')
+  }
+
   return (
       <nav className="flex justify-around items-center bg-gray-500 text-gray-800 py-2 h-10" id='nav-wrapper'>
 
@@ -19,7 +25,7 @@ export default function Navbar() {
         </div>
 
         <div className="ml-auto" id='auth-link'>
-          <button className="signup-button">Sign In / Sign Up</button>
+          <button onClick={navigateToSignIn} className="signup-button">Sign In / Sign Up</button>
         </div>
 
       </nav>

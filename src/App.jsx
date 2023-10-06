@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Welcome from './Views/Welcome/Welcome';
 import './index.css';
 import Footer from './Components/Footer/Footer';
+import PersonalDetails from './Views/PersonalDetails/PersonalDetails';
 import SignIn from './Views/Welcome/SignIn';
 
 // Google Firebase
@@ -30,6 +31,7 @@ export default function App() {
 
       <Routes>
         <Route path='/' element={<Welcome />} />
+        <Route path='/personal-details' element ={<PersonalDetails/>} />
         <Route path='/signin' element={<SignIn />} />
       </Routes>
       

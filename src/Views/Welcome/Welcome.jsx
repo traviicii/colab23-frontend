@@ -13,7 +13,7 @@ export default function Welcome() {
     <div className="flex flex-col items-center justify-center h-screen" id='welcome-wrapper'>
       <div className="w-3/4 text-center">
 
-        <div className='mb-8 text-left text-5xl font-bold'>
+        <div className='mb-8 text-center text-5xl font-bold'>
           <h1>Your Team Awaits</h1>
         </div>
 

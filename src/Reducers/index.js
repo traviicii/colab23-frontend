@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
-import nameReducer from './name';
-import counterReducer from './counter';
-
+import personalFormReducer from './PersonalDetailsReducer';
+import professionalBackgroundReducer from './ProfessionalBackground';
 
 const rootReducer = combineReducers({
-  name: nameReducer, 
-  counter: counterReducer,
+  personalForm: personalFormReducer,
+  professionalBackground: professionalBackgroundReducer,
 });
 
 export default rootReducer;

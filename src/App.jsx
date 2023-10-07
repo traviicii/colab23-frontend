@@ -6,6 +6,7 @@ import './index.css';
 import Footer from './Components/Footer/Footer';
 import PersonalDetails from './Views/PersonalDetails/PersonalDetails';
 import SignIn from './Views/Welcome/SignIn';
+import ProfessionalBackground from './Views/ProfessionalBackground/ProfessionalBackground';
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';
@@ -31,8 +32,9 @@ export default function App() {
 
       <Routes>
         <Route path='/' element={<Welcome />} />
-        <Route path='/personal-details' element ={<PersonalDetails/>} />
         <Route path='/signin' element={<SignIn />} />
+        <Route path='/personal-details' element ={<PersonalDetails/>} />
+        <Route path='/professional-background' element ={<ProfessionalBackground/>} />
       </Routes>
       
       <Footer />

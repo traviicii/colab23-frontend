@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setPreviousRole, setYearsOfExperience, setMentorshipStatus, setProductRole, setProductExperience } from '../../Actions';
 import './ProfessionalBackground.css';
 
@@ -12,6 +13,11 @@ export default function ProfessionalBackground() {
     // Get access to the Redux dispatch and state using hooks
     const dispatch = useDispatch();
     const professionalFormData = useSelector((state) => state.professionalBackground);
+    const navigate = useNavigate();
+
+    const navigateToSkillsAndTools = () => {
+      navigate('/skills-and-tools');
+  }
   
     // Handle dropdown selection change event
     const handleDropdownChange = (event) => {
@@ -48,6 +54,7 @@ export default function ProfessionalBackground() {
         dispatch(setProductRole(professionalFormData.productRole));
         dispatch(setProductExperience(professionalFormData.productExperience));
         console.log(professionalFormData); // Log the professionalFormData
+        navigateToSkillsAndTools()
     };
 
     // Handle input for previous professional role

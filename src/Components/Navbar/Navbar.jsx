@@ -14,14 +14,16 @@ export default function Navbar() {
 
         <div className="link-wrapper">
           <div className="nav-menu">
-            <NavLink className="mx-10" to="/about">About</NavLink>
-            <NavLink className="mx-10" to="/pricing">Pricing</NavLink>
-            <NavLink className="mx-10" to="/contact">Contact</NavLink>
+            <NavLink className="mx-10" to="#">About</NavLink>
+            <NavLink className="mx-10" to="#">Pricing</NavLink>
+            <NavLink className="mx-10" to="#">Contact</NavLink>
           </div>
         </div>
 
         <div className="mx-auto text-center text-3xl">
-          <h1>Team 1</h1>
+          <h1>
+            <NavLink to="/">Team 1</NavLink>
+          </h1>
         </div>
 
         <div className="ml-auto" id='auth-link'>

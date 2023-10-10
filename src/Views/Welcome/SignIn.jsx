@@ -86,8 +86,11 @@ export default function SignIn() {
 
                     <div className='flex flex-col items-center mt-2'>
                         <p className='text-sm'>Don't have an account yet?</p>
-                        <p className='text-sm font-bold underline'>Sign up now!</p>
+                        <p className='text-sm font-bold'>
+                            <a href='/personal-details' className='underline'>Sign up now!</a>
+                        </p>
                     </div>
+
 
                 </div>
 

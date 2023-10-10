@@ -148,7 +148,7 @@ export default function ProfessionalBackground() {
           )}
 
           <div className="mb-2">
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="question2">
+            <label className="block text-gray-700 text-sm font-bold mt-2 mb-1" htmlFor="question2">
               Which of the following describes your role on a product team?
             </label>
             <div className="relative">

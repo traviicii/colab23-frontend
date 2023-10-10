@@ -7,6 +7,10 @@ import Footer from './Components/Footer/Footer';
 import PersonalDetails from './Views/PersonalDetails/PersonalDetails';
 import SignIn from './Views/Welcome/SignIn';
 import ProfessionalBackground from './Views/ProfessionalBackground/ProfessionalBackground';
+import SkillsAndTools from './Views/SkillsAndTools/SkillsAndTools';
+import AboutYou from './Views/AboutYou/AboutYou';
+import YourAvailability from './Views/YourAvailability/YourAvailability';
+import WelcomeDone from './Views/WelcomeDone/WelcomeDone';
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';
@@ -35,6 +39,10 @@ export default function App() {
         <Route path='/signin' element={<SignIn />} />
         <Route path='/personal-details' element ={<PersonalDetails/>} />
         <Route path='/professional-background' element ={<ProfessionalBackground/>} />
+        <Route path='/skills-and-tools' element={<SkillsAndTools/>} />
+        <Route path='/about-you' element={<AboutYou />} />
+        <Route path='/your-availability' element={<YourAvailability />} />
+        <Route path='/welcome-done' element={<WelcomeDone />} />
       </Routes>
       
       <Footer />

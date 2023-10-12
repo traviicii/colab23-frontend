@@ -4,10 +4,39 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFirstName, setLastName, setEmail, setPassword, setConfirmPassword } from '../../Actions';
 
+const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
+
 export default function PersonalDetails() {
+
+      //Call to api to see if the user already exists
+      const checkUser = async (email) => {
+        const URL = BACK_END_URL + '/api/checkuser'
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                email
+            })
+        }
+
+        const res = await fetch(URL, options);
+        const data = await res.json();
+        console.log(data)
+        if (data.status == 'ok') {
+          navigateToProfessionalBaground()
+        }
+        else {
+          console.log(data.message)
+          navigate('/signin')
+        }
+    }
+
     // Initialize Redux dispatch and get form data from the Redux store
     const dispatch = useDispatch();
     const formData = useSelector((state) => state.personalForm);
+    console.log(formData.email)
     
     // Initialize navigation hook for routing
     const navigate = useNavigate();
@@ -56,6 +85,7 @@ export default function PersonalDetails() {
     };
 
 
+
   return (
     <div className="personal-details-container">
       <div className="flex items-center justify-center">
@@ -82,7 +112,6 @@ export default function PersonalDetails() {
               placeholder="Your First Name"   
               onChange={handleFirstNameChange} />
           </div>
-
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="lastName">
               What is your last name?

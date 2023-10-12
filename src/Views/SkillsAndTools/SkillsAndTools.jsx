@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiSearch, FiX } from 'react-icons/fi';
+// import { FiSearch, FiX } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 export default function SkillsAndTools() {
@@ -21,7 +21,7 @@ export default function SkillsAndTools() {
     ];
 
     // State to track input for new tags and all selected skills
-    const [newSkillInput, setNewSkillInput] = useState('');
+    // const [newSkillInput, setNewSkillInput] = useState('');
     const [selectedSkills, setSelectedSkills] = useState([]);
 
     // Function to toggle skill selection
@@ -31,6 +31,7 @@ export default function SkillsAndTools() {
         } else {
             setSelectedSkills([...selectedSkills, skill]);
         }
+        console.log("selectedSkills: " + selectedSkills)
     };
 
     // Function to add a new skill

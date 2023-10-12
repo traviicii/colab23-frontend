@@ -65,3 +65,12 @@ export const setProductExperience = (productExperience) => ({
   payload: productExperience,
 });
 //End of Professional Background
+
+//Skills and Tools
+export const SET_SKILLS_TOOLS = 'SET_SKILLS_TOOLS';
+
+export const setSkillsTools = (selectedSkills) => ({
+  type: SET_SKILLS_TOOLS,
+  payload: selectedSkills,
+});
+//End Skills and Tools

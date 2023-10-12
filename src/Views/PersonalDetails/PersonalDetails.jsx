@@ -8,52 +8,55 @@ const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function PersonalDetails() {
 
-      //Call to api to see if the user already exists
-      const checkUser = async (email) => {
-        const URL = BACK_END_URL + '/api/checkuser'
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify({
-                email
-            })
-        }
-
-        const res = await fetch(URL, options);
-        const data = await res.json();
-        console.log(data)
-        if (data.status == 'ok') {
-          navigateToProfessionalBaground()
-        }
-        else {
-          console.log(data.message)
-          navigate('/signin')
-        }
+  
+  // Initialize Redux dispatch and get form data from the Redux store
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state.personalForm);
+  console.log(formData.email)
+  
+  //Call to api to see if the user already exists
+  const checkUser = async () => {
+    //Switched to a GET request, removed body
+    const URL = BACK_END_URL + `/api/checkuser/${formData.email}`
+    const options = {
+        method: "GET",
+        // headers: {
+        //     "Content-Type": 'application/json'
+        // },
+        // body: JSON.stringify({
+        //     email: formData.email
+        // })
     }
 
-    // Initialize Redux dispatch and get form data from the Redux store
-    const dispatch = useDispatch();
-    const formData = useSelector((state) => state.personalForm);
-    console.log(formData.email)
-    
-    // Initialize navigation hook for routing
-    const navigate = useNavigate();
-
-    // Function to navigate to the next page
-    const navigateToProfessionalBaground = () => {
+    const res = await fetch(URL, options);
+    const data = await res.json();
+    console.log(data)
+    if (data.status === 'ok') {
+      console.log(data.status)
+      handleContinue()
+    }
+    else {
+      console.log(data.message)
+      navigate('/signin')
+    }
+}
+  // Initialize navigation hook for routing
+  const navigate = useNavigate();
+  
+  // Function to navigate to the next page
+  const navigateToProfessionalBaground = () => {
         navigate('/professional-background');
     }
 
     // Handle continue button click
     const handleContinue = () => {
         // Dispatch Redux actions to update the store with personal details
-        dispatch(setFirstName(formData.firstName));
-        dispatch(setLastName(formData.lastName));
-        dispatch(setEmail(formData.email));
-        dispatch(setPassword(formData.password));
-        dispatch(setConfirmPassword(formData.confirmPassword));
+        // These are already being done on input
+        // dispatch(setFirstName(formData.firstName));
+        // dispatch(setLastName(formData.lastName));
+        // dispatch(setEmail(formData.email));
+        // dispatch(setPassword(formData.password));
+        // dispatch(setConfirmPassword(formData.confirmPassword));
 
         console.log('Form Data Sent to Redux:', formData); // Log the form data
         navigateToProfessionalBaground(); // Navigate to the next page
@@ -131,6 +134,7 @@ export default function PersonalDetails() {
               id="email"
               type="email"
               placeholder="email@domain.com"
+              required="required"
               onChange={handleEmailChange}/>
           </div>
 
@@ -158,7 +162,7 @@ export default function PersonalDetails() {
 
           <div className="flex items-center justify-between mt-6">
             <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg focus:outline-none"
-              type="button" onClick={handleContinue}>
+              type="button" onClick={checkUser}>
               Continue
             </button>
           </div>

@@ -15,8 +15,10 @@ import WelcomeDone from './Views/WelcomeDone/WelcomeDone';
 // Google Firebase
 import { initializeApp } from 'firebase/app';
 
+const FIREBASE_KEY = process.env.REACT_APP_API_KEY
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDWuQqrf7N_n_1IOTrpgNRKV78SnBgxWAY",
+  apiKey: FIREBASE_KEY,
   authDomain: "colab23-13a36.firebaseapp.com",
   projectId: "colab23-13a36",
   storageBucket: "colab23-13a36.appspot.com",

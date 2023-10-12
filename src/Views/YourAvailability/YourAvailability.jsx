@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setLocation, setTimezone, setHoursPerWeek, setAvailability } from '../../Actions';
 
 export default function YourAvailability() {
-    // State to track user's location
-    const [location, setLocation] = useState('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    // State for timezone and hours per week
-    const [timezone, setTimezone] = useState('');
-    const [hoursPerWeek, setHoursPerWeek] = useState('');
-
-    // State for general hours availability
-    const [availability, setAvailability] = useState({
+    const [localLocation, setLocalLocation] = useState('');
+    const [localTimezone, setLocalTimezone] = useState('');
+    const [localHoursPerWeek, setLocalHoursPerWeek] = useState('');
+    const [localAvailability, setLocalAvailability] = useState({
         'Early Morning': false,
         'Late Mornings': false,
         'Early Afternoons': false,
@@ -28,19 +28,39 @@ export default function YourAvailability() {
         '2-5 hours/week', '5-10 hours/week', '10-20 hours/week', '20-40 hours/week'
     ];
 
-    // Handle checkbox changes
+    const handleLocationChange = (e) => {
+        setLocalLocation(e.target.value);
+    };
+
+    const handleTimezoneChange = (e) => {
+        setLocalTimezone(e.target.value);
+    };
+
+    const handleHoursPerWeekChange = (e) => {
+        setLocalHoursPerWeek(e.target.value);
+    };
+
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
-        setAvailability({
-            ...availability,
+        setLocalAvailability({
+            ...localAvailability,
             [name]: checked,
         });
     };
 
-    const navigate = useNavigate();
     const navigateWelcomeDone = () => {
+        // Create a list of selected options
+        const selectedOptions = Object.keys(localAvailability).filter((key) => localAvailability[key]);
+
+        // Dispatch the user input data to Redux
+        dispatch(setLocation(localLocation));
+        dispatch(setTimezone(localTimezone));
+        dispatch(setHoursPerWeek(localHoursPerWeek));
+        dispatch(setAvailability(selectedOptions));
+
+        // Continue to the next step
         navigate('/welcome-done');
-    }
+    };
 
     return (
         <div className="professional-background-container">
@@ -67,19 +87,19 @@ export default function YourAvailability() {
                     </h6>
 
                     <div className="mb-2">
-                        <input type="text" className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6" placeholder="Enter your city, country" value={location} onChange={(e) => setLocation(e.target.value)}/>
+                        <input type="text" className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6" placeholder="Enter your city, country" value={localLocation} onChange={handleLocationChange} />
                     </div>
 
                     <h6 className="text-md md:text-lg text-left mb-4">
                         2. What timezone are you in?
                     </h6>
 
-
                     <div className="mb-2">
                         <select
                             className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-                            value={timezone}
-                            onChange={(e) => setTimezone(e.target.value)}>
+                            value={localTimezone}
+                            onChange={handleTimezoneChange}
+                        >
                             <option value="" disabled>Select your timezone</option>
                             {timezoneOptions.map((option, index) => (
                                 <option key={index} value={option}>
@@ -96,8 +116,9 @@ export default function YourAvailability() {
                     <div className="mb-2">
                         <select
                             className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-                            value={hoursPerWeek}
-                            onChange={(e) => setHoursPerWeek(e.target.value)}>
+                            value={localHoursPerWeek}
+                            onChange={handleHoursPerWeekChange}
+                        >
                             <option value="" disabled>Select hours per week</option>
                             {hoursPerWeekOptions.map((option, index) => (
                                 <option key={index} value={option}>
@@ -111,41 +132,41 @@ export default function YourAvailability() {
                         4. What are the general hours that you are available?
                     </h6>
 
-
                     <p className="text-sm text-gray-500 mb-2">Select all that apply</p>
 
                     <div className="mb-2">
-                    <label className="block mb-1">
-                        <input type="checkbox" name="Early Morning" checked={availability['Early Morning']} onChange={handleCheckboxChange} className="mr-2"/>
-                        Early Morning, 6am-9am
-                    </label>
-                    <label className="block mb-1">
-                        <input type="checkbox" name="Late Mornings" checked={availability['Late Mornings']} onChange={handleCheckboxChange} className="mr-2"/>
-                        Late Mornings, 9am-12pm
-                    </label>
-                    <label className="block mb-1">
-                        <input type="checkbox" name="Early Afternoons"checked={availability['Early Afternoons']} onChange={handleCheckboxChange} className="mr-2"/>
-                        Early Afternoons, 12pm-3pm
-                    </label>
-                    <label className="block mb-1">
-                        <input type="checkbox" name="Late Afternoons" checked={availability['Late Afternoons']} onChange={handleCheckboxChange} className="mr-2"/>
-                        Late Afternoons, 3pm-6pm
-                    </label>
-                    <label className="block mb-1">
-                        <input type="checkbox" name="Evenings" checked={availability['Evenings']} onChange={handleCheckboxChange} className="mr-2"/>
-                        Evenings, 6pm-9pm
-                    </label>
-                    <label className="block mb-10">
-                        <input type="checkbox" name="Nights" checked={availability['Nights']} onChange={handleCheckboxChange} className="mr-2"/>
-                        Nights, 9pm-12am
-                    </label>
-                </div>
-
+                        <label className="block mb-1">
+                            <input type="checkbox" name="Early Morning" checked={localAvailability['Early Morning']} onChange={handleCheckboxChange} className="mr-2" />
+                            Early Morning, 6am-9am
+                        </label>
+                        <label className="block mb-1">
+                            <input type="checkbox" name="Late Mornings" checked={localAvailability['Late Mornings']} onChange={handleCheckboxChange} className="mr-2" />
+                            Late Mornings, 9am-12pm
+                        </label>
+                        <label className="block mb-1">
+                            <input type="checkbox" name="Early Afternoons" checked={localAvailability['Early Afternoons']} onChange={handleCheckboxChange} className="mr-2" />
+                            Early Afternoons, 12pm-3pm
+                        </label>
+                        <label className="block mb-1">
+                            <input type="checkbox" name="Late Afternoons" checked={localAvailability['Late Afternoons']} onChange={handleCheckboxChange} className="mr-2" />
+                            Late Afternoons, 3pm-6pm
+                        </label>
+                        <label className="block mb-1">
+                            <input type="checkbox" name="Evenings" checked={localAvailability['Evenings']} onChange={handleCheckboxChange} className="mr-2" />
+                            Evenings, 6pm-9pm
+                        </label>
+                        <label className="block mb-10">
+                            <input type="checkbox" name="Nights" checked={localAvailability['Nights']} onChange={handleCheckboxChange} className="mr-2" />
+                            Nights, 9pm-12am
+                        </label>
+                    </div>
 
                     <div className="flex items-center justify-between mt-6">
-                        <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg focus:outline-none"
+                        <button
+                            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg focus:outline-none"
                             type="button"
-                            onClick={ navigateWelcomeDone }>
+                            onClick={navigateWelcomeDone}
+                        >
                             Continue
                         </button>
                     </div>

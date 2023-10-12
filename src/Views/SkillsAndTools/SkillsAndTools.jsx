@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiSearch } from 'react-icons/fi';
+import { FiSearch, FiX } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 export default function SkillsAndTools() {
@@ -20,7 +20,8 @@ export default function SkillsAndTools() {
         'Label', 'Trello', 'Asana', 'Other...'
     ];
 
-    // State to track selected skills
+    // State to track input for new tags and all selected skills
+    const [newSkillInput, setNewSkillInput] = useState('');
     const [selectedSkills, setSelectedSkills] = useState([]);
 
     // Function to toggle skill selection
@@ -30,6 +31,26 @@ export default function SkillsAndTools() {
         } else {
             setSelectedSkills([...selectedSkills, skill]);
         }
+    };
+
+    // Function to add a new skill
+    const [tags, setTags] = useState([]);
+    const [inputValue, setInputValue] = useState('');
+  
+    const handleInputChange = (e) => {
+      setInputValue(e.target.value);
+    };
+  
+    const handleInputKeydown = (e) => {
+      if (e.key === 'Enter' && inputValue.trim() !== '') {
+        setTags([...tags, inputValue.trim()]);
+        setInputValue('');
+      }
+    };
+  
+    const handleTagRemove = (tag) => {
+      const updatedTags = tags.filter((t) => t !== tag);
+      setTags(updatedTags);
     };
 
     const navigate = useNavigate();
@@ -113,26 +134,25 @@ export default function SkillsAndTools() {
                         ))}
                     </div>
 
-
                     <hr className="border-t-4 border-gray-300 my-6" />
 
-
-                    <h6 className="text-md md:text-lg text-left mb-4">
+                    <h6 className="text-md md:text-lg text-left">
                         2. Are there any skills you are learning or would like to gain?
                     </h6>
 
-                    {/* Search Bar with Icon */}
-                    <div className="flex items-center">
-                        <div className="relative flex-grow">
-                            <input
-                                type="text"
-                                className="rounded-full border border-gray-300 pl-10 pr-4 py-2 w-full focus:outline-none"
-                                placeholder="Search for a Subject"/>
-                            <span className="absolute top-2 left-3">
-                                <FiSearch size={24} className="text-gray-400" />
-                            </span>
+                    {/* New skill input and tag display */}
+                    <div>
+                    <div className="tag-list inline-block">
+                        {tags.map((tag, index) => (
+                        <div key={index} className="tag bg-white rounded-lg inline-flex m-2 border">
+                            {tag}
+                            <button onClick={() => handleTagRemove(tag)}>X</button>
                         </div>
+                        ))}
                     </div>
+                    <input type="text" value={inputValue} onChange={handleInputChange} onKeyDown={handleInputKeydown} placeholder="Enter tags..." className="w-full border"/>
+                    </div>
+
 
                     <div className="flex items-center justify-between mt-6">
                         <button

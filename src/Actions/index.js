@@ -1,3 +1,5 @@
+
+//Personal Details
 export const SET_FIRST_NAME = 'SET_FIRST_NAME';
 export const SET_LAST_NAME = 'SET_LAST_NAME';
 export const SET_EMAIL = 'SET_EMAIL';
@@ -28,7 +30,7 @@ export const setConfirmPassword = (confirmPassword) => ({
   type: SET_CONFIRM_PASSWORD,
   payload: confirmPassword,
 });
-
+//End of Personal Details
 
 
 // New actions for professional background form
@@ -62,3 +64,4 @@ export const setProductExperience = (productExperience) => ({
   type: SET_PRODUCT_EXPERIENCE,
   payload: productExperience,
 });
+//End of Professional Background

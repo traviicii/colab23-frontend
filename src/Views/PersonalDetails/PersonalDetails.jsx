@@ -4,10 +4,39 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFirstName, setLastName, setEmail, setPassword, setConfirmPassword } from '../../Actions';
 
+const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
+
 export default function PersonalDetails() {
+
+      //Call to api to see if the user already exists
+      const checkUser = async (email) => {
+        const URL = BACK_END_URL + '/api/checkuser'
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                email
+            })
+        }
+
+        const res = await fetch(URL, options);
+        const data = await res.json();
+        console.log(data)
+        if (data.status == 'ok') {
+          navigateToProfessionalBaground()
+        }
+        else {
+          console.log(data.message)
+          navigate('/signin')
+        }
+    }
+
     // Initialize Redux dispatch and get form data from the Redux store
     const dispatch = useDispatch();
     const formData = useSelector((state) => state.personalForm);
+    console.log(formData.email)
     
     // Initialize navigation hook for routing
     const navigate = useNavigate();
@@ -78,7 +107,8 @@ export default function PersonalDetails() {
               <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none mb-8"
                 id="firstName"
                 type="text"
-                placeholder="Your First Name"/>
+                placeholder="Your First Name"
+                required="required"/>
             </div>
 
             <div className="mb-4">
@@ -88,7 +118,8 @@ export default function PersonalDetails() {
               <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none mb-8"
                 id="lastName"
                 type="text"
-                placeholder="Your Last Name"/>
+                placeholder="Your Last Name"
+                required="required"/>
             </div>
 
             <div className="mb-4">
@@ -98,7 +129,8 @@ export default function PersonalDetails() {
               <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none mb-8"
                 id="email"
                 type="email"
-                placeholder="email@domain.com"/>
+                placeholder="email@domain.com"
+                required="required"/>
             </div>
 
             <div className="mb-6">

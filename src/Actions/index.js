@@ -65,6 +65,14 @@ export const setProductExperience = (productExperience) => ({
   payload: productExperience,
 });
 
+//Skills and Tools
+export const SET_SKILLS_TOOLS = 'SET_SKILLS_TOOLS';
+
+export const setSkillsTools = (selectedSkills) => ({
+  type: SET_SKILLS_TOOLS,
+  payload: selectedSkills,
+});
+//End Skills and Tools
 
 // New actions for about you form
 export const SET_ADJECTIVES = 'SET_ADJECTIVES';
@@ -112,13 +120,3 @@ export const setAvailability = (availability) => ({
   type: SET_AVAILABILITY,
   payload: availability,
 });
-
-
-//Skills and Tools
-export const SET_SKILLS_TOOLS = 'SET_SKILLS_TOOLS';
-
-export const setSkillsTools = (selectedSkills) => ({
-  type: SET_SKILLS_TOOLS,
-  payload: selectedSkills,
-});
-//End Skills and Tools

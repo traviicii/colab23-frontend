@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 // import { FiSearch, FiX } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDesignSkills, setDeveloperSkills, setManagementSkills, setWantedSkills } from '../../Actions';
 
 export default function SkillsAndTools() {
     const productDesignSkills = [
@@ -23,21 +25,28 @@ export default function SkillsAndTools() {
     // State to track input for new tags and all selected skills
     // const [newSkillInput, setNewSkillInput] = useState('');
     const [selectedSkills, setSelectedSkills] = useState([]);
+    // const [designSkills, setDesignSkills] = useState([])
+    // const [developerSkills, setDeveloperSkills] = useState([])
+    // const [managementSkills, setManagementSKills] = useState([])
+
+    const dispatch = useDispatch();
+    const skillsTools = useSelector((state) => state.skillsTools)
 
     // Function to toggle skill selection
-    const toggleSkill = (skill) => {
-        if (selectedSkills.includes(skill)) {
-            setSelectedSkills(selectedSkills.filter(selectedSkill => selectedSkill !== skill));
+    const toggleSkill = (skill, state, stateFunc) => {
+        if (state.includes(skill)) {
+            dispatch(stateFunc(state.filter(selectedSkill => selectedSkill !== skill)));
         } else {
-            setSelectedSkills([...selectedSkills, skill]);
+            dispatch(stateFunc([...state, skill]));
         }
-        console.log("selectedSkills: " + selectedSkills)
+        // console.log("selectedSkills: " + selectedSkills)
     };
 
     // Function to add a new skill
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState('');
   
+    //Skills you're learning or would like to gain
     const handleInputChange = (e) => {
       setInputValue(e.target.value);
     };
@@ -92,8 +101,8 @@ export default function SkillsAndTools() {
                         {productDesignSkills.map((skill, index) => (
                             <div
                                 key={index}
-                                className={`rounded-lg p-2 text-center cursor-pointer border border-gray-300 ${selectedSkills.includes(skill) ? 'bg-gray-300' : 'bg-white'}`}
-                                onClick={() => toggleSkill(skill)}>
+                                className={`rounded-lg p-2 text-center cursor-pointer border border-gray-300 ${skillsTools.designSkills.includes(skill) ? 'bg-gray-300' : 'bg-white'}`}
+                                onClick={() => toggleSkill(skill, skillsTools.designSkills, setDesignSkills)}>
                                 {skill}
                             </div>
                         ))}
@@ -110,8 +119,8 @@ export default function SkillsAndTools() {
                         {softwareDeveloperSkills.map((skill, index) => (
                             <div
                                 key={index}
-                                className={`rounded-lg p-2 text-center cursor-pointer border border-gray-300 ${selectedSkills.includes(skill) ? 'bg-gray-300' : 'bg-white'}`}
-                                onClick={() => toggleSkill(skill)}>
+                                className={`rounded-lg p-2 text-center cursor-pointer border border-gray-300 ${skillsTools.developerSkills.includes(skill) ? 'bg-gray-300' : 'bg-white'}`}
+                                onClick={() => toggleSkill(skill, skillsTools.developerSkills, setDeveloperSkills)}>
                                 {skill}
                             </div>
                         ))}
@@ -128,8 +137,8 @@ export default function SkillsAndTools() {
                         {productManagementSkills.map((skill, index) => (
                             <div
                                 key={index}
-                                className={`rounded-lg p-2 text-center cursor-pointer border border-gray-300 ${selectedSkills.includes(skill) ? 'bg-gray-300' : 'bg-white'}`}
-                                onClick={() => toggleSkill(skill)}>
+                                className={`rounded-lg p-2 text-center cursor-pointer border border-gray-300 ${skillsTools.managementSkills.includes(skill) ? 'bg-gray-300' : 'bg-white'}`}
+                                onClick={() => toggleSkill(skill, skillsTools.managementSkills, setManagementSkills)}>
                                 {skill}
                             </div>
                         ))}

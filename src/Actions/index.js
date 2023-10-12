@@ -64,14 +64,33 @@ export const setProductExperience = (productExperience) => ({
   type: SET_PRODUCT_EXPERIENCE,
   payload: productExperience,
 });
+//End Professional Background
 
 //Skills and Tools
-export const SET_SKILLS_TOOLS = 'SET_SKILLS_TOOLS';
+export const SET_DESIGN_SKILLS = "SET_DESIGN_SKILLS"
+export const SET_DEVELOPER_SKILLS = "SET_DEVELOPER_SKILLS"
+export const SET_MANAGEMENT_SKILLS = "SET_MANAGEMENT_SKILLS"
+export const SET_WANTED_SKILLS = "SET_WANTED_SKILLS"
 
-export const setSkillsTools = (selectedSkills) => ({
-  type: SET_SKILLS_TOOLS,
-  payload: selectedSkills,
+export const setDesignSkills = (designSkills) => ({
+  type: SET_DESIGN_SKILLS,
+  payload: designSkills,
 });
+
+export const setDeveloperSkills = (developerSkills) => ({
+  type: SET_DEVELOPER_SKILLS,
+  payload: developerSkills,
+});
+
+export const setManagementSkills = (managementSkills) => ({
+  type: SET_MANAGEMENT_SKILLS,
+  payload: managementSkills,
+});
+
+export const setWantedSkills = (wantedSkills) => ({
+  type: SET_WANTED_SKILLS,
+  payload: wantedSkills,
+})
 //End Skills and Tools
 
 // New actions for about you form

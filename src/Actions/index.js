@@ -64,7 +64,55 @@ export const setProductExperience = (productExperience) => ({
   type: SET_PRODUCT_EXPERIENCE,
   payload: productExperience,
 });
-//End of Professional Background
+
+
+// New actions for about you form
+export const SET_ADJECTIVES = 'SET_ADJECTIVES';
+export const SET_DESCRIPTION = 'SET_DESCRIPTION';
+export const SET_FIELDS_OF_INTEREST = 'SET_FIELDS_OF_INTEREST';
+
+export const setAdjectives = (adjectives) => ({
+  type: SET_ADJECTIVES,
+  payload: adjectives,
+});
+
+export const setDescription = (description) => ({
+  type: SET_DESCRIPTION,
+  payload: description,
+});
+
+export const setFieldsOfInterest = (fieldsOfInterest) => ({
+  type: SET_FIELDS_OF_INTEREST,
+  payload: fieldsOfInterest,
+});
+
+
+// New actions for availability form
+export const SET_LOCATION = 'SET_LOCATION';
+export const SET_TIMEZONE = 'SET_TIMEZONE';
+export const SET_HOURS_PER_WEEK = 'SET_HOURS_PER_WEEK';
+export const SET_AVAILABILITY = 'SET_AVAILABILITY';
+
+export const setLocation = (location) => ({
+  type: SET_LOCATION,
+  payload: location,
+});
+
+export const setTimezone = (timezone) => ({
+  type: SET_TIMEZONE,
+  payload: timezone,
+});
+
+export const setHoursPerWeek = (hoursPerWeek) => ({
+  type: SET_HOURS_PER_WEEK,
+  payload: hoursPerWeek,
+});
+
+export const setAvailability = (availability) => ({
+  type: SET_AVAILABILITY,
+  payload: availability,
+});
+
 
 //Skills and Tools
 export const SET_SKILLS_TOOLS = 'SET_SKILLS_TOOLS';

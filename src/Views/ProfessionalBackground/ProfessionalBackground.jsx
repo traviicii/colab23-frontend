@@ -82,7 +82,7 @@ export default function ProfessionalBackground() {
         dispatch(setProductExperience(selectedOptionLabel));
     };
       
-
+    
 
   return (
     <div className="professional-background-container">
@@ -90,11 +90,10 @@ export default function ProfessionalBackground() {
         <div
           className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10">
           <div className="mb-4 flex items-center">
-            <a className="text-blue-500 hover:underline text-lg mr-4" href="/personal-details">
-              Back
-            </a>
+            <button className="text-blue-500 hover:underline text-lg mr-4" onClick={() => navigate("/personal-details")}>Back</button>
+            {/* progress bar */}
             <div className="w-full bg-gray-200 h-2 rounded-full mr-20 ml-10">
-              <div className="bg-blue-500 h-2 rounded-full" style={{ width: '40%' }}></div>
+              <div className="bg-blue-500 h-2 rounded-full" style={{ width: '33.34%' }}></div>
             </div>
           </div>
           <p className="text-xl md:text-2xl text-center text-500 mb-8 mt-10">
@@ -113,6 +112,7 @@ export default function ProfessionalBackground() {
               id="previousRole"
               type="text"
               placeholder="Your Previous Role/Title"
+              value={professionalFormData.previousRole ? professionalFormData.previousRole : ''} 
               onChange={handlePreviousRole}/>
           </div>
 
@@ -125,7 +125,8 @@ export default function ProfessionalBackground() {
                 className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
                 id="question1"
                 onChange={handleOnChange}
-                value={selectedOption}
+                value="option4"
+                // value={selectedOption}
               >
                 <option value="" disabled>Select # of Years</option>
                 <option value="option1">0-2 years</option>

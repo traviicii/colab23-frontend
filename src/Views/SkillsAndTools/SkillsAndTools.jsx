@@ -22,13 +22,6 @@ export default function SkillsAndTools() {
         'Label', 'Trello', 'Asana', 'Other...'
     ];
 
-    // State to track input for new tags and all selected skills
-    // const [newSkillInput, setNewSkillInput] = useState('');
-    const [selectedSkills, setSelectedSkills] = useState([]);
-    // const [designSkills, setDesignSkills] = useState([])
-    // const [developerSkills, setDeveloperSkills] = useState([])
-    // const [managementSkills, setManagementSKills] = useState([])
-
     const dispatch = useDispatch();
     const skillsTools = useSelector((state) => state.skillsTools)
 
@@ -39,7 +32,7 @@ export default function SkillsAndTools() {
         } else {
             dispatch(stateFunc([...state, skill]));
         }
-        // console.log("selectedSkills: " + selectedSkills)
+        console.log(skillsTools)
     };
 
     // Function to add a new skill
@@ -73,11 +66,10 @@ export default function SkillsAndTools() {
             <div className="flex items-center justify-center">
                 <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10">
                     <div className="mb-4 flex items-center">
-                        <a className="text-blue-500 hover:underline text-lg mr-4" href="/professional-background">
-                            Back
-                        </a>
+                    <button className="text-blue-500 hover:underline text-lg mr-4" onClick={() => navigate("/professional-background")}>Back</button>
+                        {/* progress bar */}
                         <div className="w-full bg-gray-200 h-2 rounded-full mr-20 ml-10">
-                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '60%' }}></div>
+                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '50%' }}></div>
                         </div>
                     </div>
                     <p className="text-xl md:text-2xl text-center text-500 mb-8 mt-10">

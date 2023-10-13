@@ -95,7 +95,7 @@ export default function PersonalDetails() {
         <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10">
           <div className="mb-4">
             <div className="w-full bg-gray-200 h-2 rounded-full mr-20">
-              <div className="bg-blue-500 h-2 rounded-full" style={{ width: '20%' }}></div>
+              <div className="bg-blue-500 h-2 rounded-full" style={{ width: '16.67%' }}></div>
             </div>
           </div>
           <p className="text-xl md:text-2xl text-center text-500 mb-8">
@@ -112,7 +112,8 @@ export default function PersonalDetails() {
             <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4"
               id="firstName"
               type="text"
-              placeholder="Your First Name"   
+              placeholder="Your First Name"  
+              value={formData.firstName ? formData.firstName : ''} 
               onChange={handleFirstNameChange} />
           </div>
           <div className="mb-2">
@@ -123,6 +124,7 @@ export default function PersonalDetails() {
               id="lastName"
               type="text"
               placeholder="Your Last Name"
+              value={formData.lastName ? formData.lastName : ''} 
               onChange={handleLastNameChange}/>
           </div>
 
@@ -135,6 +137,7 @@ export default function PersonalDetails() {
               type="email"
               placeholder="email@domain.com"
               required="required"
+              value={formData.email ? formData.email : ''} 
               onChange={handleEmailChange}/>
           </div>
 
@@ -146,6 +149,7 @@ export default function PersonalDetails() {
               id="password"
               type="password"
               placeholder="Password"
+              value={formData.password ? formData.password : ''} 
               onChange={handlePasswordChange}/>
           </div>
 
@@ -157,6 +161,7 @@ export default function PersonalDetails() {
               id="confirmPassword"
               type="password"
               placeholder="Confirm Password"
+              value={formData.confirmPassword ? formData.confirmPassword : ''} 
               onChange={handleConfirmPasswordChange}/>
           </div>
 

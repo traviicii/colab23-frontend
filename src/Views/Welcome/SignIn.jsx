@@ -1,9 +1,12 @@
 import React from 'react'
 import { GoogleAuthProvider, GithubAuthProvider, getAuth, signInWithRedirect, signInWithPopup } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function SignIn() {
+
+    const navigate = useNavigate()
 
     //Call to api to see if the user already exists
     const checkUser = async (email) => {
@@ -24,7 +27,8 @@ export default function SignIn() {
     }
 
     //This function will be used in an onClick event attatched to a google sign up button and will fetch the user's google account information.
-    const GoogleUser = async () => {
+    const GoogleUser = async (e) => {
+        e.preventDefault()
         const provider = new GoogleAuthProvider();
         const auth = getAuth();
 
@@ -107,7 +111,8 @@ export default function SignIn() {
                     <div className='flex flex-col items-center mt-2'>
                         <p className='text-sm'>Don't have an account yet?</p>
                         <p className='text-sm font-bold'>
-                            <a href='/personal-details' className='underline'>Sign up now!</a>
+                            <button onClick={() => navigate("/personal-details")} className='underline'>Sign up now!</button>
+                            {/* <a href='/personal-details' className='underline'>Sign up now!</a> */}
                         </p>
                     </div>
 

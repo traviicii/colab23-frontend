@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLocation, setTimezone, setHoursPerWeek, setAvailability } from '../../Actions';
+
+const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function YourAvailability() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    //These are here to be sent to API to create a new user once user clicks continue
+    const personalForm = useSelector((state) => state.personalForm)
+    const professionalBackground = useSelector((state) => state.professionalBackground)
+    const aboutYouForm = useSelector((state) => state.aboutYouForm)
+    const availabilityForm = useSelector((state) => state.availabilityForm)
+    const skillsTools = useSelector((state) => state.skillsTools)
+    //////////////////////////////
 
     const [localLocation, setLocalLocation] = useState('');
     const [localTimezone, setLocalTimezone] = useState('');
@@ -29,15 +39,18 @@ export default function YourAvailability() {
     ];
 
     const handleLocationChange = (e) => {
-        setLocalLocation(e.target.value);
+        // setLocalLocation(e.target.value);
+        dispatch(setLocation(e.target.value));
     };
 
     const handleTimezoneChange = (e) => {
-        setLocalTimezone(e.target.value);
+        // setLocalTimezone(e.target.value);
+        dispatch(setTimezone(e.target.value));
     };
 
     const handleHoursPerWeekChange = (e) => {
-        setLocalHoursPerWeek(e.target.value);
+        // setLocalHoursPerWeek(e.target.value);
+        dispatch(setHoursPerWeek(e.target.value));
     };
 
     const handleCheckboxChange = (event) => {
@@ -46,32 +59,57 @@ export default function YourAvailability() {
             ...localAvailability,
             [name]: checked,
         });
+        const selectedOptions = Object.keys(localAvailability).filter((key) => localAvailability[key]);
     };
-
+    
     const navigateWelcomeDone = () => {
         // Create a list of selected options
-        const selectedOptions = Object.keys(localAvailability).filter((key) => localAvailability[key]);
-
+        
         // Dispatch the user input data to Redux
-        dispatch(setLocation(localLocation));
-        dispatch(setTimezone(localTimezone));
-        dispatch(setHoursPerWeek(localHoursPerWeek));
-        dispatch(setAvailability(selectedOptions));
+        dispatch(setAvailability(Object.keys(localAvailability).filter((key) => localAvailability[key])));
 
         // Continue to the next step
         navigate('/welcome-done');
     };
+
+    const createNewUser = async (e) => {
+        e.preventDefault()
+        const url = BACK_END_URL + '/api/signup'
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                personalForm: personalForm,
+                professionalBackground: professionalBackground,
+                aboutYouForm: aboutYouForm,
+                availabilityForm: availabilityForm,
+                skillsTools: skillsTools
+            })
+        }
+
+        try {
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (data.status === "ok") {
+                console.log(data.message)
+            }
+        } 
+        catch {
+            console.log("something went wrong with createNewUser")
+        }
+    }
 
     return (
         <div className="professional-background-container">
             <div className="flex items-center justify-center">
                 <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10">
                     <div className="mb-4 flex items-center">
-                        <a className="text-blue-500 hover:underline text-lg mr-4" href="/about-you">
-                            Back
-                        </a>
+                    <button className="text-blue-500 hover:underline text-lg mr-4" onClick={() => navigate("/about-you")}>Back</button>
+                        {/* progress bar */}
                         <div className="w-full bg-gray-200 h-2 rounded-full mr-20 ml-10">
-                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '90%' }}></div>
+                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: '83.35%' }}></div>
                         </div>
                     </div>
                     <p className="text-xl md:text-2xl text-center text-500 mb-8 mt-10">
@@ -87,7 +125,7 @@ export default function YourAvailability() {
                     </h6>
 
                     <div className="mb-2">
-                        <input type="text" className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6" placeholder="Enter your city, country" value={localLocation} onChange={handleLocationChange} />
+                        <input type="text" className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6" placeholder="Enter your city, country" value={availabilityForm.location} onChange={handleLocationChange} />
                     </div>
 
                     <h6 className="text-md md:text-lg text-left mb-4">
@@ -97,7 +135,7 @@ export default function YourAvailability() {
                     <div className="mb-2">
                         <select
                             className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-                            value={localTimezone}
+                            value={availabilityForm.timezone}
                             onChange={handleTimezoneChange}
                         >
                             <option value="" disabled>Select your timezone</option>
@@ -116,7 +154,7 @@ export default function YourAvailability() {
                     <div className="mb-2">
                         <select
                             className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-                            value={localHoursPerWeek}
+                            value={availabilityForm.hoursPerWeek}
                             onChange={handleHoursPerWeekChange}
                         >
                             <option value="" disabled>Select hours per week</option>
@@ -166,7 +204,8 @@ export default function YourAvailability() {
                             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg focus:outline-none"
                             type="button"
                             onClick={navigateWelcomeDone}
-                        >
+                            // onClick={createNewUser}
+                            >
                             Continue
                         </button>
                     </div>

@@ -10,3 +10,9 @@
     color: white;
     padding: 5px;
   }
+
+/* Navbar.css */
+.nav-link {
+  text-decoration: none; /* Remove underline */
+  color: black; /* Change text color to black */
+}

@@ -22,7 +22,7 @@ export default function Navbar() {
 
         <div className="mx-auto text-center text-3xl">
           <h1>
-            <NavLink to="/">Team 1</NavLink>
+            <NavLink to="/">TeamUp</NavLink>
           </h1>
         </div>
 

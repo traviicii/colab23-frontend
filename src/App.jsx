@@ -11,6 +11,8 @@ import SkillsAndTools from './Views/SkillsAndTools/SkillsAndTools';
 import AboutYou from './Views/AboutYou/AboutYou';
 import YourAvailability from './Views/YourAvailability/YourAvailability';
 import WelcomeDone from './Views/WelcomeDone/WelcomeDone';
+import DashboardUnpopulated from './Views/Dashboard/DashboardUnpopulated';
+import Dashboard from './Views/Dashboard/Dashboard';
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';
@@ -45,6 +47,8 @@ export default function App() {
         <Route path='/about-you' element={<AboutYou />} />
         <Route path='/your-availability' element={<YourAvailability />} />
         <Route path='/welcome-done' element={<WelcomeDone />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/dashboard-unpopulated' element={<DashboardUnpopulated />} />
       </Routes>
       
       <Footer />

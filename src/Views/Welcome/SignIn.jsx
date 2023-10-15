@@ -8,6 +8,32 @@ export default function SignIn() {
 
     const navigate = useNavigate()
 
+    //Traditional user login
+    const login = async (e) => {
+        e.preventDefault()
+
+        const email = e.target.email.value;
+        const password = e.target.password.value
+
+        const url = BACK_END_URL + '/api/login'
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        }
+
+        const res = await fetch(url, options);
+        const data = await res.json();
+        if (data.status === 'ok'){
+            console.log(data)
+        }
+    }
+
     //Call to api to see if the user already exists
     const checkUser = async (email) => {
         const URL = BACK_END_URL + '/api/checkuser'
@@ -67,14 +93,14 @@ export default function SignIn() {
                         <p className='font-bold text-xl text-center w-5/6 my-2'>Sign in to work with your team</p>
 
                         <div className='mb-1 flex flex-col w-full'>
-                            <form className='flex flex-col justity-center items-center'>
+                            <form onSubmit={login} className='flex flex-col justity-center items-center'>
                                 <input type="text" required="required" placeholder="Email" name='email' className="w-full border border-black rounded-md px-3 py-1 my-2" />
 
                                 <input type="password" required="required" placeholder="Password" name='password' className="w-full border border-black rounded-md px-3 py-1 my-2" />
 
                                 <p className='text-xs underline'>Forgot password?</p>
 
-                                <button className='mt-3 py-1 px-10 border rounded-lg w-3/4 bg-zinc-400 text-white'>Sign In</button>
+                                <button type='submit' className='mt-3 py-1 px-10 border rounded-lg w-3/4 bg-zinc-400 text-white'>Sign In</button>
                             </form>
                         </div>
 

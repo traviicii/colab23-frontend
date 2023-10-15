@@ -139,3 +139,24 @@ export const setAvailability = (availability) => ({
   type: SET_AVAILABILITY,
   payload: availability,
 });
+
+// User Specific Information gained on ligging in
+export const SET_ID = 'SET_ID;';
+export const SET_UID = 'SET_UID';
+export const SET_TOKEN = 'SET_TOKEN';
+
+export const setUserID = (id) => ({
+  type: SET_ID,
+  payload: id
+})
+
+export const setUserUID = (uid) => ({
+  type: SET_UID,
+  payload: uid
+})
+
+export const setUserToken = (token) => ({
+  type: SET_TOKEN,
+  payload: token
+})
+//end user login info

@@ -82,7 +82,7 @@ export default function ProfessionalBackground() {
         dispatch(setProductExperience(selectedOptionLabel));
     };
       
-    
+
 
   return (
     <div className="professional-background-container">
@@ -125,8 +125,8 @@ export default function ProfessionalBackground() {
                 className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
                 id="question1"
                 onChange={handleOnChange}
-                value="option4"
-                // value={selectedOption}
+                // value={professionalFormData.yearsOfExperience}
+                value={selectedOption}
               >
                 <option value="" disabled>Select # of Years</option>
                 <option value="option1">0-2 years</option>
@@ -167,10 +167,10 @@ export default function ProfessionalBackground() {
                 onChange={handleProductRole} 
               >
                 <option value="option1" disabled>Select Product Manager, Designer, Developer</option>
-                <option value="option1">Product Manager</option>
-                <option value="option2">Designer</option>
-                <option value="option3">Developer</option>
-                <option value="option4">Other</option>
+                <option value="option2">Product Manager</option>
+                <option value="option3">Designer</option>
+                <option value="option4">Developer</option>
+                <option value="option5">Other</option>
               </select>
             </div>
           </div>

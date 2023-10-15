@@ -6,9 +6,9 @@ import { setAdjectives, setDescription, setFieldsOfInterest } from '../../Action
 export default function AboutYou() {
     const fieldsOfInterest = [
       'Fintech', 'Education', 'Non-Profit', 'SaaS', 'Healthcare',
-      'Sustainability', 'Security', 'Enterprise', 'Marketplace', 'e-Commerce',
+      'Sustainability', 'Security', 'Enterprise', 'Marketplace', 'E-Commerce',
       'B2C', 'Retail', 'B2B', 'Blockchain', 'Real Estate',
-      'API', 'Artificial Intel.', 'Big Data', 'DevOps', 'Deep Tech',
+      'API', 'Artificial Intel', 'Big Data', 'DevOps', 'Deep Tech',
       'Cloud Computing', 'Agriculture', 'Environmental', 'Mental Health',
       'Home Improvement', 'Community', 'Entertainment', 'Productivity', 'Art / Design', 'Science'
     ];

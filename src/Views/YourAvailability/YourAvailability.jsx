@@ -3,19 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocation, setTimezone, setHoursPerWeek, setAvailability } from '../../Actions';
 
-const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
-
 export default function YourAvailability() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    //These are here to be sent to API to create a new user once user clicks continue
-    const personalForm = useSelector((state) => state.personalForm)
-    const professionalBackground = useSelector((state) => state.professionalBackground)
-    const aboutYouForm = useSelector((state) => state.aboutYouForm)
     const availabilityForm = useSelector((state) => state.availabilityForm)
-    const skillsTools = useSelector((state) => state.skillsTools)
-    //////////////////////////////
 
     const [localLocation, setLocalLocation] = useState('');
     const [localTimezone, setLocalTimezone] = useState('');
@@ -64,42 +56,13 @@ export default function YourAvailability() {
     
     const navigateWelcomeDone = () => {
         // Create a list of selected options
-        
+
         // Dispatch the user input data to Redux
         dispatch(setAvailability(Object.keys(localAvailability).filter((key) => localAvailability[key])));
 
         // Continue to the next step
         navigate('/welcome-done');
     };
-
-    const createNewUser = async (e) => {
-        e.preventDefault()
-        const url = BACK_END_URL + '/api/signup'
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify({
-                personalForm: personalForm,
-                professionalBackground: professionalBackground,
-                aboutYouForm: aboutYouForm,
-                availabilityForm: availabilityForm,
-                skillsTools: skillsTools
-            })
-        }
-
-        try {
-            const res = await fetch(url, options);
-            const data = await res.json();
-            if (data.status === "ok") {
-                console.log(data.message)
-            }
-        } 
-        catch {
-            console.log("something went wrong with createNewUser")
-        }
-    }
 
     return (
         <div className="professional-background-container">
@@ -204,7 +167,6 @@ export default function YourAvailability() {
                             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg focus:outline-none"
                             type="button"
                             onClick={navigateWelcomeDone}
-                            // onClick={createNewUser}
                             >
                             Continue
                         </button>

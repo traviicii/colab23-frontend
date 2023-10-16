@@ -28,10 +28,10 @@ export default function Dashboard() {
     }
 
   return (
-    <div className="h-screen pl-20 pt-20 mb-40">
-      <h1 className="text-5xl font-bold pb-5">Hey, {name}!</h1>
-      <p className="text-3xl">It's Week XX of Project Name-!</p>
-      <p className="text-3xl">Let's take a look at what's going on...</p>
+    <div className="h-screen pl-20 pt-20 mb-60">
+      <h1 className="text-5xl font-bold pb-5 text-white">Hey, {name}!</h1>
+      <p className="text-3xl text-white">It's Week XX of Project Name-</p>
+      <p className="text-3xl text-white">Let's take a look at what's going on...</p>
 
       <div className="flex justify-center mt-20">
         <div className="link-container flex">
@@ -50,7 +50,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="bg-gray-200 p-4 h-3/4 w-5/6 mx-auto rounded-xl">
+      <div className="bg-gray-200 p-4 h-auto w-5/6 mx-auto rounded-xl" style={{ backgroundColor: '#1f1d34' }}>
         <div>
             {displayComponent}
         </div>

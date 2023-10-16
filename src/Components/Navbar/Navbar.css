@@ -1,6 +1,8 @@
 #nav-wrapper {
     padding: 10px;
     height: 10vh;
+    background-color: #1f1d34;
+    color: white;
   }
 
   #auth-link button {
@@ -11,8 +13,7 @@
     padding: 5px;
   }
 
-/* Navbar.css */
 .nav-link {
-  text-decoration: none; /* Remove underline */
-  color: black; /* Change text color to black */
+  text-decoration: none;
+  color: black; 
 }

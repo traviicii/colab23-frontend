@@ -23,9 +23,9 @@ export default function Task() {
   return (
     <div className="flex justify-center space-x-4">
       <div className="w-1/3 bg-white p-4 rounded-lg text-center">
-        <h2 className="font-bold text-2xl">What do we need to get done this week?</h2>
+        <h2 className="font-bold text-lg">What do we need to get done this week?</h2>
         <button
-          className="bg-white hover:bg-gray-200 font-bold py-1 border-2 border-black rounded w-full mt-6"
+          className="bg-white hover:bg-gray-200 font-bold py-1 border-2 border-black rounded w-full mt-10"
           onClick={openTaskModal}
         >
           + Add a New Task
@@ -96,9 +96,9 @@ export default function Task() {
         )}
       </div>
       <div className="w-1/3 bg-white p-4 rounded-lg text-center">
-        <h2 className="font-bold text-2xl">When are we meeting next?</h2>
+        <h2 className="font-bold text-lg">When are we meeting next?</h2>
         <button
-          className="bg-white hover:bg-gray-200 font-bold py-1 border-2 border-black rounded w-full mt-14"
+          className="bg-white hover:bg-gray-200 font-bold py-1 border-2 border-black rounded w-full mt-10"
           onClick={openMeetingModal}
         >
           + Propose a New Meeting
@@ -168,7 +168,7 @@ export default function Task() {
         )}
       </div>
       <div className="w-1/3 bg-white p-4 rounded-lg text-center">
-        <h2 className="font-bold text-2xl">What have we already accomplished?</h2>
+        <h2 className="font-bold text-lg">What have we already accomplished?</h2>
       </div>
     </div>
   );

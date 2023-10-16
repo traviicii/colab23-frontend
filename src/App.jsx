@@ -32,10 +32,14 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 // End Google Firebase
 
+const appStyle = {
+  backgroundColor: '#626171'
+};
+
 
 export default function App() {
   return (
-    <div>
+    <div style={appStyle}>
       <Navbar />
 
       <Routes>

@@ -1,9 +1,10 @@
-import { SET_ID, SET_UID, SET_TOKEN } from '../Actions';
+import { SET_ID, SET_UID, SET_TOKEN, SET_DATA } from '../Actions';
 
 const initialState = {
     id: '',
     uid: '',
-    token: ''
+    token: '',
+    data: {}
 };
 
 const userReducer = (state = initialState, action) => {
@@ -14,6 +15,8 @@ const userReducer = (state = initialState, action) => {
         return { ...state, uid: action.payload };
       case SET_TOKEN:
         return { ...state, token: action.payload };
+    case SET_DATA:
+        return { ...state, data: action.payload}
       default:
         return state;
     }

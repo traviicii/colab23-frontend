@@ -1,12 +1,55 @@
 import React from 'react'
 import { GoogleAuthProvider, GithubAuthProvider, getAuth, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserID, setUserUID, setUserToken, setUserData } from '../../Actions';
+import userReducer from '../../Reducers/UserReducer';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function SignIn() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch();
+    
+    const user = useSelector((state) => state.user);
+
+
+    //Traditional user login
+    const login = async (e) => {
+        e.preventDefault()
+
+        const email = e.target.email.value;
+        const password = e.target.password.value
+
+        const url = BACK_END_URL + '/api/login'
+        const options = {
+            method: "POST",
+            headers: {
+                Authorization: `Basic ${btoa(email + ":" + password)}`
+            },
+        }
+
+        try{
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (data.status === 'ok'){
+                console.log(data)
+                dispatch(setUserData(data.data))
+                if (data.data.project_id){
+                    navigate('/dashboard')
+                } else{
+                    navigate('/dashboard-unpopulated')
+                }
+            }
+            else{
+                console.log(console.log(data.message))
+            }
+
+        } catch {
+            console.log("Login didn't work")
+        }
+    }
 
     //Call to api to see if the user already exists
     const checkUser = async (email) => {
@@ -67,14 +110,15 @@ export default function SignIn() {
                         <p className='font-bold text-xl text-center w-5/6 my-2'>Sign in to work with your team</p>
 
                         <div className='mb-1 flex flex-col w-full'>
-                            <form className='flex flex-col justity-center items-center'>
+                            <form onSubmit={login} className='flex flex-col justity-center items-center'>
                                 <input type="text" required="required" placeholder="Email" name='email' className="w-full border border-black rounded-md px-3 py-1 my-2" />
 
                                 <input type="password" required="required" placeholder="Password" name='password' className="w-full border border-black rounded-md px-3 py-1 my-2" />
 
                                 <p className='text-xs underline'>Forgot password?</p>
 
-                                <button className='mt-3 py-1 px-10 border rounded w-full bg-zinc-400 text-white' style={{ backgroundColor: '#ed4168' }}>Sign In</button>
+                                <button type='submit' className='mt-3 py-1 px-10 border rounded w-full bg-zinc-400 text-white' style={{ backgroundColor: '#ed4168' }}>Sign In</button>
+
                             </form>
                         </div>
 

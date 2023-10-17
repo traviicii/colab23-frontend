@@ -144,6 +144,7 @@ export const setAvailability = (availability) => ({
 export const SET_ID = 'SET_ID;';
 export const SET_UID = 'SET_UID';
 export const SET_TOKEN = 'SET_TOKEN';
+export const SET_DATA = 'SET_DATA';
 
 export const setUserID = (id) => ({
   type: SET_ID,
@@ -158,5 +159,10 @@ export const setUserUID = (uid) => ({
 export const setUserToken = (token) => ({
   type: SET_TOKEN,
   payload: token
+})
+
+export const setUserData = (data) => ({
+  type: SET_DATA,
+  payload: data
 })
 //end user login info

@@ -1,12 +1,19 @@
 import React from 'react'
 import { GoogleAuthProvider, GithubAuthProvider, getAuth, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserID, setUserUID, setUserToken, setUserData } from '../../Actions';
+import userReducer from '../../Reducers/UserReducer';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function SignIn() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch();
+    
+    const user = useSelector((state) => state.user);
+
 
     //Traditional user login
     const login = async (e) => {
@@ -19,18 +26,28 @@ export default function SignIn() {
         const options = {
             method: "POST",
             headers: {
-                "Content-Type": 'application/json'
+                Authorization: `Basic ${btoa(email + ":" + password)}`
             },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
         }
 
-        const res = await fetch(url, options);
-        const data = await res.json();
-        if (data.status === 'ok'){
-            console.log(data)
+        try{
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (data.status === 'ok'){
+                console.log(data)
+                dispatch(setUserData(data.data))
+                if (data.data.project_id){
+                    navigate('/dashboard')
+                } else{
+                    navigate('/dashboard-unpopulated')
+                }
+            }
+            else{
+                console.log(console.log(data.message))
+            }
+
+        } catch {
+            console.log("Login didn't work")
         }
     }
 

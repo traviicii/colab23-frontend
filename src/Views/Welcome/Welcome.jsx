@@ -10,7 +10,7 @@ export default function Welcome() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen" id='welcome-wrapper'>
+    <div className="flex flex-col items-center justify-center h-screen text-white" id='welcome-wrapper'>
       <div className="w-3/4 text-center">
 
         <div className='mb-8 text-center text-5xl font-bold'>
@@ -23,11 +23,12 @@ export default function Welcome() {
           </p>
         </div>
         
-        <button onClick={navigateToSignIn} className="bg-gray-800 text-white py-2 px-4 mt-8 w-full rounded-md hover:bg-gray-700">
+        <button onClick={navigateToSignIn} style={{ backgroundColor: '#ed4168' }} className="text-black py-2 px-4 mt-8 w-full rounded-md">
           Join a Team Today
         </button>
+
         
-        <a href="/learn-more" className="block mt-4 underline">Learn More</a>
+        <a href="#" className="text-black block mt-4 underline">Learn More</a>
       </div>
     </div>
   );

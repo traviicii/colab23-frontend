@@ -92,7 +92,7 @@ export default function PersonalDetails() {
   return (
     <div className="personal-details-container">
       <div className="flex items-center justify-center">
-        <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10">
+        <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10 bg-white">
           <div className="mb-4">
             <div className="w-full bg-gray-200 h-2 rounded-full mr-20">
               <div className="bg-blue-500 h-2 rounded-full" style={{ width: '16.67%' }}></div>

@@ -71,7 +71,6 @@ export default function Task() {
         {isTaskModalOpen && (
           <div className="fixed top-0 left-0 right-0 bottom-0 z-50 w-full h-screen p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-70">
             <div className="relative w-full max-w-2xl max-h-full mx-auto">
-              {/* Your modal content here */}
               <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 {/* Modal content */}
                 <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -151,7 +150,6 @@ export default function Task() {
           <div className="fixed top-0 left-0 right-0 bottom-0 z-50 w-full h-screen p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-70">
             <div className="relative w-full max-w-2xl max-h-full mx-auto">
               <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                {/* Modal content */}
                 <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                     Add New Meeting Information

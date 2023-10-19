@@ -1,16 +1,22 @@
-import React from 'react'
-import ProjectSidebar from '../../Components/ProjectBrowser/ProjectSidebar'
-import ProjectDisplay from '../../Components/ProjectBrowser/ProjectDisplay'
+import React, { useState } from 'react';
+import ProjectSidebar from '../../Components/ProjectBrowser/ProjectSidebar';
+import ProjectDisplay from '../../Components/ProjectBrowser/ProjectDisplay';
+import CreateProject from '../../Components/ProjectBrowser/CreateProject';
 
 export default function ProjectBrowser() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const toggleModal = () => {
+      setIsModalOpen(!isModalOpen);
+    };
   
 
   return (
     <div className="flex">
       {/* Sidebar */}
       <div className="w-1/4">
-        <ProjectSidebar />
+        <ProjectSidebar openModal={toggleModal} />
+        <CreateProject isOpen={isModalOpen} closeModal={toggleModal}/>
       </div>
       
       {/* Display */}

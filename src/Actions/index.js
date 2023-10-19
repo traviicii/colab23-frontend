@@ -141,7 +141,7 @@ export const setAvailability = (availability) => ({
 });
 
 // User Specific Information gained on ligging in
-export const SET_ID = 'SET_ID;';
+export const SET_ID = 'SET_ID';
 export const SET_UID = 'SET_UID';
 export const SET_TOKEN = 'SET_TOKEN';
 export const SET_DATA = 'SET_DATA';
@@ -160,6 +160,29 @@ export const setUserToken = (token) => ({
   type: SET_TOKEN,
   payload: token
 })
+//end user login info
+
+
+// New actions for adding a to-do task
+export const ADD_TASK = 'ADD_TASK';
+
+export const addTask = (task) => {
+  return {
+    type: ADD_TASK,
+    payload: task,
+  };
+};
+
+
+// New actions for adding a new meeting
+export const ADD_MEETING = 'ADD_MEETING';
+
+export const addMeeting = (meeting) => {
+  return {
+    type: 'ADD_MEETING',
+    payload: meeting,
+  };
+};
 
 export const setUserData = (data) => ({
   type: SET_DATA,

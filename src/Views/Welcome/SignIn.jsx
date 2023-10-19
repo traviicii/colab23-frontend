@@ -98,6 +98,7 @@ export default function SignIn() {
                 {/* left side */}
                 <div className='flex flex-col justify-center items-center rounded-l-3xl bg-neutral-100 h-full w-3/5 text-white' style={{ backgroundColor: '#1f1d34' }}>
                     <div className='text-center'>
+                    <img src={process.env.PUBLIC_URL + '/assets/HappyPlanet.png'} alt="Happy Planet" className="w-3/4 mx-auto mb-8"/>
                         <p>Ready to take your skills to the next level?</p>
                         <p className='font-bold'>Join a collaborative product team!</p>
                     </div>

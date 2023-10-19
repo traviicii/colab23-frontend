@@ -29,7 +29,7 @@ export default function NavbarLoggedIn() {
 
       <div className="mx-auto text-center text-3xl">
         <h1>
-          <NavLink to="/dashboard">TeamUp</NavLink>
+          <NavLink to={user.data.current_project_id ? "/dashboard" : "/dashboard-unpopulated"}>TeamUp</NavLink>
         </h1>
       </div>
 

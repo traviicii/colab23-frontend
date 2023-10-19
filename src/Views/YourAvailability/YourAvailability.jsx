@@ -9,9 +9,6 @@ export default function YourAvailability() {
 
     const availabilityForm = useSelector((state) => state.availabilityForm)
 
-    const [localLocation, setLocalLocation] = useState('');
-    const [localTimezone, setLocalTimezone] = useState('');
-    const [localHoursPerWeek, setLocalHoursPerWeek] = useState('');
     const [localAvailability, setLocalAvailability] = useState({
         'Early Morning': false,
         'Late Mornings': false,
@@ -51,11 +48,9 @@ export default function YourAvailability() {
             ...localAvailability,
             [name]: checked,
         });
-        const selectedOptions = Object.keys(localAvailability).filter((key) => localAvailability[key]);
     };
     
     const navigateWelcomeDone = () => {
-        // Create a list of selected options
 
         // Dispatch the user input data to Redux
         dispatch(setAvailability(Object.keys(localAvailability).filter((key) => localAvailability[key])));

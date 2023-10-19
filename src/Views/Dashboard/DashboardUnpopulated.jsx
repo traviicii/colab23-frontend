@@ -9,7 +9,7 @@ export default function DashboardUnpopulated() {
 
       <div className="flex flex-col items-center">
         <img
-          src={process.env.PUBLIC_URL + '/assets/SadPlanet.jpg'}
+          src={process.env.PUBLIC_URL + '/assets/SadPlanet.png'}
           alt="Empty Gif"
           className="max-w-screen-md max-h-96 mx-auto"
         />

@@ -38,6 +38,8 @@ export default function WelcomeDone() {
             if (data.status === "ok") {
                 console.log(data.message)
                 //navigate to dashboard
+                
+                navigate('/dashboard-unpopulated')
             }
             else {
                 console.log(data.message)

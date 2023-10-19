@@ -16,11 +16,11 @@ export default function DashboardUnpopulated() {
 
         <div className="flex justify-center mt-10">
         <button className="m-2 px-10 py-2 text-black rounded-lg border border-black hover:bg-gray-200 w-80" style={{ backgroundColor: '#ed4168' }}>
-            Browse People
+            Browse Teams
         </button>
 
           <button className="m-2 px-10 py-2 bg-white text-black rounded-lg border border-black hover:bg-gray-200 w-80" style={{ backgroundColor: '#ecafbd' }}>
-            Browse Projects
+            Create a New Project
           </button>
         </div>
       </div>

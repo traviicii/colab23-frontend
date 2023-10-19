@@ -23,7 +23,7 @@ const generateRandomGradient = () => {
         <h3 className="text-gray-600">Role</h3>
         <button className="hover:bg-gray-200 border-2 border-black font-bold py-2 px-4 rounded mt-4 w-full flex items-center justify-center">
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2">
-            <path d="M4.66671 5.99998H10.6667M4.66671 8.66665H10.6667M4.66671 11.3333H8.00004M14.6667 7.99998C14.6667 11.682 11.682 14.6666 8.00004 14.6666H1.33337V7.99998C1.33337 4.31798 4.31804 1.33331 8.00004 1.33331C11.682 1.33331 14.6667 4.31798 14.6667 7.99998Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M4.66671 5.99998H10.6667M4.66671 8.66665H10.6667M4.66671 11.3333H8.00004M14.6667 7.99998C14.6667 11.682 11.682 14.6666 8.00004 14.6666H1.33337V7.99998C1.33337 4.31798 4.31804 1.33331 8.00004 1.33331C11.682 1.33331 14.6667 4.31798 14.6667 7.99998Z" stroke="black" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           Send a Message
         </button>
@@ -47,7 +47,7 @@ const generateRandomGradient = () => {
         <h3 className="text-gray-600">Role</h3>
         <button className="hover:bg-gray-200 border-2 border-black font-bold py-2 px-4 rounded mt-4 w-full flex items-center justify-center">
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2">
-            <path d="M4.66671 5.99998H10.6667M4.66671 8.66665H10.6667M4.66671 11.3333H8.00004M14.6667 7.99998C14.6667 11.682 11.682 14.6666 8.00004 14.6666H1.33337V7.99998C1.33337 4.31798 4.31804 1.33331 8.00004 1.33331C11.682 1.33331 14.6667 4.31798 14.6667 7.99998Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M4.66671 5.99998H10.6667M4.66671 8.66665H10.6667M4.66671 11.3333H8.00004M14.6667 7.99998C14.6667 11.682 11.682 14.6666 8.00004 14.6666H1.33337V7.99998C1.33337 4.31798 4.31804 1.33331 8.00004 1.33331C11.682 1.33331 14.6667 4.31798 14.6667 7.99998Z" stroke="black" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           Send a Message
         </button>
@@ -71,7 +71,7 @@ const generateRandomGradient = () => {
         <h3 className="text-gray-600">Role</h3>
         <button className="hover:bg-gray-200 border-2 border-black font-bold py-2 px-4 rounded mt-4 w-full flex items-center justify-center">
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2">
-            <path d="M4.66671 5.99998H10.6667M4.66671 8.66665H10.6667M4.66671 11.3333H8.00004M14.6667 7.99998C14.6667 11.682 11.682 14.6666 8.00004 14.6666H1.33337V7.99998C1.33337 4.31798 4.31804 1.33331 8.00004 1.33331C11.682 1.33331 14.6667 4.31798 14.6667 7.99998Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M4.66671 5.99998H10.6667M4.66671 8.66665H10.6667M4.66671 11.3333H8.00004M14.6667 7.99998C14.6667 11.682 11.682 14.6666 8.00004 14.6666H1.33337V7.99998C1.33337 4.31798 4.31804 1.33331 8.00004 1.33331C11.682 1.33331 14.6667 4.31798 14.6667 7.99998Z" stroke="black" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           Send a Message
         </button>
@@ -95,7 +95,7 @@ const generateRandomGradient = () => {
         <h3 className="text-gray-600">Role</h3>
         <button className="hover:bg-gray-200 border-2 border-black font-bold py-2 px-4 rounded mt-4 w-full flex items-center justify-center">
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2">
-            <path d="M4.66671 5.99998H10.6667M4.66671 8.66665H10.6667M4.66671 11.3333H8.00004M14.6667 7.99998C14.6667 11.682 11.682 14.6666 8.00004 14.6666H1.33337V7.99998C1.33337 4.31798 4.31804 1.33331 8.00004 1.33331C11.682 1.33331 14.6667 4.31798 14.6667 7.99998Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M4.66671 5.99998H10.6667M4.66671 8.66665H10.6667M4.66671 11.3333H8.00004M14.6667 7.99998C14.6667 11.682 11.682 14.6666 8.00004 14.6666H1.33337V7.99998C1.33337 4.31798 4.31804 1.33331 8.00004 1.33331C11.682 1.33331 14.6667 4.31798 14.6667 7.99998Z" stroke="black" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           Send a Message
         </button>

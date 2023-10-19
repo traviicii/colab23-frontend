@@ -58,7 +58,7 @@ export default function PersonalDetails() {
         // dispatch(setPassword(formData.password));
         // dispatch(setConfirmPassword(formData.confirmPassword));
 
-        console.log('Form Data Sent to Redux:', formData); // Log the form data
+        //console.log('Form Data Sent to Redux:', formData); // Log the form data
         navigateToProfessionalBaground(); // Navigate to the next page
     };
 

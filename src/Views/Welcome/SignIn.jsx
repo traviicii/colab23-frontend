@@ -2,7 +2,7 @@ import React from 'react'
 import { GoogleAuthProvider, GithubAuthProvider, getAuth, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserID, setUserUID, setUserToken, setUserData } from '../../Actions';
+import { setUserID, setUserProject, setUserToken, setUserData } from '../../Actions';
 import userReducer from '../../Reducers/UserReducer';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
@@ -13,7 +13,6 @@ export default function SignIn() {
     const dispatch = useDispatch();
     
     const user = useSelector((state) => state.user);
-
 
     //Traditional user login
     const login = async (e) => {
@@ -35,8 +34,10 @@ export default function SignIn() {
             const data = await res.json();
             if (data.status === 'ok'){
                 console.log(data)
-                dispatch(setUserData(data.data))
-                if (data.data.project_id){
+                dispatch(setUserData(data.user))
+                dispatch(setUserProject(data.project))
+                
+                if (data.project){
                     navigate('/dashboard')
                 } else{
                     navigate('/dashboard-unpopulated')

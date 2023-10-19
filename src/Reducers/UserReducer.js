@@ -1,8 +1,8 @@
-import { SET_ID, SET_UID, SET_TOKEN, SET_DATA } from '../Actions';
+import { SET_ID, SET_PROJECT, SET_TOKEN, SET_DATA } from '../Actions';
 
 const initialState = {
     id: '',
-    uid: '',
+    project: {},
     token: '',
     data: {}
 };
@@ -11,8 +11,8 @@ const userReducer = (state = initialState, action) => {
     switch (action.type) {
       case SET_ID:
         return { ...state, id: action.payload };
-      case SET_UID:
-        return { ...state, uid: action.payload };
+      case SET_PROJECT:
+        return { ...state, project: action.payload };
       case SET_TOKEN:
         return { ...state, token: action.payload };
     case SET_DATA:

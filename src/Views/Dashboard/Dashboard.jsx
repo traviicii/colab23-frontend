@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Task from '../../Components/Dashboard/Tasks/Task';
 import Team from '../../Components/Dashboard/Team';
 import Resources from '../../Components/Dashboard/Resources';
 import ProjectChat from '../../Components/Dashboard/ProjectChat';
 import { useSelector } from 'react-redux';
 import './Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
+
+    const navigate = useNavigate()
+
     const [activeDisplay, setActiveDisplay] = useState('task');
-    const name = useSelector((state) => state.personalForm.firstName);
+
+    const user = useSelector((state) => state.user);
+    
+    //navigates to the unpopulated dashboard if user has no current project upon mounting
+    // useEffect(() => {
+    //     if (user.project == true) {
+    //         return
+    //     } else {
+    //         navigate("/dashboard-unpopulated")
+    //     }
+    // }, [])
+
 
     const handleLinkClick = (display) => {
         setActiveDisplay(display);
@@ -28,8 +43,8 @@ export default function Dashboard() {
 
     return (
         <div className="h-screen pl-20 pt-20 mb-60">
-            <h1 className="text-5xl font-bold pb-5 text-white">Hey, {name}!</h1>
-            <p className="text-3xl text-white">It's Week XX of Project Name-</p>
+            <h1 className="text-5xl font-bold pb-5 text-white">Hey, {user.data.first_name}!</h1>
+            <p className="text-3xl text-white">It's Week XX of {user.project.name}!</p>
             <p className="text-3xl text-white">Let's take a look at what's going on...</p>
 
             <div className="flex justify-center mt-20">

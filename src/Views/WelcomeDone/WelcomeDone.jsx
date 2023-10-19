@@ -1,12 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setUserID, setUserProject, setUserToken, setUserData } from '../../Actions';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function WelcomeDone() {
 
     const navigate = useNavigate()
+
+    const user = useSelector((state) => state.user)
+    const dispatch = useDispatch()
 
     //These are here to be sent to API to create a new user once user clicks continue
     const personalForm = useSelector((state) => state.personalForm)
@@ -36,9 +40,10 @@ export default function WelcomeDone() {
             const res = await fetch(url, options);
             const data = await res.json();
             if (data.status === "ok") {
-                console.log(data.message)
+                console.log(data)
                 //navigate to dashboard
-                
+                dispatch(setUserData(data.user))
+
                 navigate('/dashboard-unpopulated')
             }
             else {

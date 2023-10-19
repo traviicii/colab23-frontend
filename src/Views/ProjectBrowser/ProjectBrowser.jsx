@@ -3,6 +3,9 @@ import ProjectSidebar from '../../Components/ProjectBrowser/ProjectSidebar'
 import ProjectDisplay from '../../Components/ProjectBrowser/ProjectDisplay'
 
 export default function ProjectBrowser() {
+
+  
+
   return (
     <div className="flex">
       {/* Sidebar */}

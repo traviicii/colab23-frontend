@@ -142,7 +142,7 @@ export const setAvailability = (availability) => ({
 
 // User Specific Information gained on ligging in
 export const SET_ID = 'SET_ID';
-export const SET_UID = 'SET_UID';
+export const SET_PROJECT = 'SET_PROJECT';
 export const SET_TOKEN = 'SET_TOKEN';
 export const SET_DATA = 'SET_DATA';
 
@@ -151,9 +151,9 @@ export const setUserID = (id) => ({
   payload: id
 })
 
-export const setUserUID = (uid) => ({
-  type: SET_UID,
-  payload: uid
+export const setUserProject = (project) => ({
+  type: SET_PROJECT,
+  payload: project
 })
 
 export const setUserToken = (token) => ({

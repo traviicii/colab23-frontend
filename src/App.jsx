@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './Components/Navbar/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import Welcome from './Views/Welcome/Welcome';
@@ -18,6 +18,7 @@ import ProjectBrowser from './Views/ProjectBrowser/ProjectBrowser';
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';
+import { useSelector } from 'react-redux';
 
 const FIREBASE_KEY = process.env.REACT_APP_API_KEY
 
@@ -40,10 +41,13 @@ const appStyle = {
 
 
 export default function App() {
+
+  const user = useSelector((state) => state.user);
+
   return (
     <div style={appStyle}>
-      <Navbar />
-      <NavbarLoggedIn />
+
+    {user.data.id ? <NavbarLoggedIn /> : <Navbar />}
 
       <Routes>
         <Route path='/' element={<Welcome />} />

@@ -13,6 +13,8 @@ import YourAvailability from './Views/YourAvailability/YourAvailability';
 import WelcomeDone from './Views/WelcomeDone/WelcomeDone';
 import DashboardUnpopulated from './Views/Dashboard/DashboardUnpopulated';
 import Dashboard from './Views/Dashboard/Dashboard';
+import NavbarLoggedIn from './Components/Navbar/NavbarLoggedIn';
+import ProjectBrowser from './Views/ProjectBrowser/ProjectBrowser';
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';
@@ -41,6 +43,7 @@ export default function App() {
   return (
     <div style={appStyle}>
       <Navbar />
+      <NavbarLoggedIn />
 
       <Routes>
         <Route path='/' element={<Welcome />} />
@@ -53,6 +56,8 @@ export default function App() {
         <Route path='/welcome-done' element={<WelcomeDone />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard-unpopulated' element={<DashboardUnpopulated />} />
+        <Route path='/projectbrowser' element={<ProjectBrowser />} />
+
       </Routes>
       
       <Footer />

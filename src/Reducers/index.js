@@ -4,13 +4,17 @@ import professionalBackgroundReducer from './ProfessionalBackground';
 import aboutYouReducer from './AboutYouReducer';
 import availabilityReducer from './YourAvailabilityReducer';
 import skillsToolsReducer from './SkillsToolsReducer';
+import { taskReducer } from './TaskReducer';
+import { meetingReducer } from './MeetingReducer';
 
 const rootReducer = combineReducers({
   personalForm: personalFormReducer,
   professionalBackground: professionalBackgroundReducer,
   aboutYouForm: aboutYouReducer,
   availabilityForm: availabilityReducer,
-  skillsTools: skillsToolsReducer
+  skillsTools: skillsToolsReducer,
+  tasks: taskReducer,
+  meetings: meetingReducer,
 });
 
 export default rootReducer;

@@ -84,8 +84,8 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="p-4 h-80 w-5/6 rounded-xl" style={{ backgroundColor: '#1f1d34' }}>
-                    <div className='h-80'>{displayComponent}</div>
+                <div className="p-4 w-11/12 h-auto rounded-xl" style={{ backgroundColor: '#1f1d34' }}>
+                    <div className=''>{displayComponent}</div>
                 </div>
             </div>
         </div>

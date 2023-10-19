@@ -55,7 +55,7 @@ export default function Task() {
 
   return (
     <div className="flex justify-center space-x-4">
-      <div className="w-1/3 bg-white p-4 rounded-lg text-center">
+      <div className="w-1/3 h-96 bg-white p-4 rounded-lg text-center">
         <h2 className="font-bold text-lg">What do we need to get done this week?</h2>
         <button
           className="bg-white hover:bg-gray-200 font-bold py-1 border-2 border-black rounded w-full mt-10"

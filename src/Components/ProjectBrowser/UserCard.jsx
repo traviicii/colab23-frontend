@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function UserCard() {
   return (
-    <div className='ml-6'>
+    <div className='ml-6 mt-6'>
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
       <a href="#">
         <div className="flex justify-center items-center">

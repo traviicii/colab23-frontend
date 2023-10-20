@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <div className="bottom-0 left-0 w-full h-32 flex items-center" style={{ backgroundColor: '#1f1d34' }}>
+    <div className="bottom-0 pl-20 pt-6left-0 w-full h-40 flex items-center" style={{ backgroundColor: '#626171' }}>
       <div className="container mx-auto text-white text-left">
         <div className="mb-2">
-          <p className="text-2xl">TeamUp</p>
+          <p className="text-3xl mb-4">TeamUp</p>
         </div>
         <div className="mb-2">
           <a href="#" className="text-sm text-gray-300 mr-5">About</a>

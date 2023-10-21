@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ProjectCard() {
   return (
-    <div className='ml-6'>
+    <div className='ml-6 mt-6'>
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
       <a href="#">
         <img className="rounded-t-lg" src="https://picsum.photos/400/200" alt="" />

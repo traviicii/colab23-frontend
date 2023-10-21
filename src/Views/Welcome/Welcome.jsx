@@ -10,26 +10,30 @@ export default function Welcome() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-white" id='welcome-wrapper'>
-      <div className="w-3/4 text-center">
+    <div style={{ backgroundColor: '#1f1d34' }}>
+    <div className="flex items-center justify-center h-screen text-white" id='welcome-wrapper'>
+      <div className="w-3/4 text-center" >
 
-        <div className='mb-8 text-center text-5xl font-bold'>
-          <h1>Your Team Awaits</h1>
+        <div className='mb-8 text-left text-4xl font-bold w-3/4'>
+          <h1>Your Team Awaits!</h1>
         </div>
 
         <div className="text-left text-2xl">
           <p>
-            Grow your skills with other product managers, designers, and developers on a collaborative product.
+            Cultivate your skills as an early-career product manager, developer or designer!
+          </p>
+          <p className='mt-10'>
+            Explore endless possibilities by joining a product team or launch your own idea!
           </p>
         </div>
         
-        <button onClick={navigateToSignIn} style={{ backgroundColor: '#ed4168' }} className="text-black py-2 px-4 mt-8 w-full rounded-md">
-          Join a Team Today
+        <button onClick={navigateToSignIn} style={{ backgroundColor: '#ed4168' }} className="text-whit py-2 px-4 mt-10 w-full rounded-md">
+          Get Started
         </button>
-
         
-        <a href="#" className="text-black block mt-4 underline">Learn More</a>
+        <a href="#" className="text-white block mt-6 underline" style={{ color: '#ecafbd' }}>Learn More</a>
       </div>
+    </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
       <nav className="flex justify-around items-center text-gray-800 py-2 h-10" id='nav-wrapper'>
 
-        <div className="link-wrapper">
+        <div className="link-wrapper ml-10">
           <div className="nav-menu">
             <NavLink className="mx-10" to="#">About</NavLink>
             <NavLink className="mx-10" to="#">Pricing</NavLink>
@@ -26,9 +26,12 @@ export default function Navbar() {
           </h1>
         </div>
 
-        <div className="ml-auto" id='auth-link'>
-          <button onClick={navigateToSignIn} className="signup-button">Sign In / Sign Up</button>
+        <div className="ml-auto mr-20" id="auth-link">
+          <button onClick={navigateToSignIn} className="signup-button" style={{ backgroundColor: '#ed4168', width: '200px', boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.8)' }}>
+            Sign In / Sign Up
+          </button>
         </div>
+
 
       </nav>
   );

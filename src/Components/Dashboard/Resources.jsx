@@ -1,104 +1,84 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 export default function Resources() {
+  // State to track editing state for each section
+  const [editingState, setEditingState] = useState({});
+
+  // State to store input values for each section
+  const [inputValues, setInputValues] = useState({});
+
+  // Function to start editing for a specific section
+  const startEditing = (section) => {
+    setEditingState({ ...editingState, [section]: true });
+  };
+
+  // Function to save the input value for a specific section
+  const saveInput = (section) => {
+    setEditingState({ ...editingState, [section]: false });
+
+  };
+
+  // Function to create a link section with input box and "Save" button
+  const createLinkSection = (title, section) => {
+    return (
+      <div className="project-listing flex mt-8">
+        <p className="text-left flex items-center w-28">{title}:</p>
+        {editingState[section] ? (
+          // Input box and "Save" button when editing
+          <div className="flex items-center ml-8">
+            <input
+              type="text"
+              value={inputValues[section] || ''}
+              onChange={(e) => setInputValues({ ...inputValues, [section]: e.target.value })}
+              placeholder={`Enter ${title} URL`}
+            />
+            <button className='rounded pr-1 pl-1 shadow' onClick={() => saveInput(section)} style={{ backgroundColor: '#ecafbd' }}>Save</button>
+          </div>
+        ) : (
+          // "Click to Enter" link when not editing
+          <a onClick={() => startEditing(section)} className="flex items-center ml-8 hover:bg-gray-100 hover:rounded">
+            {inputValues[section] || `Click to Enter ${title}`}
+          </a>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="team-container flex justify-center">
-    {/* Project */}
-    <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg text-center mx-4">
-      <h2 className="text-xl font-semibold">Project Links</h2>
-      <button className="hover:bg-gray-200 border-2 border-black font-bold py-2 px-4 rounded mt-4 w-full">
-        Edit Links
-      </button>
-    <div className='project-listing flex mt-8'>
-        <p className="text-left flex items-center w-32">Figma:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='project-listing flex mt-8'>
-        <p className="text-left flex items-center w-32">Github:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='project-listing flex  mt-8'>
-        <p className="text-left flex items-center w-32">Trello:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='project-listing flex  mt-8'>
-        <p className="text-left flex items-center w-32">Google Drive:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='project-listing flex  mt-8'>
-        <p className="text-left flex items-center w-32">Discord/Slack:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='project-listing flex  mt-8 mb-8'>
-        <p className="text-left flex items-center w-32">Meeting:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-
-    </div>
+      {/* Project Links */}
+      <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg text-center mx-4">
+        <h2 className="text-xl font-semibold">Project Links</h2>
+        {createLinkSection('Figma', 'figma')}
+        {createLinkSection('Github', 'github')}
+        {createLinkSection('Trello', 'trello')}
+        {createLinkSection('Google Drive', 'drive')}
+        {createLinkSection('Discord/Slack', 'discord')}
+        {createLinkSection('Meeting', 'meeting')}
+      </div>
 
       {/* Resources */}
-    <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg text-center mx-4">
-      <h2 className="text-xl font-semibold">Helpful Resources</h2>
-      <button className="hover:bg-gray-200 border-2 border-black font-bold py-2 px-4 rounded mt-4 w-full">
-        Edit Links
-      </button>
-      <div className='resources-listing flex  mt-8'>
-        <p className="text-left flex items-center w-32">Resource 1:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='resources-listing flex  mt-8'>
-        <p className="text-left flex items-center w-32">Resource 2:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='resources-listing flex  mt-8'>
-        <p className="text-left flex items-center w-32">Resource 3:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='resources-listing flex  mt-8'>
-        <p className="text-left flex items-center w-32">Resource 4:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='resources-listing flex  mt-8'>
-        <p className="text-left flex items-center w-32">Resource 5:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='resources-listing flex  mt-8 mb-8'>
-        <p className="text-left flex items-center w-32">Resource 6:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    </div>
+      <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg text-center mx-4">
+        <h2 className="text-xl font-semibold">Helpful Resources</h2>
+        {createLinkSection('Resource 1', 'resource1')}
+        {createLinkSection('Resource 2', 'resource2')}
+        {createLinkSection('Resource 3', 'resource3')}
+        {createLinkSection('Resource 4', 'resource4')}
+        {createLinkSection('Resource 5', 'resource5')}
+        {createLinkSection('Resource 6', 'resource6')}
+      </div>
 
       {/* Inspirations */}
-    <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg text-center mx-4">
-      <h2 className="text-xl font-semibold">Inspirations</h2>
-      <button className="hover:bg-gray-200 border-2 border-black font-bold py-2 px-4 rounded mt-4 w-full">
-        Edit Links
-      </button>
-      <div className='inspiration-listing flex mt-8'>
-        <p className="text-left flex items-center w-32">Inspiration 1:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
+      <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg text-center mx-4">
+        <h2 className="text-xl font-semibold">Inspirations</h2>
+        {createLinkSection('Inspiration 1', 'inspiration1')}
+        {createLinkSection('Inspiration 2', 'inspiration2')}
+        {createLinkSection('Inspiration 3', 'inspiration3')}
+        {createLinkSection('Inspiration 4', 'inspiration4')}
+        {createLinkSection('Inspiration 5', 'inspiration5')}
+        {createLinkSection('Inspiration 6', 'inspiration6')}
+
+      </div>
     </div>
-    <div className='inspiration-listing flex mt-8'>
-        <p className="text-left flex items-center w-32">Inspiration 2:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='inspiration-listing flex mt-8'>
-        <p className="text-left flex items-center w-32">Inspiration 3:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='inspiration-listing flex mt-8'>
-        <p className="text-left flex items-center w-32">Inspiration 4:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='inspiration-listing flex mt-8'>
-        <p className="text-left flex items-center w-32">Inspiration 5:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    <div className='inspiration-listing flex  mt-8 mb-8'>
-        <p className="text-left flex items-center w-32">Inspirtation 6:</p>
-        <a href="#" className="flex items-center ml-8">Click to Enter</a>
-    </div>
-    </div>
-  </div>
-  )
+  );
 }

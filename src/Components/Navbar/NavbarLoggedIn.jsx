@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css'
 import { useSelector } from 'react-redux';
 
@@ -12,7 +12,7 @@ export default function NavbarLoggedIn() {
 
       <div className="link-wrapper">
         <div className="nav-menu ml-10">
-          <NavLink className="dashboard" to={user.data.current_project_id ? "/dashboard" : "/dashboard-unpopulated"}>
+          <NavLink className="dashboard" to={user.project ? "/dashboard" : "/dashboard-unpopulated"}>
             <svg width="96" height="88" viewBox="0 0 96 88" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="48" cy="30" r="30" fill="#1F1D34" />
               <mask id="mask0_440_758" style={{ maskType: "luminance" }} maskUnits="userSpaceOnUse" x="28" y="10" width="40" height="40">
@@ -29,7 +29,7 @@ export default function NavbarLoggedIn() {
 
       <div className="mx-auto text-center text-3xl">
         <h1>
-          <NavLink to={user.data.current_project_id ? "/dashboard" : "/dashboard-unpopulated"}>TeamUp</NavLink>
+          <NavLink to={user.project ? "/dashboard" : "/dashboard-unpopulated"}>TeamUp</NavLink>
         </h1>
       </div>
 

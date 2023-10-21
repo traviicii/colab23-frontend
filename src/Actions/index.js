@@ -160,6 +160,11 @@ export const setUserToken = (token) => ({
   type: SET_TOKEN,
   payload: token
 })
+
+export const setData = (data) => ({
+  type: SET_DATA,
+  payload: data
+});
 //end user login info
 
 

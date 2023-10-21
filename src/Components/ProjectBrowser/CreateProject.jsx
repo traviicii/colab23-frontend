@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserProject } from '../../Actions';
+import { useNavigate } from 'react-router-dom';
+
+const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
+
 
 export default function CreateProject({ isOpen, closeModal }) {
+
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const fieldsOfInterest = [
     'Fintech', 'Education', 'Non-Profit', 'SaaS', 'Healthcare',
     'Sustainability', 'Security', 'Enterprise', 'Marketplace', 'E-Commerce',
@@ -52,6 +63,47 @@ export default function CreateProject({ isOpen, closeModal }) {
     setAdditionalInfo(e.target.value);
   };
 
+
+  const createNewProject = async () => {
+    const token = user.data.apitoken
+    const url = BACK_END_URL + '/api/creatproject'
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        admin_id: user.data.id,
+        project_name: projectTitle,
+        description: projectDescription,
+        duration: projectDuration,
+        industries: selectedFields,
+        looking_for: additionalInfo,
+        team_needed: teamMembers
+      })
+    }
+
+    try {
+      const res = await fetch(url, options);
+      const data = await res.json();
+      if (data.status === "ok") {
+        console.log(data)
+        //navigate to populated dashboard
+        dispatch(setUserProject(data.project))
+
+        navigate('/dashboard')
+      }
+      else {
+        console.log(data.message)
+      }
+    }
+    catch {
+      console.log("Possible error with fetch request. Project not created.")
+    }
+  }
+
+
   return (
     <div>
       {isOpen && (
@@ -88,15 +140,15 @@ export default function CreateProject({ isOpen, closeModal }) {
                 </button>
               </div>
               <div className="p-6 space-y-1">
-              <div className="mb-4 mt-10 flex justify-center">
-                    <div className="flex flex-col text-left">
-                        <p className="text-gray-700 dark:text-gray-400 font-semibold">
-                        Let's get some info about your project idea!
-                        </p>
-                        <p className="text-gray-700 dark:text-gray-400">
-                        *required fields
-                        </p>
-                    </div>
+                <div className="mb-4 mt-10 flex justify-center">
+                  <div className="flex flex-col text-left">
+                    <p className="text-gray-700 dark:text-gray-400 font-semibold">
+                      Let's get some info about your project idea!
+                    </p>
+                    <p className="text-gray-700 dark:text-gray-400">
+                      *required fields
+                    </p>
+                  </div>
                 </div>
 
                 <div className="mb-1">
@@ -241,6 +293,7 @@ export default function CreateProject({ isOpen, closeModal }) {
                   type="button"
                   className="w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark-hover-bg-blue-700 dark-focus-ring-blue-800"
                   style={{ backgroundColor: '#ed4168' }}
+                  onClick={() => createNewProject()}
                 >
                   Submit!
                 </button>

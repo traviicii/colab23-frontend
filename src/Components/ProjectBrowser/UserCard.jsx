@@ -2,11 +2,11 @@ import React from 'react'
 
 export default function UserCard() {
   return (
-    <div className='ml-6 mt-6'>
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+    <div className='ml-6 mt-6 w-1/2 mr-6'>
+    <div className="w-full border border-gray-200 rounded-lg shadow-xl" style={{backgroundColor: '#f9e8c3'}}>
       <a href="#">
         <div className="flex justify-center items-center">
-          <img className="w-1/2 h-1/2" src="https://picsum.photos/200/200" alt="" />
+          <img className="w-1/2 h-1/2 mt-6" src="https://picsum.photos/150/100" alt="" />
         </div>
       </a>
       <div className="p-5">
@@ -21,6 +21,9 @@ export default function UserCard() {
           </div>
           <div className="rounded-lg pr-4 pl-4 pt-2 pb-2 text-center border border-gray-300 bg-white mr-2 mb-2">
             Healthcare
+          </div>
+          <div className="rounded-lg pr-4 pl-4 pt-2 pb-2 text-center border border-gray-300 bg-white mb-2">
+            Finance
           </div>
           <div className="rounded-lg pr-4 pl-4 pt-2 pb-2 text-center border border-gray-300 bg-white mb-2">
             Finance

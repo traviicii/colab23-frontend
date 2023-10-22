@@ -15,6 +15,7 @@ import DashboardUnpopulated from './Views/Dashboard/DashboardUnpopulated';
 import Dashboard from './Views/Dashboard/Dashboard';
 import NavbarLoggedIn from './Components/Navbar/NavbarLoggedIn';
 import ProjectBrowser from './Views/ProjectBrowser/ProjectBrowser';
+import UserProfile from './Views/UserProfile/UserProfile';
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';
@@ -61,6 +62,7 @@ export default function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard-unpopulated' element={<DashboardUnpopulated />} />
         <Route path='/projectbrowser' element={<ProjectBrowser />} />
+        <Route path='/userprofile' element={<UserProfile />} />
 
       </Routes>
       

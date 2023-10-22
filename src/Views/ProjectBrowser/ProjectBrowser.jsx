@@ -14,7 +14,7 @@ export default function ProjectBrowser() {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <div className="w-1/4">
+      <div className="w-1/3">
         <ProjectSidebar openModal={toggleModal} />
         <CreateProject isOpen={isModalOpen} closeModal={toggleModal}/>
       </div>

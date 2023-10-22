@@ -2,10 +2,10 @@ import React from 'react'
 
 export default function ProjectCard() {
   return (
-    <div className='ml-6 mt-6'>
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+    <div className='ml-6 mt-6 w-1/2'>
+    <div className="w-full bg-white border border-gray-200 rounded-lg shadow-xl" style={{backgroundColor: '#f8e1e6'}}>
       <a href="#">
-        <img className="rounded-t-lg" src="https://picsum.photos/400/200" alt="" />
+        <img className="rounded-t-lg w-full" src="https://picsum.photos/400/150" alt="" />
       </a>
       <div className="p-5">
         <a href="#">

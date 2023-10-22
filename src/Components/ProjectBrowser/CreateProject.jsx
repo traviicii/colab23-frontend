@@ -109,16 +109,16 @@ export default function CreateProject({ isOpen, closeModal }) {
       {isOpen && (
         <div className="fixed top-0 left-0 right-0 bottom-0 z-50 w-full h-screen p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-70">
           <div className="relative w-full max-w-2xl max-h-full mx-auto">
-            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-              <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <div className="relative bg-white rounded-lg shadow">
+              <div className="flex items-start justify-between p-4 border-b rounded-t">
                 <div className="w-full text-center">
-                  <h3 className="text-2xl font-semibold text-black dark:text-white">
+                  <h3 className="text-2xl font-semibold text-black">
                     Create A New Project
                   </h3>
                 </div>
                 <button
                   type="button"
-                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
                   onClick={closeModal}
                 >
                   <svg
@@ -142,20 +142,20 @@ export default function CreateProject({ isOpen, closeModal }) {
               <div className="p-6 space-y-1">
                 <div className="mb-4 mt-10 flex justify-center">
                   <div className="flex flex-col text-left">
-                    <p className="text-gray-700 dark:text-gray-400 font-semibold">
+                    <p className="text-gray-700 font-semibold">
                       Let's get some info about your project idea!
                     </p>
-                    <p className="text-gray-700 dark:text-gray-400">
+                    <p className="text-gray-700">
                       *required fields
                     </p>
                   </div>
                 </div>
 
                 <div className="mb-1">
-                  <p className="text-gray-700 dark:text-gray-400 font-bold mt-10">
+                  <p className="text-gray-700 font-bold mt-10">
                     What would you like to call this project?
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="text-gray-500">
                     Try to describe your project idea in the title - don't worry, you can change this later.
                   </p>
                 </div>
@@ -171,10 +171,10 @@ export default function CreateProject({ isOpen, closeModal }) {
               </div>
 
               <div className="p-6 space-y-4">
-                <p className="text-gray-700 dark:text-gray-400 font-bold">
+                <p className="text-gray-700 font-bold">
                   How would you describe the project?
                 </p>
-                <p className="text-gray-500 dark:text-gray-400">
+                <p className="text-gray-500">
                   What is the problem you are trying to solve? What are some of your goals for this project?
                 </p>
                 <textarea
@@ -186,7 +186,7 @@ export default function CreateProject({ isOpen, closeModal }) {
               </div>
 
               <div className="p-6 space-y-2">
-                <p className="text-gray-700 dark:text-gray-400 font-bold">
+                <p className="text-gray-700 font-bold">
                   About how long will this project take?
                 </p>
                 <select
@@ -202,7 +202,7 @@ export default function CreateProject({ isOpen, closeModal }) {
               </div>
 
               <div className="p-6 space-y-2">
-                <p className="text-gray-700 dark:text-gray-400 font-bold">
+                <p className="text-gray-700 font-bold">
                   Which team members will be required on the team (not including yourself)?
                 </p>
                 <div className="space-y-2">
@@ -256,10 +256,10 @@ export default function CreateProject({ isOpen, closeModal }) {
                   </div>
                 </div>
                 <div className="mt-10">
-                  <p className="text-gray-700 dark:text-gray-400 font-bold mt-10">
+                  <p className="text-gray-700 font-bold mt-10">
                     How would you describe the project?
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="text-gray-500">
                     What is the problem you are trying to solve? What are some of your goals for this project?
                   </p>
                 </div>
@@ -274,10 +274,10 @@ export default function CreateProject({ isOpen, closeModal }) {
                   ))}
                 </div>
                 <div className="space-y-1">
-                  <p className="text-gray-700 dark:text-gray-400 font-bold mt-12">
+                  <p className="text-gray-700 font-bold mt-12">
                     Anything else you'd like to mention?
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="text-gray-500">
                     Are you looking for anything in particular from your team?
                   </p>
                   <textarea
@@ -288,10 +288,10 @@ export default function CreateProject({ isOpen, closeModal }) {
                   />
                 </div>
               </div>
-              <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+              <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
                 <button
                   type="button"
-                  className="w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark-hover-bg-blue-700 dark-focus-ring-blue-800"
+                  className="w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   style={{ backgroundColor: '#ed4168' }}
                   onClick={() => createNewProject()}
                 >

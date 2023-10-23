@@ -56,7 +56,7 @@ export default function AboutYou() {
         <div className="flex items-center justify-center">
           <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg-w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10 bg-white">
             <div className="mb-4 flex items-center">
-            <button className="hover:underline text-lg mr-4" onClick={() => navigate("/professional-background")} style={{ display: 'flex', alignItems: 'center' }}>
+            <button className="hover:underline text-lg mr-4" onClick={() => navigate("/skills-and-tools")} style={{ display: 'flex', alignItems: 'center' }}>
                 <svg fill="#000000" width="20" height="20" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
                     <polygon fillRule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41" />
                 </svg>

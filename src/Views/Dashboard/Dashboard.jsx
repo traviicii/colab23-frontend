@@ -38,6 +38,8 @@ export default function Dashboard() {
             <div className='dashboard  flex flex-col items-center'>
                 <div className="flex mt-20 justify-start">
                     <div className="link-container flex">
+
+                        {/* Tasks */}
                         <div className={`tab-link  ${activeDisplay === 'task' ? 'active' : ''}`}
                             onClick={() => handleLinkClick('task')}>
                             <div className="flex items-center justify-center mt-1">
@@ -48,6 +50,8 @@ export default function Dashboard() {
                                 <p className="ml-4 text-2xl">Tasks</p>
                             </div>
                         </div>
+
+                        {/* Team */}
                         <div className={`tab-link ${activeDisplay === 'team' ? 'active' : ''}`}
                             onClick={() => handleLinkClick('team')}>
                             <div className="flex items-center justify-center mt-1">
@@ -59,6 +63,8 @@ export default function Dashboard() {
                                 <p className="ml-4 text-2xl">Team</p>
                             </div>
                         </div>
+
+                        {/* Resources */}
                         <div className={`tab-link ${activeDisplay === 'resources' ? 'active' : ''}`}
                             onClick={() => handleLinkClick('resources')}>
                             <div className="flex items-center justify-center mt-1">
@@ -72,6 +78,7 @@ export default function Dashboard() {
                                 <p className="ml-4 text-2xl">Resources</p>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
 

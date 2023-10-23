@@ -1,49 +1,60 @@
 import React from 'react'
+import Industries from './Industries'
 
-export default function UserCard() {
-  return (
-    <div className='ml-6 mt-6 w-1/2 mr-6'>
-    <div className="w-full border border-gray-200 rounded-lg shadow-xl" style={{backgroundColor: '#f9e8c3'}}>
-      <a href="#">
-        <div className="flex justify-center items-center">
-          <img className="w-1/2 h-1/2 mt-6" src="https://picsum.photos/150/100" alt="" />
-        </div>
-      </a>
-      <div className="p-5">
-        <a href="#">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">Team Member Name</h5>
-        </a>
-        <p>Location: City, State, Country, Timezone</p>
-        <p className="mt-4 flex flex-wrap">Interests:</p>
-        <div className="mb-3 flex flex-wrap">
-          <div className="rounded-lg pr-4 pl-4 pt-2 pb-2 text-center border border-gray-300 bg-white mr-2 mb-2">
-            Education
-          </div>
-          <div className="rounded-lg pr-4 pl-4 pt-2 pb-2 text-center border border-gray-300 bg-white mr-2 mb-2">
-            Healthcare
-          </div>
-          <div className="rounded-lg pr-4 pl-4 pt-2 pb-2 text-center border border-gray-300 bg-white mb-2">
-            Finance
-          </div>
-          <div className="rounded-lg pr-4 pl-4 pt-2 pb-2 text-center border border-gray-300 bg-white mb-2">
-            Finance
-          </div>
-        </div>
-        <div className="flex mb-2 mt-6"> 
-          <div className=""> 
-            <p>Years of Experience</p>
-            <p># of Years</p>
-          </div>
-        </div>
+export default function UserCard({ user }) {
 
-        <div className="mt-4">
-          <h6 className="">About:</h6>
-          <div className="w-full">
-            <p>Description goes here...</p>
-          </div>
+    const displayIndustries = () => {
+        return user.interests.map((interest, index) => <Industries key={index} industry={interest} />)
+    }
+
+    return (
+        <div className='mx-3 my-3 w-96'>
+            <div className="w-full border border-gray-200 rounded-lg shadow-xl" style={{ backgroundColor: '#f9e8c3' }}>
+                <a href="#">
+                    <div className="flex justify-center items-center">
+                        <img className="w-1/2 h-1/2 mt-6" src="https://picsum.photos/150/100" alt="" />
+                    </div>
+                </a>
+
+                {/* User information */}
+                <div className="p-5">
+
+                    {/* Name */}
+                    <a href="#">
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">{user.first_name} {user.last_name}</h5>
+                    </a>
+
+                    {/* Location */}
+                    <div className='flex'>
+                        <p className='font-bold mr-2'>Location:</p>
+                        <p> {user.location}</p>
+                    </div>
+
+                    {/* Interests */}
+                    <div className='flex justify-center'>
+                        <p className="mt-4 mr-2 font-bold">Interests</p>
+                    </div>
+                    <div className="mb-3 flex flex-wrap justify-center">
+                        {user.interests ? displayIndustries() : ''}
+                    </div>
+
+                    {/* Product Experience */}
+                    <div className="flex mb-2 mt-6">
+                        <div className='flex'>
+                            <p className='font-bold mr-2'>Years of Experience:</p>
+                            <p>{user.prod_exp}</p>
+                        </div>
+                    </div>
+
+                    {/* About */}
+                    <div className="mt-4">
+                        <h6 className="font-bold mr-2">About:</h6>
+                        <p className="w-full">{user.about}</p>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-  )
+    )
 }

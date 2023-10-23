@@ -16,7 +16,7 @@ export default function ProjectDisplay() {
 
   const getBrowser = async () => {
     const token = user.data.apitoken
-    const url = BACK_END_URL + '/api/teamsbrowser'
+    const url = BACK_END_URL + '/api/getteamsbrowser'
     const options = {
       method: "GET",
       headers: {

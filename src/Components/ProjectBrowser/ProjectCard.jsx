@@ -58,7 +58,7 @@ export default function ProjectCard({ project }) {
                         {/* Admin's Timezone? */}
                         <div className="mr-14">
                             <p className='font-bold'>Timezone</p>
-                            <p>UTC 8</p>
+                            <p>{project.admin_timezone}</p>
                         </div>
 
                         {/* Project duration */}

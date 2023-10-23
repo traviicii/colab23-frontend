@@ -7,7 +7,7 @@ export default function UserCard({ user }) {
         return user.interests.map((interest, index) => <Industries key={index} industry={interest} />)
     }
 
-    const colors = ['#F2D092', '#F28795', '#F25C95', '#BF1394', '#0D0D9D']
+    const colors = ['#ED4068', '#135279', '#EBB237', '#626171', '#ECAFBD', '#36D6E3', '#F3D187', '#BCBBC2', '#D7F7F9']
 
     function randomColor(colors) {
         return colors[Math.floor(Math.random() * colors.length)]
@@ -18,9 +18,9 @@ export default function UserCard({ user }) {
             <div className="w-full border border-gray-200 rounded-lg shadow-xl" style={{ backgroundColor: '#f9e8c3' }}>
 
                 <div className='flex justify-center'>
-                    <div className="flex justify-center items-center rounded-full drop-shadow-lg w-fit h-fit mt-6 px-3 py-6" style={{backgroundColor: `${randomColor(colors)}`}}>
+                    <div className="flex justify-center items-center rounded-full drop-shadow-lg w-40 h-40 mt-6 px-3 py-6" style={{backgroundColor: `${randomColor(colors)}`}}>
                         <a href="#">
-                            <p className='text-bold text-5xl'>{user.first_name.charAt(0)} {user.last_name.charAt(0)}</p>
+                            <p className='text-bold text-5xl tracking-tight'>{user.first_name.charAt(0)} {user.last_name.charAt(0)}</p>
                             {/* <img className="w-1/2 h-1/2 mt-6" src="https://picsum.photos/150/100" alt="" /> */}
                         </a>
                     </div>

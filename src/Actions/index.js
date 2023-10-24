@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 
 //Personal Details
 export const SET_FIRST_NAME = 'SET_FIRST_NAME';
@@ -169,14 +170,27 @@ export const setData = (data) => ({
 
 
 // New actions for adding a to-do task
-export const ADD_TASK = 'ADD_TASK';
+export const TOGGLE_TASK_COMPLETION = 'TOGGLE_TASK_COMPLETION'
+export const ADD_TASK = 'ADD_TASK'
+
+export const toggleTaskCompletion = (taskId) => {
+  return {
+    type: TOGGLE_TASK_COMPLETION,
+    payload: taskId,
+  };
+};
 
 export const addTask = (task) => {
   return {
     type: ADD_TASK,
-    payload: task,
+    payload: {
+      id: uuidv4(), // Generate a unique ID
+      ...task,
+      completed: false, // Initialize the completed property
+    },
   };
 };
+
 
 
 // New actions for adding a new meeting

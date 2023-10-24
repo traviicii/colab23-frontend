@@ -12,9 +12,9 @@ export default function ProjectBrowser() {
   
 
   return (
-    <div className="flex">
+    <div className="flex h-full">
       {/* Sidebar */}
-      <div className="w-1/4">
+      <div className="w-1/4 ">
         <ProjectSidebar openModal={toggleModal} />
         <CreateProject isOpen={isModalOpen} closeModal={toggleModal}/>
       </div>

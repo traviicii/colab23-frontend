@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-export default function TaskItem({ task, onComplete }) {
+export default function TaskItem({ task, taskId, onComplete }) {
   // State variables for managing menu visibility and task completion
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -10,15 +10,26 @@ export default function TaskItem({ task, onComplete }) {
     setMenuOpen(!isMenuOpen);
   };
 
-  // Function to handle checkbox change and task completion
-  const handleCheckboxChange = () => {
-    if (!isChecked) { // Check if the checkbox is currently unchecked
-      setIsChecked(true); // Set it to checked
-      if (onComplete) {
-        onComplete(task, true); // Call the onComplete callback with the task and completion status
-      }
+// Function to handle checkbox change and task completion
+const handleCheckboxChange = () => {
+  console.log('Task ID:', taskId); // Log the task ID
+  if (!isChecked) {
+    setIsChecked(true);
+    if (onComplete) {
+      console.log('Calling onComplete for task ID:', taskId);
+      onComplete(taskId, true); // Log and mark task as complete with taskId
     }
-  };
+  } else {
+    setIsChecked(false);
+    if (onComplete) {
+      console.log('Calling onComplete for task ID:', taskId);
+      onComplete(taskId, false); // Log and mark task as incomplete with taskId
+    }
+  }
+};
+
+
+  
 
   // Reference to the task menu for click outside detection
   const menuRef = useRef(null);

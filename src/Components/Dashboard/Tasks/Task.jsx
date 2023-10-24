@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask, addMeeting } from '../../../Actions';
+import { addTask, addMeeting, toggleTaskCompletion } from '../../../Actions';
 import TaskItem from './TaskItem';
 import MeetingItem from './MeetingItem';
 import TaskCompleted from './TaskCompleted';
@@ -43,8 +43,10 @@ export default function Task() {
   };
 
   // Function to handle marking a task as completed
-  const handleTaskComplete = (completedTask) => {
-    setCompletedTasks([...completedTasks, completedTask]);
+  const handleTaskComplete = (task) => {
+    const updatedTask = { ...task, completed: !task.completed };
+    console.log('Task ID in task.jsx:', task); // Log the task ID
+    dispatch(toggleTaskCompletion(task));
   };
 
   // Function to save a new meeting
@@ -61,8 +63,8 @@ export default function Task() {
         <div className="flex flex-col items-center mt-4">
           <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Group">
-              <path id="Vector" d="M2.66669 16.6667C5.63851 17.0199 8.4051 18.3626 10.5213 20.4788C12.6375 22.5949 13.9802 25.3615 14.3334 28.3334C15.8066 27.484 17.0388 26.2731 17.9137 24.8149C18.7886 23.3568 19.2772 21.6996 19.3334 20C22.1319 19.0155 24.5756 17.2233 26.3556 14.85C28.1356 12.4767 29.1718 9.62892 29.3334 6.66669C29.3334 5.3406 28.8066 4.06884 27.8689 3.13115C26.9312 2.19347 25.6594 1.66669 24.3334 1.66669C21.3711 1.8282 18.5233 2.86446 16.15 4.64444C13.7767 6.42442 11.9845 8.86817 11 11.6667C9.30046 11.7228 7.64328 12.2114 6.18513 13.0863C4.72697 13.9612 3.516 15.1935 2.66669 16.6667Z" stroke="#1F1D34" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round" />
-              <path id="Vector_2" d="M7.66669 18.3334C5.93208 19.3127 4.52945 20.7877 3.63862 22.5693C2.74779 24.351 2.40935 26.3581 2.6667 28.3334C4.64196 28.5907 6.64907 28.2523 8.43073 27.3614C10.2124 26.4706 11.6874 25.068 12.6667 23.3334M19.3334 10C19.3334 10.4421 19.509 10.866 19.8215 11.1786C20.1341 11.4911 20.558 11.6667 21.0000 11.6667C21.4421 11.6667 21.866 11.4911 22.1785 11.1786C22.4911 10.866 22.6667 10.4421 22.6667 10C22.6667 9.55801 22.4911 9.13409 22.1785 8.82153C21.866 8.50897 21.4421 8.33337 21.0000 8.33337C20.558 8.33337 20.1341 8.50897 19.8215 8.82153C19.509 9.13409 19.3334 9.55801 19.3334 10Z" stroke="#1F1D34" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round" />
+              <path id="Vector" d="M2.66669 16.6667C5.63851 17.0199 8.4051 18.3626 10.5213 20.4788C12.6375 22.5949 13.9802 25.3615 14.3334 28.3334C15.8066 27.484 17.0388 26.2731 17.9137 24.8149C18.7886 23.3568 19.2772 21.6996 19.3334 20C22.1319 19.0155 24.5756 17.2233 26.3556 14.85C28.1356 12.4767 29.1718 9.62892 29.3334 6.66669C29.3334 5.3406 28.8066 4.06884 27.8689 3.13115C26.9312 2.19347 25.6594 1.66669 24.3334 1.66669C21.3711 1.8282 18.5233 2.86446 16.15 4.64444C13.7767 6.42442 11.9845 8.86817 11 11.6667C9.30046 11.7228 7.64328 12.2114 6.18513 13.0863C4.72697 13.9612 3.516 15.1935 2.66669 16.6667Z" stroke="#1F1D34" strokeWidth="3.33333" strokeLinecap="round" strokeLinejoin="round" />
+              <path id="Vector_2" d="M7.66669 18.3334C5.93208 19.3127 4.52945 20.7877 3.63862 22.5693C2.74779 24.351 2.40935 26.3581 2.6667 28.3334C4.64196 28.5907 6.64907 28.2523 8.43073 27.3614C10.2124 26.4706 11.6874 25.068 12.6667 23.3334M19.3334 10C19.3334 10.4421 19.509 10.866 19.8215 11.1786C20.1341 11.4911 20.558 11.6667 21.0000 11.6667C21.4421 11.6667 21.866 11.4911 22.1785 11.1786C22.4911 10.866 22.6667 10.4421 22.6667 10C22.6667 9.55801 22.4911 9.13409 22.1785 8.82153C21.866 8.50897 21.4421 8.33337 21.0000 8.33337C20.558 8.33337 20.1341 8.50897 19.8215 8.82153C19.509 9.13409 19.3334 9.55801 19.3334 10Z" stroke="#1F1D34" strokeWidth="3.33333" strokeLinecap="round" strokeLinejoin="round" />
             </g>
           </svg>
           <h2 className="font-bold text-lg mt-4 mb-2">What do we need to get done this week?</h2>
@@ -75,9 +77,12 @@ export default function Task() {
           + Add a New Task
         </button>
 
-        {tasks.map((task, index) => (
-          <TaskItem key={index} task={task} onComplete={() => handleTaskComplete(task)} />
-        ))}
+        {tasks.map((task) => (
+  <TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />
+))}
+
+
+
 
         {/* Task Modal */}
         <TaskModal

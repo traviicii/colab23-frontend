@@ -49,7 +49,7 @@ export default function ProjectDisplay() {
   
   return (
     <div style={{ backgroundColor: 'white' }} className=''>
-      <div className="flex flex-wrap pl-2 py-1">
+      <div className="flex flex-wrap pl-2">
 
         {/* Project card */}
         {showProjects()}

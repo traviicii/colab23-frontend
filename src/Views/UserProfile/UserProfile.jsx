@@ -1,7 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export default function UserProfile() {
+
+    const user = useSelector((state) => state.user)
 
     const navigate = useNavigate();
     const navigateAboutYou = () => {
@@ -21,7 +24,8 @@ export default function UserProfile() {
                 </button>
             </div>
             <div>
-                <h1>Team Member Name</h1>
+                {/* User's name from redux*/}
+                <h1>{user.data.first_name} {user.data.last_name}</h1>
             </div>
 
             <div className='middle flex justify-center space-x-60'>

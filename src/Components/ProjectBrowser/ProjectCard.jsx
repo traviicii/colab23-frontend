@@ -15,7 +15,7 @@ export default function ProjectCard({ project }) {
                 </a>
 
                 {/* Project Information */}
-                <div className="py-3 px-5">
+                <div className="py-6 px-4">
 
                     {/* Name */}
                     <div className='flex flex-col items-center'>

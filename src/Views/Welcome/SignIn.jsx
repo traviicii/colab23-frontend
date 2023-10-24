@@ -35,16 +35,16 @@ export default function SignIn() {
             if (data.status === 'ok'){
                 console.log(data)
                 dispatch(setUserData(data.user))
-                dispatch(setUserProject(data.project))
                 
                 if (data.project){
+                    dispatch(setUserProject(data.project))
                     navigate('/dashboard')
                 } else{
                     navigate('/dashboard-unpopulated')
                 }
             }
             else{
-                console.log(console.log(data.message))
+                console.log(data.message)
             }
 
         } catch {

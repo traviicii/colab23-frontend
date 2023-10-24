@@ -27,7 +27,7 @@ export default function UserCard({ user }) {
                 </div>
 
                 {/* User information */}
-                <div className="p-5">
+                <div className="py-6 px-4">
 
                     {/* Name */}
                     <a href="#">

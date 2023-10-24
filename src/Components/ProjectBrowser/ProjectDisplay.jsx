@@ -48,7 +48,7 @@ export default function ProjectDisplay() {
   }
   
   return (
-    <div style={{ backgroundColor: 'white' }} className=''>
+    <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column' }} className=''>
       <div className="flex flex-wrap pl-2">
 
         {/* Project card */}
@@ -56,6 +56,7 @@ export default function ProjectDisplay() {
 
         {/* User Card */}
         {showUsers()}
+
       </div>
     </div>
   );

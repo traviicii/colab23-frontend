@@ -11,18 +11,16 @@ export default function ProjectBrowser() {
     };
   
 
-  return (
-    <div className="flex h-full">
-      {/* Sidebar */}
-      <div className="w-1/4 ">
-        <ProjectSidebar openModal={toggleModal} />
-        <CreateProject isOpen={isModalOpen} closeModal={toggleModal}/>
+    return (
+      <div className="flex">
+        <div className="w-1/4" style={{ display: 'flex', flexDirection: 'column' }}>
+          <ProjectSidebar openModal={toggleModal} />
+          <CreateProject isOpen={isModalOpen} closeModal={toggleModal} />
+        </div>
+  
+        <div className="w-3/4">
+          <ProjectDisplay />
+        </div>
       </div>
-      
-      {/* Display */}
-      <div className="w-3/4">
-        <ProjectDisplay />
-      </div>
-    </div>
-  )
-}
+    )
+  }

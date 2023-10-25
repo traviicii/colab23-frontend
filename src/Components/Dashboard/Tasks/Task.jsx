@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask, addMeeting, toggleTaskCompletion } from '../../../Actions';
 import TaskItem from './TaskItem';
@@ -7,6 +7,9 @@ import TaskCompleted from './TaskCompleted';
 import TaskModal from './TaskModal'; // Import TaskModal component
 import MeetingModal from './MeetingModal'; // Import MeetingModal component
 
+const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
+
+
 export default function Task() {
   // State variables for managing modals, completed tasks, and data retrieval
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
@@ -14,7 +17,10 @@ export default function Task() {
   const [completedTasks, setCompletedTasks] = useState([]);
   const tasks = useSelector((state) => state.tasks.tasks);
   const meetings = useSelector((state) => state.meetings.meetings);
+  const user = useSelector((state) => state.user)
   const dispatch = useDispatch();
+
+  useEffect(() => {getTasks()}, [])
 
   // Function to open the task modal
   const openTaskModal = () => {
@@ -52,10 +58,67 @@ export default function Task() {
 
 
   // Function to save a new meeting
-  const saveMeeting = (newMeeting) => {
-    dispatch(addMeeting(newMeeting));
+  const saveMeeting = async (newMeeting) => {
+    await postMeetingToDatabase(newMeeting)
+    await getTasks()
     closeMeetingModal();
   };
+
+  const postMeetingToDatabase = async (meeting) => {
+    const token = user.data.apitoken
+    const url = BACK_END_URL + `/api/addmeeting`
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        title: meeting.meetingTitle,
+        date: meeting.meetingDateTime,
+        notes: meeting.meetingNotes,
+        project_id: user.project.id
+      })
+    }
+
+    try {
+      const res = await fetch(url, options);
+      const data = await res.json();
+      console.log(data)
+    } catch{
+      console.log("Saving meeting to database didnt work?")
+    }
+  }
+
+  const getTasks = async () => {
+
+    const token = user.data.apitoken
+    const url = BACK_END_URL + `/api/gettasks/${user.project.id}`
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+
+    try {
+      const res = await fetch(url, options);
+      const data = await res.json();
+      if (data.status ==='ok') {
+        console.log(data)
+        dispatch(addTask(data.tasks))
+        dispatch(addMeeting(data.meetings))
+      }
+    }
+    catch {
+      console.log("Couldn't get task data.")
+    }
+
+  }
+
+  const showTasks = () => {
+    return tasks.map((task) => (<TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />))
+  }
 
   return (
     <div className="flex justify-center space-x-4">
@@ -79,9 +142,12 @@ export default function Task() {
           + Add a New Task
         </button>
 
+
         {tasks.map((task) => (
           <TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />
         ))}
+        {showTasks()}
+
 
 
 

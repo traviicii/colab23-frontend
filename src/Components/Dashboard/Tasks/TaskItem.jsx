@@ -10,26 +10,26 @@ export default function TaskItem({ task, taskId, onComplete }) {
     setMenuOpen(!isMenuOpen);
   };
 
-// Function to handle checkbox change and task completion
-const handleCheckboxChange = () => {
-  console.log('Task ID:', taskId); // Log the task ID
-  if (!isChecked) {
-    setIsChecked(true);
-    if (onComplete) {
-      console.log('Calling onComplete for task ID:', taskId);
-      onComplete(taskId, true); // Log and mark task as complete with taskId
+  // Function to handle checkbox change and task completion
+  const handleCheckboxChange = () => {
+    console.log('Task ID:', taskId); // Log the task ID
+    if (!isChecked) {
+      setIsChecked(true);
+      if (onComplete) {
+        console.log('Calling onComplete for task ID:', taskId);
+        onComplete(taskId, true); // Log and mark task as complete with taskId
+      }
+    } else {
+      setIsChecked(false);
+      if (onComplete) {
+        console.log('Calling onComplete for task ID:', taskId);
+        onComplete(taskId, false); // Log and mark task as incomplete with taskId
+      }
     }
-  } else {
-    setIsChecked(false);
-    if (onComplete) {
-      console.log('Calling onComplete for task ID:', taskId);
-      onComplete(taskId, false); // Log and mark task as incomplete with taskId
-    }
-  }
-};
+  };
 
 
-  
+
 
   // Reference to the task menu for click outside detection
   const menuRef = useRef(null);
@@ -61,7 +61,7 @@ const handleCheckboxChange = () => {
           disabled={isChecked}
         />
         <h3 className={`font-semibold text-lg text-left ${isChecked ? 'line-through' : ''}`}>
-          {task.task}
+          {task.title}
         </h3>
       </div>
       <div className="flex items-center mt-2">

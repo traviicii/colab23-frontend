@@ -56,6 +56,10 @@ export default function IndividualTeamMember() {
     return member.management_skills?.map((skill) => <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">{skill}</button>)
   }
 
+  const showInterests = () => {
+    return member.interests?.map((interest) => <button className="white-button w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-grey border-2">{interest}</button>)
+  }
+
   return (
     <div style={{ backgroundColor: 'white' }}>
       <div className="">
@@ -90,7 +94,7 @@ export default function IndividualTeamMember() {
         {/* Div containing the middle and bottom section */}
         <div className='middle-bottom-wrapper flex flex-col justify-center items-center w-full mx-auto' style={{ backgroundColor: '#fae8c2' }}>
           <div className='middle flex w-10/12' >
-            <div className='image w-1/3'>
+            <div className='image w-1/3 flex items-center'>
               {/* Display a circular image */}
               <div className='ml-4'
                 style={{
@@ -128,7 +132,7 @@ export default function IndividualTeamMember() {
             </div>
             <div className='flex justify-center w-1/4'>
               <div className='message w-full mt-10'>
-                <button className='border rounded w-full py-4 mb-4 font-bold rounded' style={{ backgroundColor: '#d7f7f9', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <button onClick={() => window.location = `mailto:${member.email}`} className='border rounded w-full py-4 mb-4 font-bold rounded' style={{ backgroundColor: '#d7f7f9', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
                     <g id="Send Message">
                       <path id="Vector 67" d="M17.8212 1.43106L2.36655 6.38543L9.58171 9.67058M17.8212 1.43106L12.8669 16.8857L9.58171 9.67058M17.8212 1.43106L9.58171 9.67058" stroke="black" />
@@ -138,18 +142,23 @@ export default function IndividualTeamMember() {
                 </button>
 
                 <p className='font-bold'>Interested in:</p>
-                <div className="interest-buttons space-x-2 mt-4 mb-4 w-full">
+                <div className="interest-buttons flex flex-wrap mt-4 mb-4 w-full">
                   {/* Display buttons for interests */}
-                  <button className="white-button px-3 py-1 rounded border-grey border-2">Fintech</button>
+                  {showInterests()}
+                  {/* <button className="white-button px-3 py-1 rounded border-grey border-2">Fintech</button>
                   <button className="white-button px-3 py-1 rounded border-grey border-2">Education</button>
-                  <button className="white-button px-3 py-1 rounded border-grey border-2">Non-Profit</button>
+                  <button className="white-button px-3 py-1 rounded border-grey border-2">Non-Profit</button> */}
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Bottom section - About, working on, skills */}
           <div className="bottom bg-white flex justify-center w-full py-8 ">
             <div className="w-10/12 flex mb-20 mt-10" style={{ minHeight: '250px' }}>
-              <div className="w-1/4 p-4 rounded-l-2xl" style={{ backgroundColor: '#fae8c2' }}>
+
+              {/* About */}
+              <div className="py-12 px-6 w-96 rounded-l-2xl" style={{ backgroundColor: '#fae8c2' }}>
                 <h2 className="text-2xl font-semibold mb-4">About Me:</h2>
                 <ol>
                   {/* Display a list of qualities */}
@@ -159,7 +168,9 @@ export default function IndividualTeamMember() {
                 </ol>
                 <p className='mt-8'>{member.about}</p>
               </div>
-              <div className="w-1/4 p-4" style={{ backgroundColor: '#f3d187' }}>
+
+              {/* Currently working on */}
+              <div className="py-12 px-6 w-96" style={{ backgroundColor: '#f3d187' }}>
                 <h2 className="text-2xl font-semibold mb-4">Currently Working On:</h2>
                 <p className='mt-4 font-bold underline'>{projectName}</p>
 
@@ -168,7 +179,9 @@ export default function IndividualTeamMember() {
                   <li style={{ listStyleType: 'disc', marginLeft: '25px' }}># of hours / week</li>
                 </ul>
               </div>
-              <div className="w-1/2 p-4 rounded-r-2xl " style={{ backgroundColor: '#ebb237' }}>
+
+              {/* Skills */}
+              <div className="w-1/2 py-12 px-6 rounded-r-2xl " style={{ backgroundColor: '#ebb237' }}>
                 <ol>
                   <div>
                     <h2 className="text-2xl font-semibold mb-4">Skills:</h2>

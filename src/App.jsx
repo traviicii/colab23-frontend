@@ -15,12 +15,13 @@ import DashboardUnpopulated from './Views/Dashboard/DashboardUnpopulated';
 import Dashboard from './Views/Dashboard/Dashboard';
 import NavbarLoggedIn from './Components/Navbar/NavbarLoggedIn';
 import ProjectBrowser from './Views/ProjectBrowser/ProjectBrowser';
-import UserProfile from './Views/IndividualTeamMember/individualTeamMember';
+import UserProfile from './Views/IndividualTeamMember/IndividualTeamMember';
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';
 import { useSelector } from 'react-redux';
 import ProjectProfile from './Views/ProjectProfile/ProjectProfile';
+import IndividualTeamMember from './Views/IndividualTeamMember/IndividualTeamMember';
 
 const FIREBASE_KEY = process.env.REACT_APP_API_KEY
 
@@ -64,7 +65,9 @@ export default function App() {
         <Route path='/dashboard-unpopulated' element={<DashboardUnpopulated />} />
         <Route path='/project-browser' element={<ProjectBrowser />} />
         <Route path='/individual-team-member' element={<UserProfile />} />
-        <Route path='/project-profile' element={<ProjectProfile />} />
+        <Route path='/project-profile/:project_id' element={<ProjectProfile />} />
+        <Route path='/individualteammember/:user_id' element={<IndividualTeamMember />} />
+
 
       </Routes>
       

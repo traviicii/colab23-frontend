@@ -113,7 +113,6 @@ export default function Task() {
     catch {
       console.log("Couldn't get task data.")
     }
-
   }
 
   const showTasks = () => {

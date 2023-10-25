@@ -16,7 +16,7 @@ import Dashboard from './Views/Dashboard/Dashboard';
 import NavbarLoggedIn from './Components/Navbar/NavbarLoggedIn';
 import ProjectBrowser from './Views/ProjectBrowser/ProjectBrowser';
 import ProjectProfile from './Views/ProjectProfile/ProjectProfile';
-import IndividualTeamMember from './Views/IndividualTeamMember/IndividualTeamMember';
+import IndividualTeamMember from './Views/IndividualTeamMember/individualTeamMember';
 
 
 // Google Firebase

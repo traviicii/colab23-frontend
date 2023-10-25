@@ -1,9 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 export default function TaskCompleted({ task }) {
+  const [isMenuOpen, setMenuOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
 
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
   return (
     <div className="bg-white p-4 rounded-lg shadow-md my-2">
       <div className="flex items-center">

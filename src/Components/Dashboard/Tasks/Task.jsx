@@ -55,6 +55,8 @@ export default function Task() {
     dispatch(toggleTaskCompletion(task));
   };
 
+
+
   // Function to save a new meeting
   const saveMeeting = async (newMeeting) => {
     await postMeetingToDatabase(newMeeting)
@@ -140,7 +142,12 @@ export default function Task() {
           + Add a New Task
         </button>
 
+
+        {tasks.map((task) => (
+          <TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />
+        ))}
         {showTasks()}
+
 
 
 

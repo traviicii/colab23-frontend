@@ -17,7 +17,7 @@ import NavbarLoggedIn from './Components/Navbar/NavbarLoggedIn';
 import ProjectBrowser from './Views/ProjectBrowser/ProjectBrowser';
 import ProjectProfile from './Views/ProjectProfile/ProjectProfile';
 import IndividualTeamMember from './Views/IndividualTeamMember/individualTeamMember';
-
+import UserProfile from './Views/UserProfile/UserProfile';
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';
@@ -67,6 +67,7 @@ export default function App() {
         <Route path='/individual-team-member' element={<UserProfile />} />
         <Route path='/project-profile/:project_id' element={<ProjectProfile />} />
         <Route path='/individualteammember/:user_id' element={<IndividualTeamMember />} />
+        <Route path='/userprogile' element={<UserProfile />}
 
 
       </Routes>

@@ -7,10 +7,7 @@ const initialState = {
 export const taskReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TASK:
-      return {
-        ...state,
-        tasks: [...state.tasks, action.payload],
-      };
+      return {...state, tasks: action.payload};
     case TOGGLE_TASK_COMPLETION:
       const taskId = action.payload; // No need to destructure
       console.log('Task ID from action:', taskId);

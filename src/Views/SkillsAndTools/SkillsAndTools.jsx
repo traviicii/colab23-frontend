@@ -38,42 +38,42 @@ export default function SkillsAndTools() {
     // Function to add a new skill
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState('');
-  
+
     //Skills you're learning or would like to gain
     const handleInputChange = (e) => {
-      setInputValue(e.target.value);
+        setInputValue(e.target.value);
     };
-  
+
     const handleInputKeydown = (e) => {
-      if (e.key === 'Enter' && inputValue.trim() !== '') {
-        setTags([...tags, inputValue.trim()]);
-        setInputValue('');
-      }
+        if (e.key === 'Enter' && inputValue.trim() !== '') {
+            setTags([...tags, inputValue.trim()]);
+            setInputValue('');
+        }
     };
-  
+
     const handleTagRemove = (tagToRemove) => {
         const updatedTags = tags.filter((tag) => tag !== tagToRemove);
         setTags(updatedTags);
-      };
+    };
 
     const navigate = useNavigate();
     const navigateAboutYou = () => {
         navigate('/about-you');
     }
 
-    
+
 
     return (
         <div className="professional-background-container" style={{ backgroundColor: '#bcbbc2' }}>
             <div className="flex items-center justify-center">
                 <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10 bg-white">
                     <div className="mb-4 flex items-center">
-                    <button className="hover:underline text-lg mr-4" onClick={() => navigate("/professional-background")} style={{ display: 'flex', alignItems: 'center' }}>
-                    <svg fill="#000000" width="20" height="20" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
-                        <polygon fillRule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41" />
-                    </svg>
-                    Back
-                    </button>
+                        <button className="hover:underline text-lg mr-4" onClick={() => navigate("/professional-background")} style={{ display: 'flex', alignItems: 'center' }}>
+                            <svg fill="#000000" width="20" height="20" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
+                                <polygon fillRule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41" />
+                            </svg>
+                            Back
+                        </button>
 
 
 
@@ -102,7 +102,7 @@ export default function SkillsAndTools() {
                     <div className="grid grid-cols-3 gap-4">
                         {productDesignSkills.map((skill, index) => (
                             <div key={index}
-                                style={{backgroundColor: skillsTools.designSkills.includes(skill) ? '#ecafbd' : 'white' }}
+                                style={{ backgroundColor: skillsTools.designSkills.includes(skill) ? '#ecafbd' : 'white' }}
                                 className="rounded-lg p-2 text-center cursor-pointer border border-gray-300"
                                 onClick={() => toggleSkill(skill, skillsTools.designSkills, setDesignSkills)}>
                                 {skill}
@@ -156,23 +156,23 @@ export default function SkillsAndTools() {
 
                     {/* New skill input and tag display */}
                     <div>
-                    <div className="tag-list inline-block">
-                        {tags.map((tag, index) => (
-                        <div key={index} className="tag inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
-                            {tag}
-                            <button className='ml-2' onClick={() => handleTagRemove(tag)}>X</button>
+                        <div className="tag-list inline-block">
+                            {tags.map((tag, index) => (
+                                <div key={index} className="tag inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
+                                    {tag}
+                                    <button className='ml-2' onClick={() => handleTagRemove(tag)}>X</button>
+                                </div>
+                            ))}
                         </div>
-                        ))}
-                    </div>
-                    <input type="text" value={inputValue} onChange={handleInputChange}
-                        onKeyDown={handleInputKeydown} placeholder="Enter skills..." className="w-full border h-8" />
+                        <input type="text" value={inputValue} onChange={handleInputChange}
+                            onKeyDown={handleInputKeydown} placeholder="Enter skills..." className="w-full border h-8" />
                     </div>
 
                     <div className="flex items-center justify-between mt-6">
                         <button
                             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg focus:outline-none" style={{ backgroundColor: '#ed4168' }}
                             type="button"
-                            onClick={ navigateAboutYou }>
+                            onClick={navigateAboutYou}>
                             Continue
                         </button>
                     </div>

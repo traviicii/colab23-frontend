@@ -78,12 +78,17 @@ export default function Task() {
       if (data.status ==='ok') {
         console.log(data)
         dispatch(addTask(data.tasks))
+        dispatch(addMeeting(data.meetings))
       }
     }
     catch {
       console.log("Couldn't get task data.")
     }
 
+  }
+
+  const showTasks = () => {
+    return tasks.map((task) => (<TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />))
   }
 
   return (
@@ -108,9 +113,7 @@ export default function Task() {
           + Add a New Task
         </button>
 
-        {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />
-        ))}
+        {showTasks()}
 
 
 

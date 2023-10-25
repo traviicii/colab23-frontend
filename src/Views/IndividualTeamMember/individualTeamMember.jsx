@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
@@ -15,7 +15,7 @@ export default function IndividualTeamMember() {
 
   // Looked up user info
   const [member, setMember] = useState({})
-  const [projectName, setProjectName] = useState('')
+  const [project, setProject] = useState('')
 
   useEffect(() => { getUser() }, [])
 
@@ -36,7 +36,7 @@ export default function IndividualTeamMember() {
       if (data.status === 'ok') {
         console.log(data)
         setMember(data.user)
-        setProjectName(data.project_name)
+        setProject(data.project)
       }
     }
     catch {
@@ -58,6 +58,10 @@ export default function IndividualTeamMember() {
 
   const showInterests = () => {
     return member.interests?.map((interest) => <button className="white-button w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-grey border-2">{interest}</button>)
+  }
+
+  const showAvailability = () => {
+    return member.availability?.map((availability) => <li>{availability}</li>)
   }
 
   return (
@@ -93,19 +97,23 @@ export default function IndividualTeamMember() {
 
         {/* Div containing the middle and bottom section */}
         <div className='middle-bottom-wrapper flex flex-col justify-center items-center w-full mx-auto' style={{ backgroundColor: '#fae8c2' }}>
+
+          {/* Middle section */}
           <div className='middle flex w-10/12' >
             <div className='image w-1/3 flex items-center'>
               {/* Display a circular image */}
               <div className='ml-4'
                 style={{
-                  width: '300px',
-                  height: '300px',
+                  width: '338px',
+                  height: '338px',
                   borderRadius: '50%',
                   background: 'radial-gradient(circle, lightcoral, lightpink)',
                 }}
               ></div>
             </div>
-            <div className='w-1/3'>
+
+            {/* Location, former experienc, available */}
+            <div className='w-1/3 pt-12 pl-12 pr-12 pb-12'>
               <div>
                 {/* Display the location/timezone */}
                 <p className='mt-6 font-bold'>Location/Timezone:</p>
@@ -125,12 +133,14 @@ export default function IndividualTeamMember() {
                 {/* Display availability information */}
                 <p className='mt-6 font-bold'>Available:</p>
                 <ul style={{ listStyleType: 'disc', marginLeft: '25px' }}>
-                  <li>{member.availability}</li>
+                  {showAvailability()}
                   <li>{member.hours_wk}</li>
                 </ul>
               </div>
             </div>
-            <div className='flex justify-center w-1/4'>
+
+            {/* email, interested in */}
+            <div className='flex justify-center w-1/4 pt-12 px-6'>
               <div className='message w-full mt-10'>
                 <button onClick={() => window.location = `mailto:${member.email}`} className='border rounded w-full py-4 mb-4 font-bold rounded' style={{ backgroundColor: '#d7f7f9', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
@@ -172,8 +182,7 @@ export default function IndividualTeamMember() {
               {/* Currently working on */}
               <div className="py-12 px-6 w-96" style={{ backgroundColor: '#f3d187' }}>
                 <h2 className="text-2xl font-semibold mb-4">Currently Working On:</h2>
-                <p className='mt-4 font-bold underline'>{projectName}</p>
-
+                {member.current_project_id ? <p><Link to={`/project-profile/${member.current_project_id}`} className='mt-4 font-bold underline'>{project.project_name}</Link> - Project Admin: {project.admin_name}</p> : `${member.first_name} isn't involved in a project currently!`}
                 <p className='mt-4 font-bold'>Available:</p>
                 <ul>
                   <li style={{ listStyleType: 'disc', marginLeft: '25px' }}># of hours / week</li>

@@ -15,13 +15,13 @@ import DashboardUnpopulated from './Views/Dashboard/DashboardUnpopulated';
 import Dashboard from './Views/Dashboard/Dashboard';
 import NavbarLoggedIn from './Components/Navbar/NavbarLoggedIn';
 import ProjectBrowser from './Views/ProjectBrowser/ProjectBrowser';
-import UserProfile from './Views/IndividualTeamMember/IndividualTeamMember';
+import ProjectProfile from './Views/ProjectProfile/ProjectProfile';
+import IndividualTeamMember from './Views/IndividualTeamMember/IndividualTeamMember';
+
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';
 import { useSelector } from 'react-redux';
-import ProjectProfile from './Views/ProjectProfile/ProjectProfile';
-import IndividualTeamMember from './Views/IndividualTeamMember/IndividualTeamMember';
 
 const FIREBASE_KEY = process.env.REACT_APP_API_KEY
 

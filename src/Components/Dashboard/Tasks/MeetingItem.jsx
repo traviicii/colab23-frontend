@@ -24,6 +24,8 @@ export default function MeetingItem({ meeting }) {
     };
   }, []);
 
+  
+
   return (
     <div className={`bg-white p-4 rounded-lg shadow-md my-2 ${isChecked ? 'line-through' : ''}`}>
       <div className="flex items-center">
@@ -81,7 +83,7 @@ export default function MeetingItem({ meeting }) {
             <div className="menu-dropdown absolute z-10 mt-2 right-0 w-20 bg-white border border-gray-200 rounded shadow-lg">
               <ul className="p-2">
                 <li className="cursor-pointer hover:bg-gray-100 p-2" onClick={toggleMenu}>
-                  Edit
+                  <button>Delete</button>
                 </li>
               </ul>
             </div>

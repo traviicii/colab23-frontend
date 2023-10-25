@@ -56,10 +56,37 @@ export default function Task() {
   };
 
   // Function to save a new meeting
-  const saveMeeting = (newMeeting) => {
-    dispatch(addMeeting(newMeeting));
+  const saveMeeting = async (newMeeting) => {
+    await postMeetingToDatabase(newMeeting)
+    await getTasks()
     closeMeetingModal();
   };
+
+  const postMeetingToDatabase = async (meeting) => {
+    const token = user.data.apitoken
+    const url = BACK_END_URL + `/api/addmeeting`
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        title: meeting.meetingTitle,
+        date: meeting.meetingDateTime,
+        notes: meeting.meetingNotes,
+        project_id: user.project.id
+      })
+    }
+
+    try {
+      const res = await fetch(url, options);
+      const data = await res.json();
+      console.log(data)
+    } catch{
+      console.log("Saving meeting to database didnt work?")
+    }
+  }
 
   const getTasks = async () => {
 

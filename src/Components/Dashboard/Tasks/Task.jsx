@@ -49,6 +49,8 @@ export default function Task() {
     dispatch(toggleTaskCompletion(task));
   };
 
+
+
   // Function to save a new meeting
   const saveMeeting = (newMeeting) => {
     dispatch(addMeeting(newMeeting));
@@ -78,8 +80,8 @@ export default function Task() {
         </button>
 
         {tasks.map((task) => (
-  <TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />
-))}
+          <TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />
+        ))}
 
 
 

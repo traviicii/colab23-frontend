@@ -182,7 +182,7 @@ export default function IndividualTeamMember() {
               {/* Currently working on */}
               <div className="py-12 px-6 w-96" style={{ backgroundColor: '#f3d187' }}>
                 <h2 className="text-2xl font-semibold mb-4">Currently Working On:</h2>
-                {member.current_project_id ? <p><Link to={`/project-profile/${member.current_project_id}`} className='mt-4 font-bold underline'>{project ? project.project_name : '' }</Link> - Project Admin: {project.admin_name}</p> : `${member.first_name} isn't involved in a project currently!`}
+                {member.current_project_id ? <p><Link to={`/project-profile/${member.current_project_id}`} className='mt-4 font-bold underline'>{project ? project.project_name : '' }</Link> - Project Admin: {project? project.admin_name : ''}</p> : `${member.first_name} isn't involved in a project currently!`}
                 <p className='mt-4 font-bold'>Available:</p>
                 <ul>
                   <li style={{ listStyleType: 'disc', marginLeft: '25px' }}># of hours / week</li>

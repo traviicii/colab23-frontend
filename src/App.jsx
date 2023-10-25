@@ -67,7 +67,7 @@ export default function App() {
         <Route path='/individual-team-member' element={<UserProfile />} />
         <Route path='/project-profile/:project_id' element={<ProjectProfile />} />
         <Route path='/individualteammember/:user_id' element={<IndividualTeamMember />} />
-        <Route path='/userprogile' element={<UserProfile />}
+        <Route path='/userprofile' element={<UserProfile />} />
 
 
       </Routes>

@@ -32,7 +32,7 @@ export default function Dashboard() {
     return (
         <div className="h-screen pl-20 pr-20 pt-20 mb-60">
             <h1 className="text-5xl font-bold pb-5 text-white">Hey, {user.data.first_name}!</h1>
-            <p className="text-3xl text-white">It's Week XX of <button>{user.project.name}</button>!</p>
+            <p className="text-3xl text-white">It's Week XX of <button onClick={() => navigate(`/project-profile/${user.profile.id}`)}>{user.project.name}</button>!</p>
             <p className="text-3xl text-white">Let's take a look at what's going on...</p>
             {/* Added some flex styling here to adjust the responsiveness of the tabs and content underneath */}
             <div className='dashboard  flex flex-col items-center'>

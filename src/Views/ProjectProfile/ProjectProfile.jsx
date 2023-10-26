@@ -15,7 +15,7 @@ export default function ProjectProfile() {
     
     const [project, setProject] = useState({})
     const [admin, setAdmin] = useState({})
-    
+
     useEffect(() => { getProject() }, [])
     
     const navigate = useNavigate();
@@ -202,14 +202,14 @@ export default function ProjectProfile() {
                                     <div className='flex flex-col justify-center h-full pt-6 '>
                                         <h2 className="text-2xl font-semibold mb-4">Looking For: </h2>
                                         {project.looking_for}
-                                        <li className='mb-2' style={{ listStyleType: 'disc', marginLeft: '25px' }}>People who are interested in:</li>
+                                        {/* <li className='mb-2' style={{ listStyleType: 'disc', marginLeft: '25px' }}>People who are interested in:</li>
                                         <div className="interest-buttons">
                                             <button className="bg-opacity-50 px-8 py-1 m-1 rounded border-black border">Fintech</button>
                                             <button className="bg-opacity-50 px-8 py-1 m-1 rounded border-black border">Education</button>
                                             <button className="bg-opacity-50 px-8 py-1 m-1 rounded border-black border">Non-Profit</button>
                                             <li className='mt-2 mb-1' style={{ listStyleType: 'disc', marginLeft: '25px' }}>Available for #xx hours / week</li>
                                             <li style={{ listStyleType: 'disc', marginLeft: '25px' }}>Experience with xyz things</li>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </ol>
                             </div>

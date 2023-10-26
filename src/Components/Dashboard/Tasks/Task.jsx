@@ -198,7 +198,7 @@ export default function Task() {
         >
           + Propose a New Meeting
         </button>
-        {meetings.map((meeting, index) => (
+        {meetings?.map((meeting, index) => (
           <MeetingItem key={index} meeting={meeting} />
         ))}
 

@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import JoinedProjectModal from './JoinedProjectModal'; // Import the modal component
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserProject } from '../../Actions';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function ProjectProfile() {
-
+    
     const user = useSelector((state) => state.user)
+    const dispatch = useDispatch()
 
+    const { project_id } = useParams()
+    
+    const [project, setProject] = useState({})
+    const [admin, setAdmin] = useState({})
+    
+    useEffect(() => { getProject() }, [])
+    
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
@@ -22,12 +31,6 @@ export default function ProjectProfile() {
         setIsModalOpen(false);
     };
 
-    const { project_id } = useParams()
-
-    useEffect(() => {getProject()}, [])
-
-    const [project, setProject] = useState({})
-    const [admin, setAdmin] = useState({})
 
     const getProject = async () => {
 
@@ -45,12 +48,46 @@ export default function ProjectProfile() {
             const data = await res.json();
             if (data.status === 'ok') {
                 console.log(data)
+                //local state, not redux
                 setProject(data.project)
                 setAdmin(data.admin)
             }
         }
         catch {
             console.log("Couldn't get project data.")
+        }
+    }
+
+    const addUserToProject = async () => {
+
+        const token = user.data.apitoken
+        const url = BACK_END_URL + `/api/addprojectuser`
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                user_id: user.data.id,
+                project_id: project_id
+              })
+        }
+
+        try {
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (data.status === 'ok') {
+                console.log(data)
+                dispatch(setUserProject(data.project))
+                openModal()
+            }
+            else{
+                console.log(data)
+            }
+        }
+        catch {
+            console.log("Couldn't gadd user to project.")
         }
     }
 
@@ -61,6 +98,8 @@ export default function ProjectProfile() {
     return (
         <div style={{ backgroundColor: 'white' }}>
             <div className="">
+
+                {/* Top Section */}
                 <div className='top w-3/4 ml-36 mb-10 space-y-6'>
                     <button
                         className="hover:underline text-lg mr-4 w-3/4 pt-4"
@@ -76,14 +115,20 @@ export default function ProjectProfile() {
                         <h1 className='text-2xl font-bold'>{project.name}</h1>
                     </div>
                 </div>
-                {/* Div for radial color gradient */}
-                <div className='middle-bottom-wrapper flex flex-col justify-center items-center w-10/12 mx-auto'>
-                    <div className='middle flex w-full' style={{ backgroundColor: '#f8e1e6' }}>
+
+                {/* Middle Section */}
+                <div className='middle-bottom-wrapper flex flex-col justify-center items-center w-full mx-auto' style={{ backgroundColor: '#f8e1e6' }}>
+
+                    <div className='middle flex w-10/12'>
+
+                        {/* Div for radial color gradient */}
                         <div className="image w-1/3 mr-6" style={{
                             width: '320px',
                             height: '320px',
                             background: `radial-gradient(circle at center, #13557c, #35d2e0)`
                         }}></div>
+
+                        {/* Center of Middle */}
                         <div className='w-1/3'>
                             <div>
                                 <div>
@@ -92,7 +137,7 @@ export default function ProjectProfile() {
                                 </div>
                             </div>
                             <div>
-                                <button className="white-button px-8 py-1 rounded border-2" style={{ borderColor: "darkgrey" }}>Open</button>
+                                <button className="white-button px-8 py-1 rounded border-2" style={{ borderColor: "darkgrey" }}>{project.complete == false ? "Open" : "Closed"}</button>
                             </div>
                             <div className='industries'>
                                 <p className='mt-6'>Industries:</p>
@@ -101,11 +146,13 @@ export default function ProjectProfile() {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Right Side of Middle */}
                         <div className='flex justify-center w-1/3'>
                             <div className='message w-full'>
-                                <button className='border rounded-xl w-full py-4 mb-4 text-white' style={{ backgroundColor: '#ed4168', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={openModal}>Request to Join</button>
+                                <button className='border rounded-xl w-full py-4 mb-4 text-white' style={{ backgroundColor: '#ed4168', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={()=> addUserToProject()}>Request to Join</button>
                                 <JoinedProjectModal isOpen={isModalOpen} closeModal={closeModal} />
-                                <p>Project Admin: <span className='underline font-bold'>{admin.first_name} {admin.last_name}, {admin.prod_role}</span></p>
+                                <p>Project Admin: <Link to={`/individualteammember/${admin.id}`}><p className='underline font-bold'>{admin.first_name} {admin.last_name}, {admin.prod_role}</p></Link></p>
                                 <p className='mb-4'>Admin Time Zone: <span className='font-bold'>{admin.timezone}</span></p>
                                 <p className='mb-4'>Project Team:</p>
                                 <div className='flex space-x-2'>
@@ -140,7 +187,11 @@ export default function ProjectProfile() {
                             </div>
                         </div>
                     </div>
-                    <div className="bottom bg-white flex justify-center w-full py-8">
+                </div>
+
+                    {/* Bottom section */}
+                <div className='flex flex-col justify-center items-center w-full mx-auto'>
+                    <div className="bottom bg-white flex justify-center w-10/12 py-8">
                         <div className="w-full flex mt-10" style={{ minHeight: '250px' }}>
                             <div className="w-1/2 p-4 rounded-l-lg text-white pt-12" style={{ backgroundColor: '#626171' }}>
                                 <h2 className="text-2xl font-semibold mb-4">Project Description:</h2>

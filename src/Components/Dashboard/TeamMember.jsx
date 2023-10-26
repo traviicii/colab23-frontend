@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 export default function TeamMember( {member} ) {
 
@@ -15,8 +16,8 @@ export default function TeamMember( {member} ) {
 
     return (
         <div className="w-1/4 bg-white p-4 rounded-lg shadow-lg text-center mx-4" >
-            <div className="random-color-square mb-4 w-30 h-48 rounded" style={{ background: generateRandomGradient() }}></div>
-            <h2 className="text-xl font-semibold">{member.first_name} {member.last_name}</h2>
+            <Link to={`/individualteammember/${member.id}`}><div className="random-color-square mb-4 w-30 h-48 rounded" style={{ background: generateRandomGradient() }}></div></Link>
+            <Link to={`/individualteammember/${member.id}`}><h2 className="text-xl font-semibold">{member.first_name} {member.last_name}</h2></Link>
             <h3 className="text-gray-600">Role: {member.prod_role}</h3>
             <h3 className="text-gray-600">Email: {member.email}</h3>
             <button className="hover:bg-gray-200 border-2 border-black font-bold py-2 px-4 rounded mt-4 w-full flex items-center justify-center">

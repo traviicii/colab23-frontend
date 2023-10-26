@@ -1,8 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {addMeeting} from '../../../Actions';
+
+const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function MeetingItem({ meeting }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
+  const user = useSelector((state) => state.user)
+  const meetings = useSelector((state) => state.meetings.meetings);
+  const dispatch = useDispatch()
+
+  // useEffect(()=>{}, [meetings])
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -24,7 +34,24 @@ export default function MeetingItem({ meeting }) {
     };
   }, []);
 
-  
+  const deleteMeeting = async () => {
+
+    const token = user.data.apitoken
+    const url = BACK_END_URL + `/api/deletemeeting/${meeting.id}`
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    const res = await fetch(url, options)
+    const data = await res.json()
+    if (data.status == 'ok') {
+      console.log(data.message)
+      //Updates the meeting state in order to re-render with updated
+      dispatch(addMeeting(data.meetings))
+    }
+  }
 
   return (
     <div className={`bg-white p-4 rounded-lg shadow-md my-2 ${isChecked ? 'line-through' : ''}`}>
@@ -83,7 +110,7 @@ export default function MeetingItem({ meeting }) {
             <div className="menu-dropdown absolute z-10 mt-2 right-0 w-20 bg-white border border-gray-200 rounded shadow-lg">
               <ul className="p-2">
                 <li className="cursor-pointer hover:bg-gray-100 p-2" onClick={toggleMenu}>
-                  <button>Delete</button>
+                  <button onClick={() => deleteMeeting()}>Delete</button>
                 </li>
               </ul>
             </div>

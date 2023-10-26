@@ -36,7 +36,9 @@ export default function IndividualTeamMember() {
       if (data.status === 'ok') {
         console.log(data)
         setMember(data.user)
-        setProject(data.project)
+        if (data.project){
+          setProject(data.project)
+        }
       }
     }
     catch {

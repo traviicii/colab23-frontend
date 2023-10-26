@@ -1,9 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask } from '../../../Actions';
+
+const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function TaskItem({ task, taskId, onComplete }) {
   // State variables for managing menu visibility and task completion
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
+  const tasks = useSelector((state) => state.tasks.tasks);
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{}, [tasks])
 
   // Function to toggle the task menu
   const toggleMenu = () => {
@@ -49,6 +59,25 @@ export default function TaskItem({ task, taskId, onComplete }) {
       window.removeEventListener('click', handleClickOutside);
     };
   }, []);
+
+  const deleteTask = async () => {
+
+    const token = user.data.apitoken
+    const url = BACK_END_URL + `/api/deletetask/${taskId}`
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    const res = await fetch(url, options)
+    const data = await res.json()
+    if (data.status == 'ok') {
+      console.log(data.message)
+      //Updates the task state in order to re-render with updated
+      dispatch(addTask(data.tasks))
+    }
+  }
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md my-2">
@@ -111,14 +140,14 @@ export default function TaskItem({ task, taskId, onComplete }) {
             <div className="menu-dropdown absolute z-10 mt-2 right-0 w-20 bg-white border border-gray-200 rounded shadow-lg">
               <ul className="p-2">
                 <li className="cursor-pointer hover-bg-gray-100 p-2" onClick={toggleMenu}>
-                  Edit
+                  <button onClick={() => deleteTask()}>Delete</button>
                 </li>
               </ul>
             </div>
           )}
         </div>
         <p className={`ml-2 text-gray-500 text-left ${isChecked ? 'line-through' : ''}`}>
-          Due Date: {task.dueDate}
+          Due Date: {task.duedate}
         </p>
       </div>
       <p className={`text-left ml-7 ${isChecked ? 'line-through' : ''}`}>

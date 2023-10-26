@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
+
 export default function TaskModal({ isOpen, closeModal, onSave }) {
   const [task, setTask] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -9,9 +11,10 @@ export default function TaskModal({ isOpen, closeModal, onSave }) {
     const newTask = {
       task,
       dueDate,
-      notes,
+      notes
     };
     onSave(newTask);
+    console.log(newTask)
     closeModal();
   };
 

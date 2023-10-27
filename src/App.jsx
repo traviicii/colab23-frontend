@@ -18,6 +18,8 @@ import ProjectBrowser from './Views/ProjectBrowser/ProjectBrowser';
 import ProjectProfile from './Views/ProjectProfile/ProjectProfile';
 import IndividualTeamMember from './Views/IndividualTeamMember/individualTeamMember';
 import UserProfile from './Views/UserProfile/UserProfile';
+import './globalCSS.css';
+
 
 // Google Firebase
 import { initializeApp } from 'firebase/app';

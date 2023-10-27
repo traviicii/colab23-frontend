@@ -58,7 +58,7 @@ export default function Resources() {
 
   const getResources = async () => {
     const token = user.data.apitoken
-    const url = BACK_END_URL + `/api/getresources`
+    const url = BACK_END_URL + `/api/getresources/${user.data.current_project_id}`
     const options = {
       method: "GET",
       headers: {

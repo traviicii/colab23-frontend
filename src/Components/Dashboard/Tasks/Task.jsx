@@ -14,13 +14,13 @@ export default function Task() {
   // State variables for managing modals, completed tasks, and data retrieval
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
-  const [completedTasks, setCompletedTasks] = useState([]);
+  //const [completedTasks, setCompletedTasks] = useState([]);
   const tasks = useSelector((state) => state.tasks.tasks);
   const meetings = useSelector((state) => state.meetings.meetings);
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch();
 
-  useEffect(() => {getTasks()}, [])
+  useEffect(() => { getTasks() }, [])
 
   // Function to open the task modal
   const openTaskModal = () => {
@@ -50,13 +50,12 @@ export default function Task() {
   };
 
   // Function to handle marking a task as completed
-  const handleTaskComplete = (task) => {
-    const updatedTask = { ...task, completed: !task.completed };
-    console.log('Task ID in task.jsx:', task); // Log the task ID
-    dispatch(toggleTaskCompletion(task));
-  };
-
-
+  // const handleTaskComplete = async (task) => {
+  //   // const updatedTask = { ...task, completed: !task.completed };
+  //   console.log('Task ID in task.jsx:', task); // Log the task ID
+  //   // dispatch(toggleTaskCompletion(task));
+  //   await updateTaskCompleted(task)
+  // };
 
   // Function to save a new meeting
   const saveMeeting = async (newMeeting) => {
@@ -86,7 +85,7 @@ export default function Task() {
       const res = await fetch(url, options);
       const data = await res.json();
       console.log(data)
-    } catch{
+    } catch {
       console.log("Saving meeting to database didnt work?")
     }
   }
@@ -112,7 +111,7 @@ export default function Task() {
       const res = await fetch(url, options);
       const data = await res.json();
       console.log(data)
-    } catch{
+    } catch {
       console.log("Saving meeting to database didnt work?")
     }
   }
@@ -131,7 +130,7 @@ export default function Task() {
     try {
       const res = await fetch(url, options);
       const data = await res.json();
-      if (data.status ==='ok') {
+      if (data.status === 'ok') {
         console.log(data)
         dispatch(addTask(data.tasks))
         dispatch(addMeeting(data.meetings))
@@ -142,9 +141,26 @@ export default function Task() {
     }
   }
 
-  const showTasks = () => {
-    return tasks?.map((task) => (<TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />))
+  //handle filtering and showing tasks by completed ==  true or false
+  const complete = (task) => {
+    return task.completed == true
   }
+
+  const incomplete = (task) => {
+    return task.completed == false
+  }
+
+  const showTasks = () => {
+    return tasks?.filter(incomplete).map((task) => (<TaskItem key={task.id} task={task} taskId={task.id} />))
+  }
+  // onComplete={handleTaskComplete}
+
+  const showCompletedTasks = () => {
+    return tasks?.filter(complete).map((task) => (<TaskCompleted key={task.id} task={task} taskId={task.id} />))
+  }
+  // onComplete={handleTaskComplete}
+  ////////////
+
 
   return (
     <div className="flex justify-center space-x-4">
@@ -210,7 +226,7 @@ export default function Task() {
         />
       </div>
 
-      {/* Accomplished todos */}
+      {/* Completed todos */}
       <div className="w-1/3 bg-white p-4 rounded-lg text-center">
         <div className="flex flex-col items-center mt-2">
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -220,9 +236,7 @@ export default function Task() {
           </svg>
           <h2 className="font-bold text-lg mt-4 mb-8">What have we already accomplished?</h2>
         </div>
-        {completedTasks.map((completedTask, index) => (
-          <TaskCompleted key={index} task={completedTask} />
-        ))}
+        {showCompletedTasks()}
       </div>
 
     </div>

@@ -13,7 +13,7 @@ export default function TaskItem({ task, taskId, onComplete }) {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
-  useEffect(()=>{}, [tasks])
+  useEffect(() => { }, [tasks])
 
   // Function to toggle the task menu
   const toggleMenu = () => {
@@ -21,24 +21,23 @@ export default function TaskItem({ task, taskId, onComplete }) {
   };
 
   // Function to handle checkbox change and task completion
-  const handleCheckboxChange = () => {
-    console.log('Task ID:', taskId); // Log the task ID
-    if (!isChecked) {
-      setIsChecked(true);
-      if (onComplete) {
-        console.log('Calling onComplete for task ID:', taskId);
-        onComplete(taskId, true); // Log and mark task as complete with taskId
-      }
-    } else {
-      setIsChecked(false);
-      if (onComplete) {
-        console.log('Calling onComplete for task ID:', taskId);
-        onComplete(taskId, false); // Log and mark task as incomplete with taskId
-      }
-    }
-  };
-
-
+  // const handleCheckboxChange = async () => {
+  //   console.log('Task ID:', taskId); // Log the task ID
+  //   // await updateTaskCompleted(taskId)
+  //   if (!isChecked) {
+  //     setIsChecked(true);
+  //     if (onComplete) {
+  //       console.log('Calling onComplete for task ID:', taskId);
+  //       onComplete(taskId, true); // Log and mark task as complete with taskId
+  //     }
+  //   } else {
+  //     setIsChecked(false);
+  //     // if (onComplete) {
+  //     //   console.log('Calling onComplete for task ID:', taskId);
+  //     //   onComplete(taskId, false); // Log and mark task as incomplete with taskId
+  //     // }
+  //   }
+  // };
 
 
   // Reference to the task menu for click outside detection
@@ -72,10 +71,30 @@ export default function TaskItem({ task, taskId, onComplete }) {
     }
     const res = await fetch(url, options)
     const data = await res.json()
-    if (data.status == 'ok') {
+    if (data.status === 'ok') {
       console.log(data.message)
       //Updates the task state in order to re-render with updated
       dispatch(addTask(data.tasks))
+    }
+  }
+
+  const updateTaskCompleted = async () => {
+    const token = user.data.apitoken
+    const url = BACK_END_URL + `/api/updatecompletedtask/${taskId}`
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+
+    try {
+      const res = await fetch(url, options);
+      const data = await res.json();
+      console.log(data)
+      dispatch(addTask(data.tasks))
+    } catch {
+      console.log("Error sending completed task to database.")
     }
   }
 
@@ -85,14 +104,20 @@ export default function TaskItem({ task, taskId, onComplete }) {
         <input
           type="checkbox"
           className="mr-2"
-          onChange={handleCheckboxChange}
+          onChange={() => {
+            setIsChecked(true)
+            updateTaskCompleted()
+          }
+          }
           checked={isChecked}
-          disabled={isChecked}
+        // disabled={isChecked}
         />
         <h3 className={`font-semibold text-lg text-left ${isChecked ? 'line-through' : ''}`}>
           {task.title}
         </h3>
       </div>
+
+
       <div className="flex items-center mt-2">
         <div className="relative" ref={menuRef}>
           <div

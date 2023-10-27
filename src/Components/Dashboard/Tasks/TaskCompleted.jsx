@@ -1,28 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 export default function TaskCompleted({ task }) {
-  const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  // const [isMenuOpen, setMenuOpen] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
 
-  const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen);
-  };
+  // const toggleMenu = () => {
+  //   setMenuOpen(!isMenuOpen);
+  // };
 
-  const menuRef = useRef(null);
+  // const menuRef = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (menuRef.current && !menuRef.current.contains(event.target)) {
+  //       setMenuOpen(false);
+  //     }
+  //   };
 
-    window.addEventListener('click', handleClickOutside);
+  //   window.addEventListener('click', handleClickOutside);
 
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('click', handleClickOutside);
+  //   };
+  // }, []);
   return (
     <div className="bg-white p-4 rounded-lg shadow-md my-2">
       <div className="flex items-center">
@@ -32,16 +32,16 @@ export default function TaskCompleted({ task }) {
             </g>
         </svg>
 
-        <h3 className={`font-semibold ml-4 text-lg text-left ${isChecked ? 'line-through' : ''}`}>
-          {task.task}
+        <h3 className="font-semibold ml-4 text-lg text-left line-through">
+          {task.title}
         </h3>
       </div>
       <div className="flex items-center mt-2">
-        <p className={`ml-8 text-left ${isChecked ? 'line-through' : ''}`}>
-          Completed: {task.dueDate}
+        <p className="ml-8 text-left line-through">
+          Due Date: {task.duedate}
         </p>
       </div>
-      <p className={`text-left ml-8 ${isChecked ? 'line-through' : ''}`}>
+      <p className="ml-8 text-left line-through">
         Notes: {task.notes}
       </p>
     </div>

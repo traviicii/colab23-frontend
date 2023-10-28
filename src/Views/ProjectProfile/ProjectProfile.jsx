@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import JoinedProjectModal from './JoinedProjectModal'; // Import the modal component
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserProject } from '../../Actions';
+import { setUserData, setUserProject } from '../../Actions';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
@@ -80,6 +80,7 @@ export default function ProjectProfile() {
             if (data.status === 'ok') {
                 console.log(data)
                 dispatch(setUserProject(data.project))
+                dispatch(setUserData(data.user))
                 openModal()
             }
             else{

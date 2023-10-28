@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import './Navbar.css'
 import { useSelector } from 'react-redux';
@@ -8,6 +8,21 @@ export default function NavbarLoggedIn() {
   const user = useSelector((state) => state.user)
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+      function handleOutsideClick(event) {
+          if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+              setDropdownOpen(false);
+          }
+      }
+
+      document.addEventListener('mousedown', handleOutsideClick);
+      return () => {
+          document.removeEventListener('mousedown', handleOutsideClick);
+      };
+  }, []);
+
 
   return (
     <div className="flex justify-around items-center py-2 pb-10 h-[120px]" id='nav-wrapper'>
@@ -125,6 +140,7 @@ export default function NavbarLoggedIn() {
 
       {/* Profile Icon */}
       <NavLink className="profile mr-10"
+        ref={dropdownRef}
         onClick={() => setDropdownOpen(!isDropdownOpen)}
         activeClassName="activeLink"
         isActive={(match) => {
@@ -157,12 +173,12 @@ export default function NavbarLoggedIn() {
 
             {/* Dropdown menu */}
             {isDropdownOpen && (
-              <div className="absolute mt-2 w-48 rounded-md shadow-lg">
-                <div className="rounded-md bg-white shadow-xs">
-                  <NavLink to="/userprofile" className="block px-4 py-2 text-black hover:bg-gray-300">
+              <div className="absolute flex justify-start mt-2 w-48 rounded-md">
+                <div className="rounded-md bg-white w-[100px] shadow-xl">
+                  <NavLink to="/userprofile" className="block px-4 py-2 text-black rounded-md hover:bg-gray-300">
                     Profile
                   </NavLink>
-                  <NavLink to="/link1" className="block px-4 py-2 text-black hover:bg-gray-300">
+                  <NavLink to="/link1" className="block px-4 py-2 text-black rounded-md hover:bg-gray-300">
                     Logout
                   </NavLink>
                 </div>

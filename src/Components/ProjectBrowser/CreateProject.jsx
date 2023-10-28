@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserProject } from '../../Actions';
+import { setUserData, setUserProject } from '../../Actions';
 import { useNavigate } from 'react-router-dom';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
@@ -91,11 +91,11 @@ export default function CreateProject({ isOpen, closeModal }) {
         console.log(data)
         //navigate to populated dashboard
         dispatch(setUserProject(data.project))
-
+        dispatch(setUserData(data.user))
         navigate('/dashboard')
       }
       else {
-        console.log(data.message)
+        console.log(data)
       }
     }
     catch {

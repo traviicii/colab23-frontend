@@ -90,19 +90,28 @@ export default function Resources() {
   }
 
   const showProjectLinks = () => {
-    return links?.map((link, index) => <Links key={index} item={link} title={link.title} section={link.link} />)
+    return links?.map((link, index) => <Links key={index} item={link} title={link.title} section={link.content} type={"links"} getResources={getResources} />)
   }
+  // const showProjectLinks = () => {
+  //   return links?.map((resource, index) => <LinksRedone key={index} resource={resource} />)
+  // }
 
   const showHelpfulResources = () => {
-    return resources?.map((resource, index) => <Links key={index} item={resource} title={resource.title} section={resource.content} />)
+    return resources?.map((resource, index) => <Links key={index} item={resource} title={resource.title} section={resource.content} type={"resources"} getResources={getResources} />)
   }
+  // const showHelpfulResources = () => {
+  //   return resources?.map((resource, index) => <LinksRedone key={index} resource={resource} />)
+  // }
 
   const showInspiration = () => {
-    return inspiration?.map((inspo, index) => <Links key={index} item={inspo} title={inspo.title} section={inspo.content} />)
+    return inspiration?.map((inspo, index) => <Links key={index} item={inspo} title={inspo.title} section={inspo.content} type={"inspiration"} getResources={getResources} />)
   }
+  // const showInspiration = () => {
+  //   return inspiration?.map((resource, index) => <LinksRedone key={index} resource={resource} />)
+  // }
 
   return (
-    <div className="team-container flex justify-center">
+    <div className="flex justify-center">
       {/* Project Links */}
       <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg text-center mx-4">
         <h2 className="text-xl font-semibold">Project Links</h2>

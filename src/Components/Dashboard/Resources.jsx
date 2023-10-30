@@ -94,7 +94,7 @@ export default function Resources() {
         <h2 className="text-xl font-semibold">Helpful Resources</h2>
 
         <button onClick={() => handleModalType('Helpful Resource')} className="w-full h-10 px-3.5 py-2 mt-4 rounded-lg hover:bg-rose-300 border border-rose-500 justify-center items-center gap-2 inline-flex">
-          <div className="text-black text-base font-semibold font-['Outfit']">+Add another Link</div>
+          <div className="text-black text-base font-semibold font-['Outfit']">+Add another Helpful Resource</div>
         </button>
         {showHelpfulResources()}
 
@@ -105,7 +105,7 @@ export default function Resources() {
         <h2 className="text-xl font-semibold">Inspirations</h2>
 
         <button onClick={() => handleModalType('Inspiration')} className="w-full h-10 px-3.5 py-2 mt-4 rounded-lg hover:bg-rose-300 border border-rose-500 justify-center items-center gap-2 inline-flex">
-          <div className="text-black text-base font-semibold">+Add another Link</div>
+          <div className="text-black text-base font-semibold">+Add another Inspiration</div>
         </button>
         {showInspiration()}
 

@@ -160,8 +160,8 @@ export default function Task() {
   }
   // onComplete={handleTaskComplete}
   ////////////
-
-
+  
+  
   return (
     <div className="flex justify-center space-x-4">
 
@@ -178,24 +178,20 @@ export default function Task() {
         </div>
 
         <button
-          className="bg-white hover:bg-gray-200 font-bold py-1 border-2 border-black rounded w-full mt-3.5"
+          className="bg-white hover:bg-rose-300 font-bold py-1 border border-rose-500 rounded w-full mt-2.5"
           onClick={openTaskModal}
         >
           + Add a New Task
         </button>
 
-
-        {/* {tasks?.map((task) => (
-          <TaskItem key={task.id} task={task} taskId={task.id} onComplete={handleTaskComplete} />
-        ))} */}
         {showTasks()}
 
-        {/* Task Modal */}
         <TaskModal
           isOpen={isTaskModalOpen}
           closeModal={closeTaskModal}
           onSave={saveTask}
         />
+        {/* Task Modal */}
       </div>
 
       {/* Meetings */}
@@ -209,14 +205,14 @@ export default function Task() {
           <h2 className="font-bold text-lg mt-4">When are we meeting next?</h2>
         </div>
         <button
-          className="bg-white hover:bg-gray-200 font-bold py-1 border-2 border-black rounded w-full mt-12"
+          className="bg-white hover:bg-rose-300 font-bold py-1 border border-rose-500 rounded w-full mt-4"
           onClick={openMeetingModal}
         >
           + Propose a New Meeting
         </button>
         {meetings?.map((meeting, index) => (
           <MeetingItem key={index} meeting={meeting} />
-        ))}
+          ))}
 
         {/* Meeting Modal */}
         <MeetingModal

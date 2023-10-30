@@ -11,16 +11,16 @@ export default function NavbarLoggedIn() {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-      function handleOutsideClick(event) {
-          if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-              setDropdownOpen(false);
-          }
+    function handleOutsideClick(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
       }
+    }
 
-      document.addEventListener('mousedown', handleOutsideClick);
-      return () => {
-          document.removeEventListener('mousedown', handleOutsideClick);
-      };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
   }, []);
 
 
@@ -54,7 +54,7 @@ export default function NavbarLoggedIn() {
         </NavLink>
       </div>
 
-      
+
       {/* Dashboard Icon */}
       <NavLink className="messages mr-4" to={user.project.id ? "/dashboard" : "/dashboard-unpopulated"}
         activeClassName="activeLink"
@@ -174,13 +174,25 @@ export default function NavbarLoggedIn() {
 
             {/* Dropdown menu */}
             {isDropdownOpen && (
-              <div className="absolute flex justify-start mt-2 w-48 rounded-md">
-                <div className="rounded-md bg-white w-[100px] shadow-xl">
-                  <NavLink to="/userprofile" className="block px-4 py-2 text-black rounded-md hover:bg-gray-300">
-                    Profile
+              <div className="absolute flex justify-start mt-2 rounded-md">
+                <div className="flex flex-col items-center rounded-md border border-black bg-white w-[133px] shadow-xl">
+                  <NavLink to="/userprofile" className="flex items-center block px-4 py-1 text-black rounded-md hover:bg-gray-300">
+                    <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.1833 18.2167C18.8833 20.95 18.6333 24.1667 16.5999 25.4667C14.5666 26.7333 11.5333 25.55 9.81659 22.8167C8.11658 20.0833 8.38325 16.8333 10.4166 15.5667C12.4499 14.3 15.4833 15.4833 17.1833 18.2167ZM19.9999 29.5833C23.3333 29.5833 24.1666 28.3333 24.1666 28.3333C24.1666 28.3333 23.3333 31.6667 19.9999 31.6667C16.6666 31.6667 15.8333 28.3833 15.8333 28.3333C15.8333 28.3333 16.6666 29.5833 19.9999 29.5833ZM29.5833 15.5667C31.6166 16.8333 31.8833 20.0833 30.1833 22.8167C28.4666 25.55 25.4333 26.7333 23.3999 25.4667C21.3666 24.1667 21.1166 20.95 22.8166 18.2167C24.5166 15.4833 27.5499 14.3 29.5833 15.5667ZM19.9999 33.3333C24.1666 33.3333 33.3333 24.7667 33.3333 18.3333C33.3333 11.9 27.3499 6.66668 19.9999 6.66668C12.6499 6.66668 6.66659 11.9 6.66659 18.3333C6.66659 24.7667 15.8333 33.3333 19.9999 33.3333ZM19.9999 3.33334C29.1666 3.33334 36.6666 10.0667 36.6666 18.3333C36.6666 25.1333 27.1999 36.6667 19.9999 36.6667C12.7999 36.6667 3.33325 25.1333 3.33325 18.3333C3.33325 10.0667 10.8333 3.33334 19.9999 3.33334Z" fill="black" />
+                    </svg>
+
+                    <p className='ml-2'>Profile</p>
                   </NavLink>
-                  <NavLink to="/link1" className="block px-4 py-2 text-black rounded-md hover:bg-gray-300">
-                    Logout
+
+                  <div className="w-[90%] h-[0px]  border border-b-black"></div>
+                  
+                  <NavLink to="/link1" className="flex items-center block px-4 py-1 text-black rounded-md hover:bg-gray-300">
+                    <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8.33333 8.33333H18.3333C19.25 8.33333 20 7.58333 20 6.66667C20 5.75 19.25 5 18.3333 5H8.33333C6.5 5 5 6.5 5 8.33333V31.6667C5 33.5 6.5 35 8.33333 35H18.3333C19.25 35 20 34.25 20 33.3333C20 32.4167 19.25 31.6667 18.3333 31.6667H8.33333V8.33333Z" fill="black" />
+                      <path d="M34.4167 19.4167L29.7667 14.7667C29.6508 14.6476 29.5019 14.5658 29.3393 14.5318C29.1766 14.4978 29.0075 14.5131 28.8536 14.5757C28.6997 14.6383 28.5679 14.7455 28.4752 14.8834C28.3826 15.0214 28.3332 15.1838 28.3333 15.35V18.3333H16.6667C15.75 18.3333 15 19.0833 15 20C15 20.9167 15.75 21.6667 16.6667 21.6667H28.3333V24.65C28.3333 25.4 29.2333 25.7667 29.75 25.2333L34.4 20.5833C34.7333 20.2667 34.7333 19.7333 34.4167 19.4167Z" fill="black" />
+                    </svg>
+
+                    <p className='ml-2'>Logout</p>
                   </NavLink>
                 </div>
               </div>

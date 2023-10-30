@@ -20,26 +20,6 @@ export default function TaskItem({ task, taskId, onComplete }) {
     setMenuOpen(!isMenuOpen);
   };
 
-  // Function to handle checkbox change and task completion
-  // const handleCheckboxChange = async () => {
-  //   console.log('Task ID:', taskId); // Log the task ID
-  //   // await updateTaskCompleted(taskId)
-  //   if (!isChecked) {
-  //     setIsChecked(true);
-  //     if (onComplete) {
-  //       console.log('Calling onComplete for task ID:', taskId);
-  //       onComplete(taskId, true); // Log and mark task as complete with taskId
-  //     }
-  //   } else {
-  //     setIsChecked(false);
-  //     // if (onComplete) {
-  //     //   console.log('Calling onComplete for task ID:', taskId);
-  //     //   onComplete(taskId, false); // Log and mark task as incomplete with taskId
-  //     // }
-  //   }
-  // };
-
-
   // Reference to the task menu for click outside detection
   const menuRef = useRef(null);
 

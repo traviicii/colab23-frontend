@@ -25,31 +25,57 @@ export default function Links({ item, title, section, type, getResources }) {
         await getResources()
     };
 
-    const updateResources = async (meeting) => {
+    const updateResources = async () => {
         const token = user.data.apitoken
         const url = BACK_END_URL + `/api/updateresources`
         const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": 'application/json',
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            type: type,
-            resource_id: item.id,
-            title: title,
-            content: inputValues
-          })
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                type: type,
+                resource_id: item.id,
+                title: title,
+                content: inputValues
+            })
         }
-    
+
         try {
-          const res = await fetch(url, options);
-          const data = await res.json();
-          console.log(data)
+            const res = await fetch(url, options);
+            const data = await res.json();
+            console.log(data)
         } catch {
-          console.log("Saving meeting to database didnt work?")
+            console.log("Update resource didn't work.")
         }
-      }
+    }
+
+    const deleteResources = async () => {
+        const token = user.data.apitoken
+        const url = BACK_END_URL + `/api/deleteresource`
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                type: type,
+                resource_id: item.id
+            })
+        }
+
+        try {
+            const res = await fetch(url, options);
+            const data = await res.json();
+            console.log(data)
+            setEditingState(false);
+            await getResources()
+        } catch {
+            console.log("Delete resource didn't work.")
+        }
+    }
 
     // useEffect(()=>{set})
 
@@ -60,20 +86,21 @@ export default function Links({ item, title, section, type, getResources }) {
                 // Input box and "Save" button when editing
                 <div className="flex items-center">
                     <input
+                        className='ml-2'
                         type="text"
                         value={inputValues}
                         onChange={(e) => setInputValues(e.target.value)}
-                        // placeholder={`Enter ${section} URL`}
+                    // placeholder={`Enter ${section} URL`}
                     />
                     <div>
-                    <button className='rounded ml-4 pr-1 pl-1 shadow mb-1.5' style={{ backgroundColor: '#ecafbd' }} onClick={() => saveInput()}>Save</button>
-                    <button className='rounded ml-4 pr-1 pl-1 shadow' style={{ backgroundColor: '#ed4068' }}>Delete</button>
+                        <button className='rounded ml-4 pr-1 pl-1 shadow mb-1.5' style={{ backgroundColor: '#ecafbd' }} onClick={() => saveInput()}>Save</button>
+                        <button className='rounded ml-4 pr-1 pl-1 shadow' style={{ backgroundColor: '#ed4068' }} onClick={() => deleteResources()}>Delete</button>
                     </div>
                 </div>
             ) : (
                 // "Click to Enter" link when not editing
                 <div className='flex'>
-                    <a className='flex items-center' href={`${section}`} target="_blank"><svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 -960 960 960" width="24"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z" /></svg></a>
+                    <a className='flex items-center ml-2' href={`${section}`} target="_blank"><svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 -960 960 960" width="24"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z" /></svg></a>
                     <a onClick={() => startEditing()} className="flex items-center max-w-[200px] truncate ml-4 hover:bg-gray-100 hover:rounded">
                         {`${inputValues}`}
                     </a>

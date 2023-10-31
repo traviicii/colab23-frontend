@@ -10,6 +10,7 @@ export default function CreateProjectModal({ isOpen, closeModal }) {
 
   const [activeDisplay, setActiveDisplay] = useState('create');
 
+  // Set within Generate Project and passed to Create Project to populate idea title
   const [chosenProject, setChosenProject] = useState(null)
 
   const handleLinkClick = (display) => {

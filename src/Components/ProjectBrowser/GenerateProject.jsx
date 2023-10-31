@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function GenerateProject({ setActiveDisplay, chosenProject, setChosenProject, isOpen }) {
+export default function GenerateProject({ setActiveDisplay, chosenProject, setChosenProject }) {
 
     const projectIdeas = [
         { title: "Urban Garden App", prompt: "Design a mobile app for urban garden enthusiasts." },
@@ -92,6 +92,7 @@ export default function GenerateProject({ setActiveDisplay, chosenProject, setCh
         { title: "Eco-friendly Travel Guide", prompt: "Build a digital platform for eco-friendly travel tips and destinations." }
     ];
 
+    // Picks a number between 0-projectIdeas.length and returns the project at the chosen random index from projectIdeas
     const getRandomProject = () => {
         const randomIndex = Math.floor(Math.random() * projectIdeas.length);
         return projectIdeas[randomIndex];
@@ -99,16 +100,6 @@ export default function GenerateProject({ setActiveDisplay, chosenProject, setCh
 
     const [reveal, setReveal] = useState(chosenProject ? true : false)
     const [randomProject, setRandomProject] = useState(chosenProject ? chosenProject : getRandomProject());
-
-    // if (isOpen == false) {
-    //     setReveal(false)
-    //     setChosenProject(null)
-    // }
-
-    // useEffect(() => {
-    //     setReveal(false)
-    //     setChosenProject(null)
-    // }, isOpen)
 
     const handleNewIdeaClick = () => {
         setRandomProject(getRandomProject());

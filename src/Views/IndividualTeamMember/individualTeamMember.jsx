@@ -4,35 +4,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
-<<<<<<< HEAD
-    return (
-      <div style={{ backgroundColor: 'white' }}>
-        <div className="">
-          <div className='top w-3/4 ml-36 mb-4 space-y-6'>
-            {/* Back button to navigate to the project browser */}
-            <button
-              className="hover:underline text-lg mr-4 w-3/4 pt-4"
-              onClick={() => navigate("/project-browser")}
-              style={{ display: 'flex', alignItems: 'center' }}
-            >
-              <svg fill="#000000" width="20" height="20" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
-                <polygon fillRule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41" />
-              </svg>
-              Back
-            </button>
-            <div>
-              {/* Display the team member's name */}
-              <h1 className='text-3xl font-bold'>Team Member Name</h1>
-            </div>
-            <div className='flex items-center'>
-                {/* Display a circle with gradient */}
-                <svg width="50" height="50" viewBox="0 0 60 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="30" cy="30.2" r="29" fill="#ED4068" stroke="#ED4068" strokeWidth="2"/>
-                <path d="M16.6666 43.5334C15.75 43.5334 14.965 43.2067 14.3116 42.5534C13.6583 41.9 13.3322 41.1156 13.3333 40.2V20.2C13.3333 19.2834 13.66 18.4984 14.3133 17.845C14.9666 17.1917 15.7511 16.8656 16.6666 16.8667H26.6666L30 20.2H43.3333C44.25 20.2 45.035 20.5267 45.6883 21.18C46.3416 21.8334 46.6678 22.6178 46.6666 23.5334V29.0334C46.1389 28.8111 45.59 28.665 45.02 28.595C44.45 28.525 43.8878 28.5323 43.3333 28.6167V23.5334H28.625L25.2916 20.2H16.6666V40.2H30.1666L30 40.3667V43.5334H16.6666ZM33.3333 46.8667V41.7417L42.5416 32.575C42.7916 32.325 43.0694 32.1445 43.375 32.0334C43.6805 31.9223 43.9861 31.8667 44.2917 31.8667C44.625 31.8667 44.9444 31.9295 45.25 32.055C45.5555 32.1806 45.8333 32.3678 46.0833 32.6167L47.625 34.1584C47.8472 34.4084 48.0211 34.6861 48.1466 34.9917C48.2722 35.2973 48.3344 35.6028 48.3333 35.9084C48.3333 36.2139 48.2778 36.5267 48.1666 36.8467C48.0555 37.1667 47.875 37.4511 47.625 37.7L38.4583 46.8667H33.3333ZM35.8333 44.3667H37.4167L42.4583 39.2834L41.7083 38.4917L40.9166 37.7417L35.8333 42.7834V44.3667ZM41.7083 38.4917L40.9166 37.7417L42.4583 39.2834L41.7083 38.4917Z" fill="black"/>
-                </svg>
-                <p className='ml-2'># of Years</p>
-            </div>
-=======
 export default function IndividualTeamMember() {
   // Initialize the navigate function from react-router-dom
   const navigate = useNavigate();
@@ -118,7 +89,6 @@ export default function IndividualTeamMember() {
           <div>
             {/* Display the team member's name */}
             <h1 className='text-3xl font-bold'>{member.first_name} {member.last_name}</h1>
->>>>>>> 30061c3afc9fca38e00c5f96186d728f12c5d39a
           </div>
           <div className='flex items-center'>
 

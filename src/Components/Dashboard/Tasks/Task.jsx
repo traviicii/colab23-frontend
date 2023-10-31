@@ -4,8 +4,8 @@ import { addTask, addMeeting, toggleTaskCompletion } from '../../../Actions';
 import TaskItem from './TaskItem';
 import MeetingItem from './MeetingItem';
 import TaskCompleted from './TaskCompleted';
-import TaskModal from './TaskModal';
-import MeetingModal from './MeetingModal'; 
+import TaskModal from './TaskModal'; // Import TaskModal component
+import MeetingModal from './MeetingModal'; // Import MeetingModal component
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
@@ -49,17 +49,6 @@ export default function Task() {
     setIsMeetingModalOpen(false);
   };
 
-<<<<<<< HEAD
-// Function to handle marking a task as completed
-const handleTaskComplete = (taskId, completed) => {
-  // Update the state to reflect the completed task
-  dispatch(toggleTaskCompletion(taskId, completed)); // This updates the Redux store
-};
-
-  
-
-
-=======
   // Function to handle marking a task as completed
   // const handleTaskComplete = async (task) => {
   //   // const updatedTask = { ...task, completed: !task.completed };
@@ -67,7 +56,6 @@ const handleTaskComplete = (taskId, completed) => {
   //   // dispatch(toggleTaskCompletion(task));
   //   await updateTaskCompleted(task)
   // };
->>>>>>> 30061c3afc9fca38e00c5f96186d728f12c5d39a
 
   // Function to save a new meeting
   const saveMeeting = async (newMeeting) => {
@@ -244,14 +232,7 @@ const handleTaskComplete = (taskId, completed) => {
           </svg>
           <h2 className="font-bold text-lg mt-4 mb-8">What have we already accomplished?</h2>
         </div>
-<<<<<<< HEAD
-        {completedTasks.map((completedTask, index) => (
-  <TaskCompleted key={index} task={completedTask} />
-))}
-
-=======
         {showCompletedTasks()}
->>>>>>> 30061c3afc9fca38e00c5f96186d728f12c5d39a
       </div>
 
     </div>

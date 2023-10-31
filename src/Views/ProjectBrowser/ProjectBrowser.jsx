@@ -60,7 +60,6 @@ export default function ProjectBrowser() {
       }
     };
 
-<<<<<<< HEAD
     fetchBrowserData(); 
   }, []);
 
@@ -68,23 +67,10 @@ export default function ProjectBrowser() {
     <div className="flex">
       <div className="w-1/4" style={{ display: 'flex', flexDirection: 'column' }}>
         <ProjectSidebar openModal={toggleModal} />
-        <CreateProject isOpen={isModalOpen} closeModal={toggleModal} />
-=======
-    return (
-      <div className="flex">
-        <div className="w-1/4" style={{ display: 'flex', flexDirection: 'column' }}>
-          <ProjectSidebar openModal={toggleModal} />
-          <CreateProjectModal isOpen={isModalOpen} closeModal={toggleModal} />
-        </div>
-  
-        <div className="w-3/4">
-          <ProjectDisplay />
-        </div>
->>>>>>> 30061c3afc9fca38e00c5f96186d728f12c5d39a
+        <CreateProjectModal isOpen={isModalOpen} closeModal={toggleModal} />
       </div>
 
       <div className="w-3/4">
-        {/* You can use the local component state */}
         <ProjectDisplay projects={projects} users={users} />
       </div>
     </div>

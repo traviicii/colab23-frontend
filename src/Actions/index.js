@@ -204,12 +204,6 @@ export const addMeeting = (meeting) => {
   };
 };
 
-<<<<<<< HEAD
-export const setUserData = (data) => ({
-  type: SET_DATA,
-  payload: data
-})
-//end user login info
 
 
 
@@ -276,6 +270,4 @@ export const clearUsers = (payload) => ({
   type: CLEAR_USERS,
   payload, 
 });
-=======
 
->>>>>>> be0cd65702fe9446c09b1f0792a8e8158482df19

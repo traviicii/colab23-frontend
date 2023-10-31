@@ -40,21 +40,16 @@ export default function SkillsAndTools() {
     // Function to add a new skill
     const [SkillTag, setSkillTag] = useState([]);
     const [inputValue, setInputValue] = useState('');
-<<<<<<< HEAD
     const [showOtherInterests, setShowOtherInterests] = useState(false);
     const [tags, setTags] = useState([]);
     const [inputAdditionalValue, setInputAdditionalValue] = useState('');
 
   
-=======
-
->>>>>>> be0cd65702fe9446c09b1f0792a8e8158482df19
     //Skills you're learning or would like to gain
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
 
-<<<<<<< HEAD
     const handleInputAdditionalChange = (e) => {
       setInputAdditionalValue(e.target.value);
     };
@@ -71,13 +66,6 @@ export default function SkillsAndTools() {
         setSkillTag([...SkillTag, inputValue.trim()]);
         setInputValue('');
       }
-=======
-    const handleInputKeydown = (e) => {
-        if (e.key === 'Enter' && inputValue.trim() !== '') {
-            setTags([...tags, inputValue.trim()]);
-            setInputValue('');
-        }
->>>>>>> be0cd65702fe9446c09b1f0792a8e8158482df19
     };
 
     const handleTagRemove = (tagToRemove) => {
@@ -211,7 +199,6 @@ export default function SkillsAndTools() {
 
                     {/* New skill input and tag display */}
                     <div>
-<<<<<<< HEAD
                     <div className="tag-list inline-block mb-1">
                         {SkillTag.map((tag, index) => (
                         <div key={index} className="tag inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
@@ -222,18 +209,6 @@ export default function SkillsAndTools() {
                     </div>
                     <input type="text" value={inputValue} onChange={handleInputChange}
                         onKeyDown={handleInputKeydown} placeholder="Enter skills..." className="w-full border h-10 rounded-lg pl-2" />
-=======
-                        <div className="tag-list inline-block">
-                            {tags.map((tag, index) => (
-                                <div key={index} className="tag inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
-                                    {tag}
-                                    <button className='ml-2' onClick={() => handleTagRemove(tag)}>X</button>
-                                </div>
-                            ))}
-                        </div>
-                        <input type="text" value={inputValue} onChange={handleInputChange}
-                            onKeyDown={handleInputKeydown} placeholder="Enter skills..." className="w-full border h-8" />
->>>>>>> be0cd65702fe9446c09b1f0792a8e8158482df19
                     </div>
 
                     <div className="flex items-center justify-between mt-6">

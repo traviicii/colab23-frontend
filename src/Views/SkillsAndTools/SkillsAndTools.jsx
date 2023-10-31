@@ -27,7 +27,9 @@ export default function SkillsAndTools() {
 
     // Function to toggle skill selection
     const toggleSkill = (skill, state, stateFunc) => {
-        if (state.includes(skill)) {
+        if (skill === 'Other...') {
+            setShowOtherInterests(true);
+        }else if (state.includes(skill)) {
             dispatch(stateFunc(state.filter(selectedSkill => selectedSkill !== skill)));
         } else {
             dispatch(stateFunc([...state, skill]));
@@ -36,25 +38,45 @@ export default function SkillsAndTools() {
     };
 
     // Function to add a new skill
-    const [tags, setTags] = useState([]);
+    const [SkillTag, setSkillTag] = useState([]);
     const [inputValue, setInputValue] = useState('');
+    const [showOtherInterests, setShowOtherInterests] = useState(false);
+    const [tags, setTags] = useState([]);
+    const [inputAdditionalValue, setInputAdditionalValue] = useState('');
+
   
     //Skills you're learning or would like to gain
     const handleInputChange = (e) => {
       setInputValue(e.target.value);
     };
+
+    const handleInputAdditionalChange = (e) => {
+      setInputAdditionalValue(e.target.value);
+    };
   
+    const handleInputAdditionalKeydown = (e) => {
+      if (e.key === 'Enter' && inputAdditionalValue.trim() !== '') {
+        setTags([...tags, inputAdditionalValue.trim()]);
+        setInputAdditionalValue('');
+      }
+    };
+
     const handleInputKeydown = (e) => {
       if (e.key === 'Enter' && inputValue.trim() !== '') {
-        setTags([...tags, inputValue.trim()]);
+        setSkillTag([...SkillTag, inputValue.trim()]);
         setInputValue('');
       }
     };
   
     const handleTagRemove = (tagToRemove) => {
+        const updatedSkillTag = SkillTag.filter((tag) => tag !== tagToRemove);
+        setSkillTag(updatedSkillTag);
+      };
+
+      const handleAdditionalTagRemove = (tagToRemove) => {
         const updatedTags = tags.filter((tag) => tag !== tagToRemove);
         setTags(updatedTags);
-      };
+    };
 
     const navigate = useNavigate();
     const navigateAboutYou = () => {
@@ -150,14 +172,35 @@ export default function SkillsAndTools() {
 
                     <hr className="border-t-4 border-gray-300 my-6" />
 
+                    {/* New input box for additional skills */}
+                    {showOtherInterests && (
+                    <div>
+                    <h6 className="text-md md:text-lg text-left mt-4">Please enter your other skills.</h6>
+                        <div className="tag-list inline-block mb-1">
+                            {tags.map((tag, index) => (
+                            <div key={index} className="tag inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
+                                {tag}
+                                <button className='ml-2' onClick={() => handleAdditionalTagRemove(tag)}>X</button>
+                            </div>
+                            ))}
+                            </div>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
+                        type="text" value={inputAdditionalValue} onChange={handleInputAdditionalChange}
+                        onKeyDown={handleInputAdditionalKeydown}
+                        placeholder="Other Skills"
+                    />
+                    </div>
+                )}
                     <h6 className="text-md md:text-lg text-left mb-4">
                         2. Are there any skills you are learning or would like to gain?
                     </h6>
 
+
                     {/* New skill input and tag display */}
                     <div>
-                    <div className="tag-list inline-block">
-                        {tags.map((tag, index) => (
+                    <div className="tag-list inline-block mb-1">
+                        {SkillTag.map((tag, index) => (
                         <div key={index} className="tag inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
                             {tag}
                             <button className='ml-2' onClick={() => handleTagRemove(tag)}>X</button>
@@ -165,7 +208,7 @@ export default function SkillsAndTools() {
                         ))}
                     </div>
                     <input type="text" value={inputValue} onChange={handleInputChange}
-                        onKeyDown={handleInputKeydown} placeholder="Enter skills..." className="w-full border h-8" />
+                        onKeyDown={handleInputKeydown} placeholder="Enter skills..." className="w-full border h-10 rounded-lg pl-2" />
                     </div>
 
                     <div className="flex items-center justify-between mt-6">

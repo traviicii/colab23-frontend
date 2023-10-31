@@ -4,8 +4,8 @@ import { addTask, addMeeting, toggleTaskCompletion } from '../../../Actions';
 import TaskItem from './TaskItem';
 import MeetingItem from './MeetingItem';
 import TaskCompleted from './TaskCompleted';
-import TaskModal from './TaskModal'; // Import TaskModal component
-import MeetingModal from './MeetingModal'; // Import MeetingModal component
+import TaskModal from './TaskModal';
+import MeetingModal from './MeetingModal'; 
 
 export default function Task() {
   // State variables for managing modals, completed tasks, and data retrieval
@@ -42,12 +42,13 @@ export default function Task() {
     setIsMeetingModalOpen(false);
   };
 
-  // Function to handle marking a task as completed
-  const handleTaskComplete = (task) => {
-    const updatedTask = { ...task, completed: !task.completed };
-    console.log('Task ID in task.jsx:', task); // Log the task ID
-    dispatch(toggleTaskCompletion(task));
-  };
+// Function to handle marking a task as completed
+const handleTaskComplete = (taskId, completed) => {
+  // Update the state to reflect the completed task
+  dispatch(toggleTaskCompletion(taskId, completed)); // This updates the Redux store
+};
+
+  
 
 
 
@@ -133,8 +134,9 @@ export default function Task() {
           <h2 className="font-bold text-lg mt-4 mb-8">What have we already accomplished?</h2>
         </div>
         {completedTasks.map((completedTask, index) => (
-          <TaskCompleted key={index} task={completedTask} />
-        ))}
+  <TaskCompleted key={index} task={completedTask} />
+))}
+
       </div>
 
     </div>

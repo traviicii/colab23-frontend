@@ -7,6 +7,8 @@ import skillsToolsReducer from './SkillsToolsReducer';
 import { taskReducer } from './TaskReducer';
 import { meetingReducer } from './MeetingReducer';
 import userReducer from './UserReducer';
+import filterReducer from './FilterReducer';
+import projectUserReducer from './ProjectUserReducer';
 
 const rootReducer = combineReducers({
   personalForm: personalFormReducer,
@@ -16,7 +18,9 @@ const rootReducer = combineReducers({
   skillsTools: skillsToolsReducer,
   tasks: taskReducer,
   meetings: meetingReducer,
-  user: userReducer
+  user: userReducer,
+  filter: filterReducer,
+  projectUser: projectUserReducer
 });
 
 export default rootReducer;

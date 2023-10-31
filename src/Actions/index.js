@@ -208,3 +208,69 @@ export const setUserData = (data) => ({
   payload: data
 })
 //end user login info
+
+
+
+// New actions for filtering
+export const SET_MAIN_FILTER = 'SET_MAIN_FILTER';
+export const SET_ROLE = 'SET_ROLE';
+export const SET_STATUS = 'SET_STATUS';
+export const SET_DURATION = 'SET_DURATION';
+export const SET_INTERESTS = 'SET_SELECTED_FIELDS';
+
+export const setMainFilter = (filter) => ({
+  type: SET_MAIN_FILTER,
+  payload: filter,
+});
+
+export const setRole = (role) => ({
+  type: SET_ROLE,
+  payload: role,
+});
+
+export const setStatus = (status) => ({
+  type: SET_STATUS,
+  payload: status,
+});
+
+export const setDuration = (duration) => ({
+  type: SET_DURATION,
+  payload: duration,
+});
+
+
+
+export const setInterests = (interests) => ({
+  type: SET_INTERESTS,
+  payload: interests,
+});
+
+
+
+
+// New actions for adding projects and users from database
+export const ADD_PROJECT = 'ADD_PROJECT';
+export const ADD_USER = 'ADD_USER';
+export const CLEAR_PROJECTS = 'CLEAR_PROJECTS';
+export const CLEAR_USERS = 'CLEAR_USERS';
+
+
+export const addProject = (project) => ({
+  type: ADD_PROJECT,
+  payload: project,
+});
+
+export const addUser = (user) => ({
+  type: ADD_USER,
+  payload: user,
+});
+
+export const clearProjects = (payload) => ({
+  type: CLEAR_PROJECTS,
+  payload,
+});
+
+export const clearUsers = (payload) => ({
+  type: CLEAR_USERS,
+  payload, 
+});

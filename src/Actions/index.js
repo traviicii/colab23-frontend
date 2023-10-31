@@ -162,10 +162,10 @@ export const setUserToken = (token) => ({
   payload: token
 })
 
-export const setData = (data) => ({
+export const setUserData = (data) => ({
   type: SET_DATA,
   payload: data
-});
+})
 //end user login info
 
 
@@ -183,11 +183,12 @@ export const toggleTaskCompletion = (taskId) => {
 export const addTask = (task) => {
   return {
     type: ADD_TASK,
-    payload: {
-      id: uuidv4(), // Generate a unique ID
-      ...task,
-      completed: false, // Initialize the completed property
-    },
+    payload: 
+    // {
+      // id: uuidv4(), // Generate a unique ID
+      task
+      // completed: false, // Initialize the completed property
+    // },
   };
 };
 
@@ -203,6 +204,7 @@ export const addMeeting = (meeting) => {
   };
 };
 
+<<<<<<< HEAD
 export const setUserData = (data) => ({
   type: SET_DATA,
   payload: data
@@ -274,3 +276,6 @@ export const clearUsers = (payload) => ({
   type: CLEAR_USERS,
   payload, 
 });
+=======
+
+>>>>>>> be0cd65702fe9446c09b1f0792a8e8158482df19

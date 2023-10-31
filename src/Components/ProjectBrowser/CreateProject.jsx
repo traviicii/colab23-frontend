@@ -108,8 +108,8 @@ export default function CreateProject( { chosenProject }) {
 
 
             <div className="p-6 space-y-1">
-                <div className="mb-4 mt-10 flex justify-center">
-                    <div className="flex flex-col text-left">
+                <div className="mb-4 flex">
+                    <div className="flex flex-col">
                         <p className="text-gray-700 font-semibold">
                             Let's get some info about your project idea!
                         </p>

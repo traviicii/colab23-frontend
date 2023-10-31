@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function GenerateProject({ setActiveDisplay, chosenProject, setChosenProject }) {
+export default function GenerateProject({ setActiveDisplay, chosenProject, setChosenProject, isOpen }) {
 
     const projectIdeas = [
         { title: "Urban Garden App", prompt: "Design a mobile app for urban garden enthusiasts." },
@@ -100,6 +100,16 @@ export default function GenerateProject({ setActiveDisplay, chosenProject, setCh
     const [reveal, setReveal] = useState(chosenProject ? true : false)
     const [randomProject, setRandomProject] = useState(chosenProject ? chosenProject : getRandomProject());
 
+    // if (isOpen == false) {
+    //     setReveal(false)
+    //     setChosenProject(null)
+    // }
+
+    // useEffect(() => {
+    //     setReveal(false)
+    //     setChosenProject(null)
+    // }, isOpen)
+
     const handleNewIdeaClick = () => {
         setRandomProject(getRandomProject());
     };
@@ -138,11 +148,11 @@ export default function GenerateProject({ setActiveDisplay, chosenProject, setCh
                         <div className="whitespace-normal  text-[32px]">{randomProject.prompt}</div>
                     </div>
 
+                    <div className="w-[668px] font-semibold">Like this idea?</div>
+
                     <div className="w-[668px] h-10 space-x-2 gap-8 flex">
                         <div className="w-72 h-10 px-3.5 py-2 rounded-lg border border-rose-500 justify-center items-center gap-2 flex">
-                            <button onClick={() => {
-                                handleNewIdeaClick() 
-                                setChosenProject(randomProject)}} className="flex justify-center items-center gap-2 text-rose-500 text-base font-semibold">
+                            <button onClick={() => handleNewIdeaClick()} className="flex justify-center items-center gap-2 text-rose-500 text-base font-semibold">
                                 <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12.2667 4.23326C11.7079 3.66944 11.0296 3.23833 10.2819 2.97179C9.5342 2.70524 8.73616 2.61005 7.94672 2.69326C5.50005 2.93993 3.48672 4.92659 3.21339 7.37326C2.84672 10.6066 5.34672 13.3333 8.50005 13.3333C9.50679 13.3333 10.4929 13.0476 11.3437 12.5095C12.1946 11.9714 12.8753 11.2029 13.3067 10.2933C13.5201 9.84659 13.2001 9.33326 12.7067 9.33326C12.4601 9.33326 12.2267 9.46659 12.1201 9.68659C11.733 10.5193 11.071 11.1932 10.2453 11.5951C9.4197 11.997 8.48086 12.1023 7.58672 11.8933C6.10672 11.5666 4.91339 10.3599 4.60005 8.87993C4.46834 8.29477 4.46987 7.68748 4.60452 7.10299C4.73917 6.5185 5.0035 5.97176 5.37796 5.50321C5.75241 5.03466 6.22742 4.65628 6.76783 4.39607C7.30825 4.13586 7.90025 4.00048 8.50005 3.99993C9.60672 3.99993 10.5934 4.45993 11.3134 5.18659L10.3067 6.19326C9.88672 6.61326 10.1801 7.33326 10.7734 7.33326H13.1667C13.5334 7.33326 13.8334 7.03326 13.8334 6.66659V4.27326C13.8334 3.67993 13.1134 3.37993 12.6934 3.79993L12.2667 4.23326Z" fill="#ED4068" />
                                 </svg>

@@ -42,7 +42,7 @@ export default function CreateProject( { chosenProject }) {
         setTeamMembers({ ...teamMembers, [name]: checked });
     };
 
-    const [projectTitle, setProjectTitle] = useState(chosenProject.title || '');
+    const [projectTitle, setProjectTitle] = useState(chosenProject ? chosenProject.title : '');
     const [projectDescription, setProjectDescription] = useState('');
     const [projectDuration, setProjectDuration] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');

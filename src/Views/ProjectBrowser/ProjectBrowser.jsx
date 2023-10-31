@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addProject, addUser, clearProjects, clearUsers } from '../../Actions';
 import ProjectSidebar from '../../Components/ProjectBrowser/ProjectSidebar';
 import ProjectDisplay from '../../Components/ProjectBrowser/ProjectDisplay';
-import CreateProject from '../../Components/ProjectBrowser/CreateProject';
+import CreateProjectModal from '../../Components/ProjectBrowser/CreateProjectModal';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -60,6 +60,7 @@ export default function ProjectBrowser() {
       }
     };
 
+<<<<<<< HEAD
     fetchBrowserData(); 
   }, []);
 
@@ -68,6 +69,18 @@ export default function ProjectBrowser() {
       <div className="w-1/4" style={{ display: 'flex', flexDirection: 'column' }}>
         <ProjectSidebar openModal={toggleModal} />
         <CreateProject isOpen={isModalOpen} closeModal={toggleModal} />
+=======
+    return (
+      <div className="flex">
+        <div className="w-1/4" style={{ display: 'flex', flexDirection: 'column' }}>
+          <ProjectSidebar openModal={toggleModal} />
+          <CreateProjectModal isOpen={isModalOpen} closeModal={toggleModal} />
+        </div>
+  
+        <div className="w-3/4">
+          <ProjectDisplay />
+        </div>
+>>>>>>> 30061c3afc9fca38e00c5f96186d728f12c5d39a
       </div>
 
       <div className="w-3/4">

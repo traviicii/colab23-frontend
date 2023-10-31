@@ -9,7 +9,7 @@ export default function DashboardUnpopulated() {
   const user = useSelector((state) => state.user)
 
   const navigateToBrowser = () => {
-    navigate("/projectbrowser")
+    navigate("/project-browser")
   }
 
   return (

@@ -1,35 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask } from '../../../Actions';
+
+const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function TaskItem({ task, taskId, onComplete }) {
   // State variables for managing menu visibility and task completion
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
+  const tasks = useSelector((state) => state.tasks.tasks);
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+
+  useEffect(() => { }, [tasks])
+
   // Function to toggle the task menu
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-
-  // Function to handle checkbox change and task completion
-  const handleCheckboxChange = () => {
-    console.log('Task ID:', taskId); // Log the task ID
-    if (!isChecked) {
-      setIsChecked(true);
-      if (onComplete) {
-        console.log('Calling onComplete for task ID:', taskId);
-        onComplete(taskId, true); // Log and mark task as complete with taskId
-      }
-    } else {
-      setIsChecked(false);
-      if (onComplete) {
-        console.log('Calling onComplete for task ID:', taskId);
-        onComplete(taskId, false); // Log and mark task as incomplete with taskId
-      }
-    }
-  };
-
-
-
 
   // Reference to the task menu for click outside detection
   const menuRef = useRef(null);
@@ -50,20 +39,65 @@ export default function TaskItem({ task, taskId, onComplete }) {
     };
   }, []);
 
+  const deleteTask = async () => {
+
+    const token = user.data.apitoken
+    const url = BACK_END_URL + `/api/deletetask/${taskId}`
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    const res = await fetch(url, options)
+    const data = await res.json()
+    if (data.status === 'ok') {
+      console.log(data.message)
+      //Updates the task state in order to re-render with updated
+      dispatch(addTask(data.tasks))
+    }
+  }
+
+  const updateTaskCompleted = async () => {
+    const token = user.data.apitoken
+    const url = BACK_END_URL + `/api/updatecompletedtask/${taskId}`
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+
+    try {
+      const res = await fetch(url, options);
+      const data = await res.json();
+      console.log(data)
+      dispatch(addTask(data.tasks))
+    } catch {
+      console.log("Error sending completed task to database.")
+    }
+  }
+
   return (
     <div className="bg-white p-4 rounded-lg shadow-md my-2">
       <div className="flex items-center">
         <input
           type="checkbox"
           className="mr-2"
-          onChange={handleCheckboxChange}
+          onChange={() => {
+            setIsChecked(true)
+            updateTaskCompleted()
+          }
+          }
           checked={isChecked}
-          disabled={isChecked}
+        // disabled={isChecked}
         />
         <h3 className={`font-semibold text-lg text-left ${isChecked ? 'line-through' : ''}`}>
           {task.title}
         </h3>
       </div>
+
+
       <div className="flex items-center mt-2">
         <div className="relative" ref={menuRef}>
           <div
@@ -111,14 +145,14 @@ export default function TaskItem({ task, taskId, onComplete }) {
             <div className="menu-dropdown absolute z-10 mt-2 right-0 w-20 bg-white border border-gray-200 rounded shadow-lg">
               <ul className="p-2">
                 <li className="cursor-pointer hover-bg-gray-100 p-2" onClick={toggleMenu}>
-                  Edit
+                  <button onClick={() => deleteTask()}>Delete</button>
                 </li>
               </ul>
             </div>
           )}
         </div>
         <p className={`ml-2 text-gray-500 text-left ${isChecked ? 'line-through' : ''}`}>
-          Due Date: {task.dueDate}
+          Due Date: {task.duedate}
         </p>
       </div>
       <p className={`text-left ml-7 ${isChecked ? 'line-through' : ''}`}>

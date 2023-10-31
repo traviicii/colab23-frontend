@@ -1,5 +1,6 @@
 import React from 'react'
 import Industries from './Industries'
+import { Link } from 'react-router-dom'
 
 export default function UserCard({ user }) {
 
@@ -11,18 +12,18 @@ export default function UserCard({ user }) {
 
     function randomColor(colors) {
         return colors[Math.floor(Math.random() * colors.length)]
-      }
+    }
 
     return (
         <div className='mx-3 my-3 w-96'>
             <div className="w-full border border-gray-200 rounded-lg shadow-xl" style={{ backgroundColor: '#f9e8c3' }}>
 
                 <div className='flex justify-center'>
-                    <div className="flex justify-center items-center rounded-full drop-shadow-lg w-40 h-40 mt-6 px-3 py-6" style={{backgroundColor: `${randomColor(colors)}`}}>
-                        <a href="#">
+                    <div className="flex justify-center items-center rounded-full drop-shadow-lg w-40 h-40 mt-6 px-3 py-6" style={{ backgroundColor: `${randomColor(colors)}` }}>
+                        <Link to={`/individualteammember/${user.id}`}>
                             <p className='text-bold text-5xl tracking-tight'>{user.first_name.charAt(0)} {user.last_name.charAt(0)}</p>
                             {/* <img className="w-1/2 h-1/2 mt-6" src="https://picsum.photos/150/100" alt="" /> */}
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -30,9 +31,12 @@ export default function UserCard({ user }) {
                 <div className="py-6 px-4">
 
                     {/* Name */}
-                    <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">{user.first_name} {user.last_name}</h5>
-                    </a>
+                    <div className='flex flex-col items-center'>
+                        <p className='mr-2'>User</p>
+                        <Link to={`/individualteammember/${user.id}`}>
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">{user.first_name} {user.last_name}</h5>
+                        </Link>
+                    </div>
 
                     {/* Location */}
                     <div className='flex'>

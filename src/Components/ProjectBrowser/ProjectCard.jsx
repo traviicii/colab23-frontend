@@ -1,5 +1,6 @@
 import React from 'react'
 import Industries from './Industries'
+import { Link } from 'react-router-dom'
 
 export default function ProjectCard({ project }) {
 
@@ -10,17 +11,17 @@ export default function ProjectCard({ project }) {
     return (
         <div className='mx-3 my-3 w-96'>
             <div className="w-full bg-white border border-gray-200 rounded-lg shadow-xl" style={{ backgroundColor: '#f8e1e6' }}>
-                <a href="#">
+            <Link to={`/project-profile/${project.id}`}>
                     <img className="rounded-t-lg w-full" src="https://picsum.photos/400/150" alt="" />
-                </a>
+                </Link>
 
                 {/* Project Information */}
                 <div className="py-6 px-4">
-
+                
                     {/* Name */}
                     <div className='flex flex-col items-center'>
                         <p className='mr-2'>Project</p>
-                        <a href="#" className='mb-4 text-2xl font-bold tracking-tight text-gray-900'><p>{project.name}</p></a>
+                        <Link to={`/project-profile/${project.id}`} className='mb-4 text-2xl font-bold tracking-tight text-gray-900'><p>{project.name}</p></Link>
                     </div>
 
                     {/* Industries */}

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './PersonalDetails.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFirstName, setLastName, setEmail, setPassword, setConfirmPassword } from '../../Actions';
+import { setFirstName, setLastName, setEmail, setLinkedIn, setPassword, setConfirmPassword } from '../../Actions';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
@@ -47,6 +47,9 @@ export default function PersonalDetails() {
   const navigateToProfessionalBaground = () => {
         navigate('/professional-background');
     }
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
     // Handle continue button click
     const handleContinue = () => {
@@ -77,6 +80,11 @@ export default function PersonalDetails() {
         dispatch(setEmail(e.target.value));
     };
 
+    // Handle input changes for email
+    const handleLinkedInChange = (e) => {
+        dispatch(setLinkedIn(e.target.value));
+    };
+
     // Handle input changes for password
     const handlePasswordChange = (e) => {
         dispatch(setPassword(e.target.value));
@@ -86,6 +94,11 @@ export default function PersonalDetails() {
     const handleConfirmPasswordChange = (e) => {
         dispatch(setConfirmPassword(e.target.value));
     };
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+    
 
 
 
@@ -102,15 +115,16 @@ export default function PersonalDetails() {
           <p className="text-xl md:text-2xl text-center text-500 mb-8">
             We're excited for your new journey!
           </p>
-          <h2 className="text-md md:text-lg text-center font-bold mb-6">
+          <p className="text-md md:text-lg text-center font-semibold">
             Let's start by getting some basics
-          </h2>
+          </p>
+          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
 
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="firstName">
               What is your first name?
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4"
+            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="firstName"
               type="text"
               placeholder="Your First Name"  
@@ -121,7 +135,7 @@ export default function PersonalDetails() {
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="lastName">
               What is your last name?
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4"
+            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="lastName"
               type="text"
               placeholder="Your Last Name"
@@ -133,7 +147,7 @@ export default function PersonalDetails() {
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="email">
               Enter your email address
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4"
+            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="email"
               type="email"
               placeholder="email@domain.com"
@@ -143,10 +157,22 @@ export default function PersonalDetails() {
           </div>
 
           <div className="mb-2">
+            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="linkedin">
+              Enter your LinkedIn profile
+            </label>
+            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
+              id="linkedin"
+              type="text"
+              placeholder="LinkedIn URL"
+              value={formData.linkedin ? formData.linkedin : ''} 
+              onChange={handleLinkedInChange}/>
+          </div>
+
+          <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="password">
               Select a password (8 characters minimum)
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4"
+            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="password"
               type="password"
               placeholder="Password"
@@ -158,7 +184,7 @@ export default function PersonalDetails() {
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="confirmPassword">
               Re-type your password
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-3"
+            <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="confirmPassword"
               type="password"
               placeholder="Confirm Password"

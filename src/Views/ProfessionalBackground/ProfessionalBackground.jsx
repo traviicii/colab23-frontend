@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setPreviousRole, setYearsOfExperience, setMentorshipStatus, setProductRole, setProductExperience } from '../../Actions';
+import { setPreviousRole, setMentorshipStatus, setProductRole, setProductExperience } from '../../Actions';
 import './ProfessionalBackground.css';
 
 
@@ -18,6 +18,9 @@ export default function ProfessionalBackground() {
     const navigateToSkillsAndTools = () => {
       navigate('/skills-and-tools');
   }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
     // Handle dropdown selection change event
     const handleDropdownChange = (event) => {
@@ -31,25 +34,32 @@ export default function ProfessionalBackground() {
             setShowCheckbox(false);
         }
     };
+    const [showArrow, setShowArrow] = useState(true);
+    const [showRoleArrow, setShowRoleArrow] = useState(true);
 
-    // Handle years of experience dropdown change
-    const handleYearsOfExperience = (e) => {
-        const selectedIndex = e.target.selectedIndex;
-        const selectedOptionLabel = e.target.options[selectedIndex].label;
-        dispatch(setYearsOfExperience(selectedOptionLabel));
-    };
+    const handleYearsSelectChange = (e) => {
+      const selectedValue = e.target.value;
+      setShowArrow(selectedValue === 'initial');
+      handleOnChange(e);
+    }
+
+    const handleRoleSelectChange = (e) => {
+      const selectedRoleValue = e.target.value;
+      setShowRoleArrow(selectedRoleValue === 'initial');
+      handleProductRole(e);
+    }
+
 
     // Handle both dropdown and years of experience changes together
     const handleOnChange = (e) => {
         handleDropdownChange(e);
-        handleYearsOfExperience(e);
+        handleProductExperience(e);
     }
   
     // Handle continue button click
     const handleContinue = () => {
         // Dispatch Redux actions to update the store with professional background data
         dispatch(setPreviousRole(professionalFormData.previousRole));
-        dispatch(setYearsOfExperience(professionalFormData.yearsOfExperience));
         dispatch(setMentorshipStatus(professionalFormData.isMentor));
         dispatch(setProductRole(professionalFormData.productRole));
         dispatch(setProductExperience(professionalFormData.productExperience));
@@ -91,7 +101,7 @@ export default function ProfessionalBackground() {
         <div
           className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10 bg-white">
           <div className="mb-4 flex items-center">
-          <button className="hover:underline text-lg mr-4" onClick={() => navigate("/professional-background")} style={{ display: 'flex', alignItems: 'center' }}>
+          <button className="hover:underline text-lg mr-4" onClick={() => navigate("/personal-details")} style={{ display: 'flex', alignItems: 'center' }}>
               <svg fill="#000000" width="20" height="20" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
                   <polygon fillRule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41" />
               </svg>
@@ -105,42 +115,82 @@ export default function ProfessionalBackground() {
           <p className="text-xl md:text-2xl text-center text-500 mb-8 mt-10">
             Your Professional Background
           </p>
-          <h2 className="text-md md:text-lg text-center font-bold mb-12">
+          <p className="text-md md:text-lg font-semibold text-center">
             Let's start by getting some info about your work experience
-          </h2>
+          </p>
+          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
 
           <div className="mb-2">
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="previousRole">
-              What was your previous professional role/title?
+            <label className="block text-gray-700 text-sm font-bold mb-1">
+              If you are currently switching careers, what is your previous/current role?
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-              id="previousRole"
+              className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none border-2 border-black mb-6"
               type="text"
               placeholder="Your Previous Role/Title"
               value={professionalFormData.previousRole ? professionalFormData.previousRole : ''} 
               onChange={handlePreviousRole}/>
           </div>
 
+          <div className="border-t-2 border-black my-4 mb-10"></div>
+
+
           <div className="mb-2">
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="question1">
-              How many total years of experience do you have?
+            <label className="block text-gray-700 text-sm font-bold mb-1">
+              How much experience do you have in the product role you selected above?
             </label>
             <div className="relative">
-              <select
-                className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-                id="question1"
-                onChange={handleOnChange}
-                // value={professionalFormData.yearsOfExperience}
-                value={selectedOption}
-              >
-                <option value="" disabled>Select # of Years</option>
-                <option value="option1">0-2 years</option>
-                <option value="option2">2-5 years</option>
-                <option value="option3">5-10 years</option>
-                <option value="option4">10+ years</option>
-              </select>
-            </div>
+      <div className="custom-select-wrapper">
+        <select
+          className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6 border-2 border-black"
+          defaultValue="initial"
+          onChange={handleRoleSelectChange} >
+                <option value="initial" disabled>Select Product Manager, Designer, Developer</option>
+                <option value="option2">Product Manager</option>
+                <option value="option3">Designer</option>
+                <option value="option4">Developer</option>
+        </select>
+      </div>
+      {showRoleArrow && (
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 pb-4 text-gray-700">
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g id="Arrow/down">
+          <path id="Vector" d="M2.16659 7.45524L3.64575 5.97607L10.4999 12.8302L17.3541 5.97607L18.8333 7.45524L10.4999 15.7886L2.16659 7.45524Z" fill="black"/>
+          </g>
+          </svg>
+        </div>
+      )}
+    </div>
+          </div>
+
+
+          <div className="mb-2">
+            <label className="block text-gray-700 text-sm font-bold mb-1">
+              How much experience do you have in the product role you selected above?
+            </label>
+            <div className="relative">
+      <div className="custom-select-wrapper">
+        <select
+          className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6 border-2 border-black"
+          defaultValue="initial"
+          onChange={handleYearsSelectChange}>
+          <option value="initial" disabled>Select # of Years</option>
+          <option value="option1">0-2 years</option>
+          <option value="option2">2-5 years</option>
+          <option value="option3">5-10 years</option>
+          <option value="option4">10+ years</option>
+        </select>
+      </div>
+      {showArrow && (
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 pb-4 text-gray-700">
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g id="Arrow/down">
+          <path id="Vector" d="M2.16659 7.45524L3.64575 5.97607L10.4999 12.8302L17.3541 5.97607L18.8333 7.45524L10.4999 15.7886L2.16659 7.45524Z" fill="black"/>
+          </g>
+          </svg>
+        </div>
+      )}
+    </div>
             {showCheckbox && (
               <p className="text-sm text-gray-500">You qualify to be a mentor! Would you like to be a mentor to other colleagues with less experience?</p>
             )}
@@ -160,46 +210,6 @@ export default function ProfessionalBackground() {
               </label>
             </div>
           )}
-
-          <div className="mb-2">
-            <label className="block text-gray-700 text-sm font-bold mt-2 mb-1" htmlFor="question2">
-              Which of the following describes your role on a product team?
-            </label>
-            <div className="relative">
-              <select
-                className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-                id="question2"
-                defaultValue="option1"
-                onChange={handleProductRole} 
-              >
-                <option value="option1" disabled>Select Product Manager, Designer, Developer</option>
-                <option value="option2">Product Manager</option>
-                <option value="option3">Designer</option>
-                <option value="option4">Developer</option>
-                <option value="option5">Other</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="mb-2">
-            <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="question3">
-              How much experience do you have in the product role you selected above?
-            </label>
-            <div className="relative">
-              <select
-                className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-                id="question3"
-                defaultValue="option1"
-                onChange={handleProductExperience}
-              >
-                <option value="option1" disabled>Select # of Years</option>
-                <option value="option2">0-2 years</option>
-                <option value="option3">2-5 years</option>
-                <option value="option4">5-10 years</option>
-                <option value="option5">10+ years</option>
-              </select>
-            </div>
-          </div>
 
           <div className="flex items-center justify-between mt-6">
             <button

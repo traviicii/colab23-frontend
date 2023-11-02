@@ -1,9 +1,10 @@
-import { SET_DESIGN_SKILLS, SET_DEVELOPER_SKILLS, SET_MANAGEMENT_SKILLS, SET_WANTED_SKILLS } from '../Actions';
+import { SET_DESIGN_SKILLS, SET_DEVELOPER_SKILLS, SET_MANAGEMENT_SKILLS, SET_OTHER_SKILLS, SET_WANTED_SKILLS } from '../Actions';
 
 const initialState = {
     designSkills: [],
     developerSkills: [],
     managementSkills: [],
+    otherSkills: [],
     wantedSkills: []
 };
 
@@ -15,6 +16,8 @@ const skillsToolsReducer = (state = initialState, action) => {
         return { ...state, developerSkills: action.payload };
       case SET_MANAGEMENT_SKILLS:
         return { ...state, managementSkills: action.payload };
+      case SET_OTHER_SKILLS:
+        return { ...state, otherSkills: action.payload}
       case SET_WANTED_SKILLS:
         return { ...state, wantedSkills: action.payload}
       default:

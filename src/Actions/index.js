@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const SET_FIRST_NAME = 'SET_FIRST_NAME';
 export const SET_LAST_NAME = 'SET_LAST_NAME';
 export const SET_EMAIL = 'SET_EMAIL';
+export const SET_LINKEDIN = 'SET_LINKEDIN';
 export const SET_PASSWORD = 'SET_PASSWORD';
 export const SET_CONFIRM_PASSWORD = 'SET_CONFIRM_PASSWORD';
 
@@ -20,6 +21,11 @@ export const setLastName = (lastName) => ({
 export const setEmail = (email) => ({
   type: SET_EMAIL,
   payload: email,
+});
+
+export const setLinkedIn = (linkedin) => ({
+  type: SET_LINKEDIN,
+  payload: linkedin,
 });
 
 export const setPassword = (password) => ({
@@ -46,11 +52,6 @@ export const setPreviousRole = (previousRole) => ({
   payload: previousRole,
 });
 
-export const setYearsOfExperience = (yearsOfExperience) => ({
-  type: SET_YEARS_OF_EXPERIENCE,
-  payload: yearsOfExperience,
-});
-
 export const setMentorshipStatus = (isMentor) => ({
   type: SET_MENTORSHIP_STATUS,
   payload: isMentor,
@@ -71,6 +72,7 @@ export const setProductExperience = (productExperience) => ({
 export const SET_DESIGN_SKILLS = "SET_DESIGN_SKILLS"
 export const SET_DEVELOPER_SKILLS = "SET_DEVELOPER_SKILLS"
 export const SET_MANAGEMENT_SKILLS = "SET_MANAGEMENT_SKILLS"
+export const SET_OTHER_SKILLS = "SET_OTHER_SKILLS"
 export const SET_WANTED_SKILLS = "SET_WANTED_SKILLS"
 
 export const setDesignSkills = (designSkills) => ({
@@ -88,10 +90,16 @@ export const setManagementSkills = (managementSkills) => ({
   payload: managementSkills,
 });
 
+export const setOtherSkills = (otherSkills) => ({
+  type: SET_OTHER_SKILLS,
+  payload: otherSkills,
+})
+
 export const setWantedSkills = (wantedSkills) => ({
   type: SET_WANTED_SKILLS,
   payload: wantedSkills,
 })
+
 //End Skills and Tools
 
 // New actions for about you form

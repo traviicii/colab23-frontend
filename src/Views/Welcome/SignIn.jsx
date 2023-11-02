@@ -99,7 +99,7 @@ export default function SignIn() {
         <div className='h-screen flex justify-center items-center'>
 
             {/* This main container div is centered */}
-            <div className='border-box shadow-2xl shadow-slate-600 flex rounded-3xl h-3/5 w-3/4'>
+            <div className='border-box shadow-2xl shadow-slate-600 flex rounded-3xl h-2/3 w-2/3'>
 
                 {/* left side */}
                 <div className='flex flex-col justify-center items-center rounded-l-3xl bg-neutral-100 h-full w-3/5 text-white' style={{ backgroundColor: '#1f1d34' }}>
@@ -122,7 +122,7 @@ export default function SignIn() {
 
                                 <input type="password" required="required" placeholder="Password" name='password' className="w-full border border-black rounded-md px-3 py-1 my-2" />
 
-                                <p className='text-xs underline'>Forgot password?</p>
+                                <p className='text-xs underline' style={{ color: '#ed4168' }}>Forgot password?</p>
 
                                 <button type='submit' className='mt-3 py-1 px-10 border rounded w-full bg-zinc-400 text-white' style={{ backgroundColor: '#ed4168' }}>Sign In</button>
 
@@ -160,9 +160,9 @@ export default function SignIn() {
                     </div>
 
                     <div className='flex flex-col items-center mt-2'>
-                        <p className='text-sm mt-2'>Don't have an account yet?</p>
+                        <p className='text-sm mt-4'>Don't have an account yet?</p>
                         <p className='text-sm font-bold'>
-                            <button onClick={() => navigate("/personal-details")} className='underline text-rose-500'>Sign up now!</button>
+                            <button onClick={() => navigate("/personal-details")} className='underline' style={{ color: '#ed4168' }}>Sign up now!</button>
                             {/* <a href='/personal-details' className='underline'>Sign up now!</a> */}
                         </p>
                     </div>

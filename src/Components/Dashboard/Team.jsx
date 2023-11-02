@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import TeamMember from './TeamMember';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserProjectTeam } from '../../Actions';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function Team() {
 
-  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
 
-  const [team, setTeam] = useState([])
+  const user = useSelector((state) => state.user)
+  const team = useSelector((state) => state.user.project_team)
+
+  // const [team, setTeam] = useState([])
 
   useEffect(()=> {getTeam()}, [])
   
@@ -27,7 +31,10 @@ export default function Team() {
       const data = await res.json();
       if (data.status === "ok") {
         console.log(data)
-        setTeam(data.members)
+        // setTeam(data.members)
+        if (team != data.members){
+          dispatch(setUserProjectTeam(data.members))
+        }
       }
       else {
         console.log(data.message)

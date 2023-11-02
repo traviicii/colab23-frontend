@@ -142,14 +142,16 @@ export const setAvailability = (availability) => ({
 });
 
 // User Specific Information gained on ligging in
-export const SET_ID = 'SET_ID';
+export const SET_PROJECT_TEAM = 'SET_PROJECT_TEAM';
 export const SET_PROJECT = 'SET_PROJECT';
-export const SET_TOKEN = 'SET_TOKEN';
+export const SET_PROJECT_RESOURCES = 'SET_PROJECT_RESOURCES';
+export const SET_PROJECT_LINKS = "SET_PROJECT_LINKS";
+export const SET_PROJECT_INSPIRATION = "SET_PROJECT_INSPIRATION"
 export const SET_DATA = 'SET_DATA';
 
-export const setUserID = (id) => ({
-  type: SET_ID,
-  payload: id
+export const setUserProjectTeam = (team) => ({
+  type: SET_PROJECT_TEAM,
+  payload: team
 })
 
 export const setUserProject = (project) => ({
@@ -157,14 +159,24 @@ export const setUserProject = (project) => ({
   payload: project
 })
 
-export const setUserToken = (token) => ({
-  type: SET_TOKEN,
-  payload: token
+export const setUserProjectResources = (resources) => ({
+  type: SET_PROJECT_RESOURCES,
+  payload: resources
 })
 
 export const setUserData = (data) => ({
   type: SET_DATA,
   payload: data
+})
+
+export const setUserProjectLinks = (links) => ({
+  type: SET_PROJECT_LINKS,
+  payload: links
+})
+
+export const setUserProjectInspiration = (inspirations) => ({
+  type: SET_PROJECT_INSPIRATION,
+  payload: inspirations
 })
 //end user login info
 

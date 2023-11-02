@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Links from './Links';
 import NewLinkModal from './NewLinkModal';
+import { setUserProjectInspiration, setUserProjectLinks, setUserProjectResources } from '../../Actions';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
@@ -9,12 +10,18 @@ export default function Resources() {
 
   useEffect(() => { getResources() }, [])
 
+  const dispatch = useDispatch()
+  const links = useSelector((state) => state.user.project_links)
+  const resources = useSelector((state) => state.user.project_resources)
+  const inspiration = useSelector((state) => state.user.project_inspiration)
+
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalType, setModalType] = useState('')
 
-  const [links, setLinks] = useState([])
-  const [resources, setResources] = useState([])
-  const [inspiration, setInspiration] = useState([])
+  // const [links, setLinks] = useState([])
+  // const [resources, setResources] = useState([])
+  // const [inspiration, setInspiration] = useState([])
+
 
   const user = useSelector((state) => state.user)
 
@@ -34,13 +41,16 @@ export default function Resources() {
       if (data.status === "ok") {
         console.log(data)
         if (data.links) {
-          setLinks(data.links)
+          // setLinks(data.links)
+          dispatch(setUserProjectLinks(data.links))
         }
         if (data.resources) {
-          setResources(data.resources)
+          // setResources(data.resources)
+          dispatch(setUserProjectResources(data.resources))
         }
         if (data.inspiration) {
-          setInspiration(data.inspiration)
+          // setInspiration(data.inspiration)
+          dispatch(setUserProjectInspiration(data.inspiration))
         }
       }
       else {

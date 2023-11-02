@@ -2,7 +2,7 @@ import React from 'react'
 import { GoogleAuthProvider, GithubAuthProvider, getAuth, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserID, setUserProject, setUserToken, setUserData, addToast } from '../../Actions';
+import { setUserProject, setUserData, addToast, setUserProjectTeam, setUserProjectResources, setUserProjectLinks, setUserProjectInspiration } from '../../Actions';
 import userReducer from '../../Reducers/UserReducer';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
@@ -38,6 +38,10 @@ export default function SignIn() {
                 
                 if (data.project){
                     dispatch(setUserProject(data.project))
+                    dispatch(setUserProjectTeam(data.project_team))
+                    dispatch(setUserProjectResources(data.project_resources))
+                    dispatch(setUserProjectLinks(data.project_links))
+                    dispatch(setUserProjectInspiration(data.project_inspiration))
                     navigate('/dashboard')
                 } else{
                     navigate('/dashboard-unpopulated')

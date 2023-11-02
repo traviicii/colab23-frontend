@@ -7,6 +7,7 @@ import skillsToolsReducer from './SkillsToolsReducer';
 import { taskReducer } from './TaskReducer';
 import { meetingReducer } from './MeetingReducer';
 import userReducer from './UserReducer';
+import toastsReducer from './ToastNotifications';
 
 const rootReducer = combineReducers({
   personalForm: personalFormReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   skillsTools: skillsToolsReducer,
   tasks: taskReducer,
   meetings: meetingReducer,
-  user: userReducer
+  user: userReducer,
+  toasts: toastsReducer
 });
 
 export default rootReducer;

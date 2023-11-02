@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask, addMeeting, toggleTaskCompletion } from '../../../Actions';
+import { addTask, addMeeting, toggleTaskCompletion, addToast } from '../../../Actions';
 import TaskItem from './TaskItem';
 import MeetingItem from './MeetingItem';
 import TaskCompleted from './TaskCompleted';
@@ -111,6 +111,7 @@ export default function Task() {
       const res = await fetch(url, options);
       const data = await res.json();
       console.log(data)
+      dispatch(addToast(data.message, 'success'))
     } catch {
       console.log("Saving meeting to database didnt work?")
     }
@@ -153,13 +154,10 @@ export default function Task() {
   const showTasks = () => {
     return tasks?.filter(incomplete).map((task) => (<TaskItem key={task.id} task={task} taskId={task.id} />))
   }
-  // onComplete={handleTaskComplete}
 
   const showCompletedTasks = () => {
     return tasks?.filter(complete).map((task) => (<TaskCompleted key={task.id} task={task} taskId={task.id} />))
   }
-  // onComplete={handleTaskComplete}
-  ////////////
   
   
   return (
@@ -174,7 +172,7 @@ export default function Task() {
               <path id="Vector_2" d="M7.66669 18.3334C5.93208 19.3127 4.52945 20.7877 3.63862 22.5693C2.74779 24.351 2.40935 26.3581 2.6667 28.3334C4.64196 28.5907 6.64907 28.2523 8.43073 27.3614C10.2124 26.4706 11.6874 25.068 12.6667 23.3334M19.3334 10C19.3334 10.4421 19.509 10.866 19.8215 11.1786C20.1341 11.4911 20.558 11.6667 21.0000 11.6667C21.4421 11.6667 21.866 11.4911 22.1785 11.1786C22.4911 10.866 22.6667 10.4421 22.6667 10C22.6667 9.55801 22.4911 9.13409 22.1785 8.82153C21.866 8.50897 21.4421 8.33337 21.0000 8.33337C20.558 8.33337 20.1341 8.50897 19.8215 8.82153C19.509 9.13409 19.3334 9.55801 19.3334 10Z" stroke="#1F1D34" strokeWidth="3.33333" strokeLinecap="round" strokeLinejoin="round" />
             </g>
           </svg>
-          <h2 className="font-bold text-lg mt-4 mb-2">What do we need to get done this week?</h2>
+          <h2 className="font-bold text-lg mt-4 mb-2">What are our goals this week?</h2>
         </div>
 
         <button

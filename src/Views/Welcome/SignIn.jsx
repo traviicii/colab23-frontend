@@ -106,7 +106,7 @@ export default function SignIn() {
                 </div>
 
                 {/* right side */}
-                <div className='flex justify-center items-center flex-col h-full w-2/5 bg-white' style={{ borderRadius: '0 20px 20px 0' }}>
+                <div className='flex justify-center items-center flex-col h-full w-2/5 bg-white px-8 py-8' style={{ borderRadius: '0 20px 20px 0' }}>
 
                     <div className='w-4/5 flex justify-center items-center flex-col'>
                         <p className='font-bold text-xl text-center w-5/6 my-2'>Sign in to work with your team</p>
@@ -157,7 +157,7 @@ export default function SignIn() {
                     <div className='flex flex-col items-center mt-2'>
                         <p className='text-sm mt-2'>Don't have an account yet?</p>
                         <p className='text-sm font-bold'>
-                            <button onClick={() => navigate("/personal-details")} className='underline'>Sign up now!</button>
+                            <button onClick={() => navigate("/personal-details")} className='underline text-rose-500'>Sign up now!</button>
                             {/* <a href='/personal-details' className='underline'>Sign up now!</a> */}
                         </p>
                     </div>

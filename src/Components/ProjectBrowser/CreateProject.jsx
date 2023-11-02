@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setUserData, setUserProject } from '../../Actions'
+import { addToast, setUserData, setUserProject } from '../../Actions'
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
@@ -66,7 +66,7 @@ export default function CreateProject( { chosenProject }) {
 
     const createNewProject = async () => {
         const token = user.data.apitoken
-        const url = BACK_END_URL + '/api/creatproject'
+        const url = BACK_END_URL + '/api/createproject'
         const options = {
             method: "POST",
             headers: {
@@ -96,6 +96,7 @@ export default function CreateProject( { chosenProject }) {
             }
             else {
                 console.log(data)
+                dispatch(addToast(data.message, 'error'))
             }
         }
         catch {

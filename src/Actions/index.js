@@ -205,8 +205,6 @@ export const addMeeting = (meeting) => {
 };
 
 
-
-
 // New actions for filtering
 export const SET_MAIN_FILTER = 'SET_MAIN_FILTER';
 export const SET_ROLE = 'SET_ROLE';
@@ -242,8 +240,6 @@ export const setInterests = (interests) => ({
 });
 
 
-
-
 // New actions for adding projects and users from database
 export const ADD_PROJECT = 'ADD_PROJECT';
 export const ADD_USER = 'ADD_USER';
@@ -271,3 +267,17 @@ export const clearUsers = (payload) => ({
   payload, 
 });
 
+
+// Toasts/Popup notifications
+export const ADD_TOAST = 'ADD_TOAST';
+export const REMOVE_TOAST = 'REMOVE_TOAST';
+
+export const addToast = (message, type = 'info') => ({
+  type: ADD_TOAST,
+  payload: { message, type }
+});
+
+export const removeToast = (id) => ({
+  type: REMOVE_TOAST,
+  payload: id
+});

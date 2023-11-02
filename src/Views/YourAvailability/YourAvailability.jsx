@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocation, setTimezone, setHoursPerWeek, setAvailability } from '../../Actions';
@@ -56,15 +56,19 @@ export default function YourAvailability() {
         dispatch(setAvailability(Object.keys(localAvailability).filter((key) => localAvailability[key])));
 
         // Continue to the next step
-        navigate('/welcome-done');
+        navigate('/review-details');
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
 
     return (
         <div className="professional-background-container" style={{ backgroundColor: '#bcbbc2' }}>
             <div className="flex items-center justify-center">
                 <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10 bg-white">
                     <div className="mb-4 flex items-center">
-                    <button className="hover:underline text-lg mr-4" onClick={() => navigate("/professional-background")} style={{ display: 'flex', alignItems: 'center' }}>
+                    <button className="hover:underline text-lg mr-4" onClick={() => navigate("/about-you")} style={{ display: 'flex', alignItems: 'center' }}>
                     <svg fill="#000000" width="20" height="20" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
                         <polygon fillRule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41" />
                     </svg>
@@ -79,9 +83,11 @@ export default function YourAvailability() {
                         Your Availability
                     </p>
 
-                    <h2 className="text-md md:text-lg text-center font-bold mb-12">
+                    <p className="text-md md:text-lg text-center font-semibold">
                         Tell your teammates about your schedule constraints.
-                    </h2>
+                    </p>
+
+                    <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
 
                     <h6 className="text-md md:text-lg text-left mb-4">
                         1. Where are you located?

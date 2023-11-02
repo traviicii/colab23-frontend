@@ -18,6 +18,7 @@ import ProjectBrowser from './Views/ProjectBrowser/ProjectBrowser';
 import ProjectProfile from './Views/ProjectProfile/ProjectProfile';
 import IndividualTeamMember from './Views/IndividualTeamMember/individualTeamMember';
 import UserProfile from './Views/UserProfile/UserProfile';
+import ReviewDetails from './Views/ReviewDetails/ReviewDetails';
 import './globalCSS.css';
 
 
@@ -62,6 +63,7 @@ export default function App() {
         <Route path='/skills-and-tools' element={<SkillsAndTools/>} />
         <Route path='/about-you' element={<AboutYou />} />
         <Route path='/your-availability' element={<YourAvailability />} />
+        <Route path='/review-details' element={<ReviewDetails />} />
         <Route path='/welcome-done' element={<WelcomeDone />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard-unpopulated' element={<DashboardUnpopulated />} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setAdjectives, setDescription, setFieldsOfInterest } from '../../Actions';
@@ -11,6 +11,11 @@ export default function AboutYou() {
     'API', 'Artificial Intel', 'Big Data', 'DevOps', 'Deep Tech',
     'Cloud Computing', 'Agriculture', 'Environmental', 'Mental Health',
     'Home Improvement', 'Community', 'Entertainment', 'Productivity', 'Art / Design', 'Other...'
+  ];
+
+  const adjectivesList = [
+    'Organized', 'Creative', 'Innovative', 'Introverted', 'Enthusiastic', 'Driven', 'Social',
+    'Adaptable', 'Direct'
   ];
   
   const dispatch = useDispatch();
@@ -52,14 +57,14 @@ export default function AboutYou() {
   };
 
   const handleAdjectiveSelect = (selectedAdjective) => {
-    if (adjectivesState.length < 3 && !adjectivesState.includes(selectedAdjective)) {
+    if (adjectivesState.includes(selectedAdjective)) {
+      // Deselect the adjective
+      const updatedAdjectives = adjectivesState.filter((adj) => adj !== selectedAdjective);
+      setAdjectivesState(updatedAdjectives);
+    } else if (adjectivesState.length < 3) {
+      // Select the adjective if not already selected and there is space for more
       setAdjectivesState([...adjectivesState, selectedAdjective]);
     }
-  };
-
-  const removeAdjective = (adjective) => {
-    const updatedAdjectives = adjectivesState.filter(item => item !== adjective);
-    setAdjectivesState(updatedAdjectives);
   };
 
   const handleDescriptionChange = (event) => {
@@ -72,6 +77,10 @@ export default function AboutYou() {
     dispatch(setDescription(descriptionState));
     navigate('/your-availability');
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="professional-background-container" style={{ backgroundColor: '#bcbbc2' }}>
@@ -90,13 +99,19 @@ export default function AboutYou() {
             </div>
           </div>
           <p className="text-xl md:text-2xl text-center text-500 mb-8 mt-10">About You</p>
-          <h6 className="text-md md:text-lg text-left mb-4">1. What fields are you interested in? (Select up to 5)</h6>
+          <p className="text-md md:text-lg text-center font-semibold">
+            Tell your teammates a little bit more about yourself!
+          </p>
+          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
+
+          <h6 className="text-sm md:text-md text-left mb-2 font-bold">Select the fields you are most interested in for potential teammates to learn more about your interests.</h6>
+
+          <p className='mb-6 text-gray-500'>Select up to 5</p>
           <div className="grid grid-cols-3 gap-4">
             {fieldsOfInterest.map((field, index) => (
-              <div key={index}
-                style={{
+              <div key={index} style={{
                   backgroundColor:
-                    selectedFields.includes(field) || (field === 'Other...' && showOtherInterests) ? '#ecafbd' : 'white'
+                    selectedFields.includes(field) ? '#ecafbd' : 'white'
                 }}
                 className="rounded-lg p-2 text-center cursor-pointer border border-gray-300"
                 onClick={() => toggleField(field)}>
@@ -127,33 +142,26 @@ export default function AboutYou() {
           )}
 
           <hr className="border-t-4 border-gray-300 my-6" />
-          <h6 className="text-md md:text-lg text-left mb-4">2. Share some adjectives about yourself!</h6>
-          <p className="text-sm text-gray-500 mb-2">Select up to 3 words you would use to describe yourself</p>
+          <h6 className="text-sm md:text-md text-left mb-2 font-bold">Select 3 adjectives you identify with for potential teammates to understand more about you.</h6>
           <div className="mb-2">
-            <div>
-              {adjectivesState.map((adjective, index) => (
-                <span key={index} className="inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-sm mr-2">
-                  {adjective}
-                  <button className="ml-2" onClick={() => removeAdjective(adjective)}>X</button>
-                </span>
-              ))}
-            </div>
+          <div className="grid grid-cols-3 gap-4">
+            {adjectivesList.map((adjective, index) => (
+              <div
+                key={index}
+                style={{
+                  backgroundColor: adjectivesState.includes(adjective) ? '#ecafbd' : 'white'
+                }}
+                className="rounded-lg p-2 text-center cursor-pointer border border-gray-300"
+                onClick={() => handleAdjectiveSelect(adjective)}
+              >
+                {adjective}
+              </div>
+            ))}
           </div>
-          <select
-            className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-            id="question1"
-            onChange={(e) => handleAdjectiveSelect(e.target.value)}>
-            <option value="">Select an adjective</option>
-            <option value="Organized" disabled={adjectivesState.includes("Organized")}>Organized</option>
-            <option value="Creative" disabled={adjectivesState.includes("Creative")}>Creative</option>
-            <option value="Innovative" disabled={adjectivesState.includes("Innovative")}>Innovative</option>
-            <option value="Shy" disabled={adjectivesState.includes("Shy")}>Shy</option>
-            <option value="Enthusiastic" disabled={adjectivesState.includes("Enthusiastic")}>Enthusiastic</option>
-            <option value="Driven" disabled={adjectivesState.includes("Driven")}>Driven</option>
-            <option value="Social" disabled={adjectivesState.includes("Social")}>Social</option>
-          </select>
+        </div>
+
           <hr className="border-t-4 border-gray-300 my-6" />
-          <h6 className="text-md md:text-lg text-left mb-4">3. Add a short description about yourself. (optional)</h6>
+          <h6 className="text-sm md:text-md text-left mb-2 font-bold">3. Add a short description about yourself for potential teammates to get to know you. (optional)</h6>
           <p className="text-sm text-gray-500 mb-2">Your background, goals, fun facts...</p>
           <div className="mb-2">
             <textarea

@@ -12,7 +12,7 @@ export default function ProjectStatusOption({ selectedStatus, handleStatusClick,
     {showProjectStatusButtons && (
         <div className="ml-12">
           <button
-            className={`my-2 border-2 rounded-md px-8 py-2 mr-2 text-sm ${selectedStatus === 'Open' ? 'bg-white' : ''}`}
+            className={`my-2 border-2 hover:bg-white rounded-md px-8 py-2 mr-2 text-sm ${selectedStatus === 'Open' ? 'bg-white' : ''}`}
             onClick={() => {
               handleStatusClick('Open');
               console.log('Open');
@@ -21,7 +21,7 @@ export default function ProjectStatusOption({ selectedStatus, handleStatusClick,
             Open
           </button>
           <button
-            className={`my-2 border-2 rounded-md px-8 py-2 text-sm ${selectedStatus === 'Complete' ? 'bg-white' : ''}`}
+            className={`my-2 border-2 hover:bg-white rounded-md px-8 py-2 text-sm ${selectedStatus === 'Complete' ? 'bg-white' : ''}`}
             onClick={() => {
               handleStatusClick('Complete');
               console.log('Complete');

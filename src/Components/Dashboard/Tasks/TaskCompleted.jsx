@@ -55,6 +55,25 @@ export default function TaskCompleted({ task }) {
     }
   }
 
+  const undoTask = async () => {
+
+    const token = user.data.apitoken
+    const url = BACK_END_URL + `/api/undotask/${task.id}`
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    const res = await fetch(url, options)
+    const data = await res.json()
+    if (data.status === 'ok') {
+      console.log(data.message)
+      //Updates the task state in order to re-render with updated
+      dispatch(addTask(data.tasks))
+    }
+  }
+
   // const [isMenuOpen, setMenuOpen] = useState(false);
   // const [isChecked, setIsChecked] = useState(false);
 
@@ -135,8 +154,11 @@ export default function TaskCompleted({ task }) {
           </svg>
         </div>
         {isMenuOpen && (
-          <div className="menu-dropdown absolute z-10 mt-2 right-0 w-20 bg-white border border-gray-200 rounded shadow-lg">
+          <div className="menu-dropdown absolute z-10 mt-2 right-0 w-fit bg-white border border-gray-200 rounded shadow-lg">
             <ul className="p-2">
+            <li className="cursor-pointer hover-bg-gray-100 p-2" onClick={toggleMenu}>
+                <button onClick={() => undoTask()}>Undo</button>
+              </li>
               <li className="cursor-pointer hover-bg-gray-100 p-2" onClick={toggleMenu}>
                 <button onClick={() => deleteTask()}>Delete</button>
               </li>

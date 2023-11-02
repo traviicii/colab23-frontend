@@ -150,14 +150,16 @@ export const setAvailability = (availability) => ({
 });
 
 // User Specific Information gained on ligging in
-export const SET_ID = 'SET_ID';
+export const SET_PROJECT_TEAM = 'SET_PROJECT_TEAM';
 export const SET_PROJECT = 'SET_PROJECT';
-export const SET_TOKEN = 'SET_TOKEN';
+export const SET_PROJECT_RESOURCES = 'SET_PROJECT_RESOURCES';
+export const SET_PROJECT_LINKS = "SET_PROJECT_LINKS";
+export const SET_PROJECT_INSPIRATION = "SET_PROJECT_INSPIRATION"
 export const SET_DATA = 'SET_DATA';
 
-export const setUserID = (id) => ({
-  type: SET_ID,
-  payload: id
+export const setUserProjectTeam = (team) => ({
+  type: SET_PROJECT_TEAM,
+  payload: team
 })
 
 export const setUserProject = (project) => ({
@@ -165,14 +167,24 @@ export const setUserProject = (project) => ({
   payload: project
 })
 
-export const setUserToken = (token) => ({
-  type: SET_TOKEN,
-  payload: token
+export const setUserProjectResources = (resources) => ({
+  type: SET_PROJECT_RESOURCES,
+  payload: resources
 })
 
 export const setUserData = (data) => ({
   type: SET_DATA,
   payload: data
+})
+
+export const setUserProjectLinks = (links) => ({
+  type: SET_PROJECT_LINKS,
+  payload: links
+})
+
+export const setUserProjectInspiration = (inspirations) => ({
+  type: SET_PROJECT_INSPIRATION,
+  payload: inspirations
 })
 //end user login info
 
@@ -213,8 +225,6 @@ export const addMeeting = (meeting) => {
 };
 
 
-
-
 // New actions for filtering
 export const SET_MAIN_FILTER = 'SET_MAIN_FILTER';
 export const SET_ROLE = 'SET_ROLE';
@@ -250,8 +260,6 @@ export const setInterests = (interests) => ({
 });
 
 
-
-
 // New actions for adding projects and users from database
 export const ADD_PROJECT = 'ADD_PROJECT';
 export const ADD_USER = 'ADD_USER';
@@ -279,3 +287,17 @@ export const clearUsers = (payload) => ({
   payload, 
 });
 
+
+// Toasts/Popup notifications
+export const ADD_TOAST = 'ADD_TOAST';
+export const REMOVE_TOAST = 'REMOVE_TOAST';
+
+export const addToast = (message, type = 'info') => ({
+  type: ADD_TOAST,
+  payload: { message, type }
+});
+
+export const removeToast = (id) => ({
+  type: REMOVE_TOAST,
+  payload: id
+});

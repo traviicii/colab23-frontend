@@ -25,6 +25,7 @@ import './globalCSS.css';
 // Google Firebase
 import { initializeApp } from 'firebase/app';
 import { useSelector } from 'react-redux';
+import ToastList from './Components/ToastNotifications';
 
 const FIREBASE_KEY = process.env.REACT_APP_API_KEY
 
@@ -54,6 +55,7 @@ export default function App() {
     <div style={appStyle}>
 
     {user.data.id ? <NavbarLoggedIn /> : <Navbar />}
+      <ToastList />  {/* Renders list of toast notifications */}
 
       <Routes>
         <Route path='/' element={<Welcome />} />
@@ -75,6 +77,7 @@ export default function App() {
 
 
       </Routes>
+
       
       <Footer />
     </div>

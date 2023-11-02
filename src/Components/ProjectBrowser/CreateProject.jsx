@@ -6,7 +6,7 @@ import { addToast, setUserData, setUserProject } from '../../Actions'
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 
-export default function CreateProject( { chosenProject }) {
+export default function CreateProject( { chosenProject, closeModal }) {
 
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
@@ -97,6 +97,7 @@ export default function CreateProject( { chosenProject }) {
             else {
                 console.log(data)
                 dispatch(addToast(data.message, 'error'))
+                closeModal()
             }
         }
         catch {

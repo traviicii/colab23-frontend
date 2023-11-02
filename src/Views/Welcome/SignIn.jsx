@@ -2,7 +2,7 @@ import React from 'react'
 import { GoogleAuthProvider, GithubAuthProvider, getAuth, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserID, setUserProject, setUserToken, setUserData } from '../../Actions';
+import { setUserID, setUserProject, setUserToken, setUserData, addToast } from '../../Actions';
 import userReducer from '../../Reducers/UserReducer';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
@@ -45,6 +45,7 @@ export default function SignIn() {
             }
             else{
                 console.log(data.message)
+                dispatch(addToast(data.message, "error"))
             }
 
         } catch {
@@ -106,7 +107,7 @@ export default function SignIn() {
                 </div>
 
                 {/* right side */}
-                <div className='flex justify-center items-center flex-col h-full w-2/5 bg-white px-8 py-8' style={{ borderRadius: '0 20px 20px 0' }}>
+                <div className='flex justify-center items-center flex-col h-full w-2/5 bg-white' style={{ borderRadius: '0 20px 20px 0' }}>
 
                     <div className='w-4/5 flex justify-center items-center flex-col'>
                         <p className='font-bold text-xl text-center w-5/6 my-2'>Sign in to work with your team</p>

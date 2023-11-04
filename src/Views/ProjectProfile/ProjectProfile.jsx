@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import JoinedProjectModal from './JoinedProjectModal'; // Import the modal component
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserData, setUserProject } from '../../Actions';
+import { addTask, addToast, setUserData, setUserProject } from '../../Actions';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function ProjectProfile() {
-    
+
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
     const { project_id } = useParams()
-    
+
     const [project, setProject] = useState({})
     const [admin, setAdmin] = useState({})
 
+    const [areYouSure, setAreYouSure] = useState(false)
+
     useEffect(() => { getProject() }, [])
-    
+
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
@@ -72,7 +74,7 @@ export default function ProjectProfile() {
             body: JSON.stringify({
                 user_id: user.data.id,
                 project_id: project_id
-              })
+            })
         }
 
         try {
@@ -84,12 +86,15 @@ export default function ProjectProfile() {
                 dispatch(setUserData(data.user))
                 openModal()
             }
-            else{
+            else {
                 console.log(data)
+                setAreYouSure(false)
+                dispatch(addToast(data.message, "error"))
             }
         }
         catch {
-            console.log("Couldn't gadd user to project.")
+            console.log("Couldn't add you to the project. Log in and try again?")
+            dispatch(addToast("Couldn't add you to the project. Log in and try again?"), "error")
         }
     }
 
@@ -119,32 +124,35 @@ export default function ProjectProfile() {
                 </div>
 
                 {/* Middle Section */}
-                <div className='middle-bottom-wrapper flex flex-col justify-center items-center w-full mx-auto' style={{ backgroundColor: '#f8e1e6' }}>
+                <div className='middle-bottom-wrapper flex flex-col justify-center items-center py-4 w-full mx-auto' style={{ backgroundColor: '#f8e1e6' }}>
 
-                    <div className='middle flex w-10/12'>
+                    <div className='middle flex items-center w-10/12'>
 
-                        {/* Div for radial color gradient */}
-                        <div className="image w-1/3 mr-6" style={{
-                            width: '320px',
-                            height: '320px',
-                            background: `radial-gradient(circle at center, #13557c, #35d2e0)`
-                        }}></div>
+                        {/* Gradient and center middle sections */}
+                        <div className='flex'>
+                            {/* Div for radial color gradient */}
+                            <div className="image w-1/3 mr-6" style={{
+                                width: '320px',
+                                height: '320px',
+                                background: `radial-gradient(circle at center, #13557c, #35d2e0)`
+                            }}></div>
 
-                        {/* Center of Middle */}
-                        <div className='w-1/3'>
-                            <div>
+                            {/* Center of Middle */}
+                            <div className='w-1/3'>
                                 <div>
-                                    <h3 className='text-2xl'># of weeks {project.duration}</h3>
-                                    <h4 className='text-2xl'>Posted: x days ago</h4>
+                                    <div>
+                                        <h3 className='text-2xl'># of weeks {project.duration}</h3>
+                                        <h4 className='text-2xl'>Posted: x days ago</h4>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <button className="white-button px-8 py-1 rounded border-2" style={{ borderColor: "darkgrey" }}>{project.complete == false ? "Open" : "Closed"}</button>
-                            </div>
-                            <div className='industries'>
-                                <p className='mt-6'>Industries:</p>
-                                <div className="interest-buttons space-x-2 mt-4 mb-4">
-                                    {showIndustries()}
+                                <div>
+                                    <button className="white-button px-8 py-1 rounded border-2" style={{ borderColor: "darkgrey" }}>{project.complete === false ? "Open" : "Closed"}</button>
+                                </div>
+                                <div className='industries'>
+                                    <p className='mt-6'>Industries:</p>
+                                    <div className="interest-buttons space-x-2 mt-4 mb-4">
+                                        {showIndustries()}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +160,24 @@ export default function ProjectProfile() {
                         {/* Right Side of Middle */}
                         <div className='flex justify-center w-1/3'>
                             <div className='message w-full'>
-                                <button className='border rounded-xl w-full py-4 mb-4 text-white' style={{ backgroundColor: '#ed4168', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={()=> addUserToProject()}>Request to Join</button>
+                                {areYouSure === false ?
+                                    <button className='border rounded-xl w-full py-4 mb-4 text-white' style={{ backgroundColor: '#ed4168', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={() => setAreYouSure(true)}>Request to Join</button>
+                                    :
+                                    <div className='flex items-center shadow-2xl shadow-rose-500 border  rounded-xl w-[486px] px-4 py-4 mb-5 gap-2 bg-white'>
+                                        <svg width="35" height="34" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9.49799 14.7447L9.16667 14.2477V14.7403C9.00645 14.7214 8.83588 14.6787 8.65687 14.6088C8.10345 14.3926 7.52609 13.9314 7.09666 13.2483C6.67262 12.5658 6.51165 11.8455 6.56051 11.2535C6.60943 10.6609 6.85628 10.2556 7.19062 10.0473C7.52613 9.83831 7.99924 9.79508 8.55143 10.0111C9.10345 10.227 9.67806 10.6879 10.1024 11.3701C10.5285 12.0553 10.6912 12.7723 10.6443 13.3614C10.5977 13.9465 10.3553 14.3558 10.0152 14.5753C9.86767 14.6663 9.69366 14.7254 9.49799 14.7447ZM17.8094 10.0473C18.1437 10.2556 18.3906 10.6609 18.4395 11.2536C18.4883 11.8455 18.3274 12.5658 17.9034 13.2483C17.4739 13.9314 16.8966 14.3926 16.3431 14.6088C15.7915 14.8242 15.3199 14.782 14.9848 14.5753C14.6447 14.3558 14.4023 13.9465 14.3557 13.3614C14.3088 12.7723 14.4715 12.0553 14.8976 11.3701C15.3219 10.6879 15.8965 10.227 16.4486 10.0111C17.0008 9.79508 17.4739 9.83831 17.8094 10.0473ZM12.5 20.8333C13.3639 20.8333 14.3409 20.4094 15.2465 19.8432C16.1812 19.2588 17.1561 18.449 18.0402 17.523C18.9246 16.5967 19.7379 15.5333 20.3344 14.4314C20.9267 13.3372 21.3333 12.1528 21.3333 11C21.3333 6.57863 17.2621 3.16667 12.5 3.16667C7.73787 3.16667 3.66667 6.57863 3.66667 11C3.66667 12.1528 4.07328 13.3372 4.66559 14.4314C5.26209 15.5333 6.07541 16.5967 6.95976 17.523C7.84394 18.449 8.81883 19.2588 9.75353 19.8432C10.6591 20.4094 11.6361 20.8333 12.5 20.8333ZM12.5 2.83333C17.6252 2.83333 21.6667 6.58122 21.6667 11C21.6667 11.8444 21.3669 12.9114 20.7969 14.0728C20.2324 15.223 19.43 16.4103 18.4929 17.4812C17.5549 18.5531 16.5005 19.4876 15.4433 20.1483C14.3774 20.8146 13.3669 21.1667 12.5 21.1667C11.6331 21.1667 10.6226 20.8146 9.55667 20.1483C8.49946 19.4876 7.44505 18.5531 6.50715 17.4812C5.57004 16.4103 4.7676 15.223 4.20309 14.0728C3.63306 12.9114 3.33333 11.8444 3.33333 11C3.33333 6.58122 7.37485 2.83333 12.5 2.83333Z" fill="black" stroke="#ED4068" stroke-width="1.66667" />
+                                        </svg>
+
+                                        <div className='gap-2'>
+                                            <p><b>Are you sure?</b> Click the button to embark on this mission.</p>
+                                            <button onClick={() => addUserToProject()} className="w-full h-10 px-3.5 py-1 mt-2 bg-rose-500 rounded shadow border border-rose-500 justify-center items-center gap-2 inline-flex">
+                                                <div className="text-white text-base font-semibold font-['Outfit']">Embark!</div>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                }
+
                                 <JoinedProjectModal isOpen={isModalOpen} closeModal={closeModal} />
                                 <p>Project Admin: <Link to={`/individualteammember/${admin.id}`}><p className='underline font-bold'>{admin.first_name} {admin.last_name}, {admin.prod_role}</p></Link></p>
                                 <p className='mb-4'>Admin Time Zone: <span className='font-bold'>{admin.timezone}</span></p>
@@ -191,7 +216,7 @@ export default function ProjectProfile() {
                     </div>
                 </div>
 
-                    {/* Bottom section */}
+                {/* Bottom section */}
                 <div className='flex flex-col justify-center items-center w-full mx-auto'>
                     <div className="bottom bg-white flex justify-center w-10/12 py-8">
                         <div className="w-full flex mt-10" style={{ minHeight: '250px' }}>

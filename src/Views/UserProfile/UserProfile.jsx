@@ -8,6 +8,9 @@ export default function UserProfile() {
     const timezoneOptions = [
         'UTC-11: Samoa Standard Time', 'UTC-10 Hawaii-Aleutian Standard Time', 'UTC-9: Alaska Standard Time (AKST)', 'UTC-8: Pacific Standard Time (PST)', 'UTC-7: Mountain Standard Time (MST)', 'UTC-6: Central Standard Time (CST)', 'UTC-5: Eastern Standard Time (EST)', 'UTC-Atlantic Standard Time (AST)'
     ];
+    const hoursPerWeekOptions = [
+        '2-5 hours/week', '5-10 hours/week', '10-20 hours/week', '20-40 hours/week'
+    ];
 
     const navigate = useNavigate();
 
@@ -39,6 +42,8 @@ export default function UserProfile() {
             setAvailability(prevAvailability => prevAvailability.filter(item => item !== name));
         }
     };
+
+    const [hoursWk, setHoursWk] = useState(user.data.hours_wk)
 
     // Toggle editing mode
     const toggleEditing = () => {
@@ -79,7 +84,7 @@ export default function UserProfile() {
                     {/* Back button to navigate to the project browser  and user product rols icon*/}
                     <div>
                         <button
-                            className="hover:underline text-lg mr-4 w-3/4 pt-4"
+                            className="hover:underline text-lg mr-4 w-3/4 pt-4 mb-4"
                             onClick={() => navigate("/project-browser")}
                             style={{ display: 'flex', alignItems: 'center' }}
                         >
@@ -89,7 +94,7 @@ export default function UserProfile() {
                             Back
                         </button>
 
-                        <div>
+                        <div className='mb-2'>
                             {/* Display the user's name */}
                             <h1 className='text-3xl font-bold'>{user.data.first_name} {user.data.last_name}</h1>
                         </div>
@@ -147,7 +152,7 @@ export default function UserProfile() {
                                 {/* Display the location/timezone */}
                                 <p className='mt-6 font-bold'>Location/Timezone:</p>
                                 <ul className='space-y-1' style={{ listStyleType: 'disc', marginLeft: '25px' }}>
-                                    <li>{editing === true ? <input value={location} onChange={(e) => setLocation(e.target.value)} type="text" className='focus:shadow-md rounded-lg border border-black p-1' /> : ` ${location}`}</li>
+                                    <li>{editing === true ? <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder='City, State' type="text" className='focus:shadow-md rounded-lg border border-black p-1' /> : ` ${location}`}</li>
                                     <li>{editing === true ?
                                         <select
                                             className='rounded-lg border border-black p-1'
@@ -199,23 +204,23 @@ export default function UserProfile() {
                                 <ul style={{ listStyleType: 'disc', marginLeft: '25px' }}>
                                     {editing ?
                                         <div className="">
-                                            <label className="block mb-1">
+                                            <label className="block">
                                                 <input type="checkbox" name="Early Morning" checked={availability.includes('Early Morning')} onChange={handleCheckboxChange} className="mr-2" />
                                                 Early Morning, 6am-9am
                                             </label>
-                                            <label className="block mb-1">
+                                            <label className="block">
                                                 <input type="checkbox" name="Late Mornings" checked={availability.includes('Late Mornings')} onChange={handleCheckboxChange} className="mr-2" />
                                                 Late Mornings, 9am-12pm
                                             </label>
-                                            <label className="block mb-1">
+                                            <label className="block">
                                                 <input type="checkbox" name="Early Afternoons" checked={availability.includes('Early Afternoons')} onChange={handleCheckboxChange} className="mr-2" />
                                                 Early Afternoons, 12pm-3pm
                                             </label>
-                                            <label className="block mb-1">
+                                            <label className="block">
                                                 <input type="checkbox" name="Late Afternoons" checked={availability.includes('Late Afternoons')} onChange={handleCheckboxChange} className="mr-2" />
                                                 Late Afternoons, 3pm-6pm
                                             </label>
-                                            <label className="block mb-1">
+                                            <label className="block">
                                                 <input type="checkbox" name="Evenings" checked={availability.includes('Evenings')} onChange={handleCheckboxChange} className="mr-2" />
                                                 Evenings, 6pm-9pm
                                             </label>
@@ -227,7 +232,25 @@ export default function UserProfile() {
                                         :
                                         showAvailability()
                                     }
-                                    <li>{user.data.hours_wk}</li>
+                                    {editing ? 
+                                    <div className="flex">
+                                        <p className='whitespace-nowrap mr-2'>Hours per week:</p>
+                                    <select
+                                        className="rounded-lg border border-black p-1"
+                                        value={hoursWk}
+                                        onChange={(e) => setHoursWk(e.target.value)}
+                                    >
+                                        <option value="" disabled>Select hours per week</option>
+                                        {hoursPerWeekOptions.map((option, index) => (
+                                            <option key={index} value={option}>
+                                                {option}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                :
+                                    <li>{hoursWk}</li>
+                                }
                                 </ul>
                             </div>
                         </div>

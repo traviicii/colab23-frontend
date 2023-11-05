@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import JoinedProjectModal from './JoinedProjectModal'; // Import the modal component
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,33 @@ export default function ProjectProfile() {
     const [project, setProject] = useState({})
     const [admin, setAdmin] = useState({})
 
+
+    // Function to toggle the task menu
+    const toggleMenu = () => {
+        setMenuOpen(!isMenuOpen);
+    };
+
+    // Reference to the task menu for click outside detection
+    const menuRef = useRef(null);
+    useEffect(() => {
+        // Function to close the menu when clicking outside
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        };
+
+        window.addEventListener('click', handleClickOutside);
+
+        // Cleanup: remove the event listener when finished
+        return () => {
+            window.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
+    const [isMenuOpen, setMenuOpen] = useState(false);
+
+    // Toggle are you sure box
     const [areYouSure, setAreYouSure] = useState(false)
 
     useEffect(() => { getProject() }, [])
@@ -107,19 +134,94 @@ export default function ProjectProfile() {
             <div className="">
 
                 {/* Top Section */}
-                <div className='top w-3/4 ml-36 mb-10 space-y-6'>
-                    <button
-                        className="hover:underline text-lg mr-4 w-3/4 pt-4"
-                        onClick={() => navigate("/project-browser")}
-                        style={{ display: 'flex', alignItems: 'center' }}
-                    >
-                        <svg fill="#000000" width="20" height="20" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
-                            <polygon fillRule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41" />
-                        </svg>
-                        Back
-                    </button>
+                <div className='top w-3/4 ml-36 mb-10 space-y-6 flex justify-between items-center'>
+                    <div className='space-y-6'>
+                        <button
+                            className="hover:underline text-lg mr-4 w-3/4 pt-4"
+                            onClick={() => navigate("/project-browser")}
+                            style={{ display: 'flex', alignItems: 'center' }}
+                        >
+                            <svg fill="#000000" width="20" height="20" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
+                                <polygon fillRule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41" />
+                            </svg>
+                            Back
+                        </button>
+                        <div>
+                            <h1 className='text-2xl font-bold'>{project.name}</h1>
+                        </div>
+                    </div>
+
                     <div>
-                        <h1 className='text-2xl font-bold'>{project.name}</h1>
+                        {user.project.id == project_id ?
+                            // Kebab menu
+                            <div className="relative" ref={menuRef}>
+                                <div
+                                    className="kebab-menu cursor-pointer hover-bg-gray-100"
+                                    onClick={toggleMenu}>
+                                    <svg
+                                        width="30px"
+                                        height="30px"
+                                        viewBox="0 0 24 24"
+                                        version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <title>Kebab-Menu</title>
+                                        <g id="Kebab-Menu" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"><rect id="Container" x="0" y="0" width="24" height="24"></rect>
+                                            <path d="M12,6 C12.5522847,6 13,5.55228475 13,5 C13,4.44771525 12.5522847,4 12,4 C11.4477153,4 11,4.44771525 11,5 C11,5.55228475 11.4477153,6 12,6 Z" id="shape-03" stroke="#030819" strokeWidth="2" strokeLinecap="round" strokeDasharray="0,0"></path>
+                                            <path d="M12,13 C12.5522847,13 13,12.5522847 13,12 C13,11.4477153 12.5522847,11 12,11 C11.4477153,11 11,11.4477153 11,12 C11,12.5522847 11.4477153,13 12,13 Z" id="shape-03" stroke="#030819" strokeWidth="2" strokeLinecap="round" strokeDasharray="0,0"></path>
+                                            <path d="M12,20 C12.5522847,20 13,19.5522847 13,19 C13,18.4477153 12.5522847,18 12,18 C11.4477153,18 11,18.4477153 11,19 C11,19.5522847 11.4477153,20 12,20 Z" id="shape-03" stroke="#030819" strokeWidth="2" strokeLinecap="round" strokeDasharray="0,0"></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                                {isMenuOpen && (
+                                    user.data.is_admin == true ?
+
+                                        <div className="menu-dropdown absolute whitespace-nowrap z-10 mt-2 right-0 w-fit bg-white border border-stone-600 rounded-lg shadow-lg">
+                                            <ul className="p-2">
+                                                <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
+                                                    <button >Assign New Project Admin</button>
+                                                </li>
+
+                                                <div className="w-[184px] h-[0px] border border-black"></div>
+
+                                                <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
+                                                    <button >Edit Project</button>
+                                                </li>
+
+                                                <div className="w-[184px] h-[0px] border border-black"></div>
+
+                                                <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
+                                                    <button >Mark Project Complete</button>
+                                                </li>
+
+                                                <div className="w-[184px] h-[0px] border border-black"></div>
+
+                                                <li className="flex justify-center flex-col cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
+                                                    <button className='flex justify-center'>
+                                                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.5 3V4H4.5V6H5.5V19C5.5 19.5304 5.71071 20.0391 6.08579 20.4142C6.46086 20.7893 6.96957 21 7.5 21H17.5C18.0304 21 18.5391 20.7893 18.9142 20.4142C19.2893 20.0391 19.5 19.5304 19.5 19V6H20.5V4H15.5V3H9.5ZM7.5 6H17.5V19H7.5V6ZM9.5 8V17H11.5V8H9.5ZM13.5 8V17H15.5V8H13.5Z" fill="#ED4068" />
+                                                        </svg>
+                                                        <p className='ml-1 text-rose-500'>Delete Project</p>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        :
+
+                                        <div className="menu-dropdown absolute z-10 mt-2 right-0 w-fit bg-white border border-gray-200 rounded shadow-lg">
+                                            <ul className="p-2">
+                                                <li className="cursor-pointer hover-bg-gray-100 p-2" onClick={toggleMenu}>
+                                                    <button >Leave Project</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                )}
+                            </div>
+                            :
+                            ''
+                        }
                     </div>
                 </div>
 
@@ -160,10 +262,14 @@ export default function ProjectProfile() {
                         {/* Right Side of Middle */}
                         <div className='flex justify-center w-1/3'>
                             <div className='message w-full'>
-                                
-                                {/* Are you sure popup for joining */}
+
+                                {/* Request to join and Are you sure popup for joining */}
                                 {areYouSure === false ?
-                                    <button className='border rounded-xl w-full py-4 mb-4 text-white' style={{ backgroundColor: '#ed4168', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={() => setAreYouSure(true)}>Request to Join</button>
+                                    // Don't show request to join if the user is involved with the project, otherwise show it
+                                    user.project.id == project_id ?
+                                        ''
+                                        :
+                                        <button className='border rounded-xl w-full py-4 mb-4 text-white' style={{ backgroundColor: '#ed4168', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={() => setAreYouSure(true)}>Request to Join</button>
                                     :
                                     <div className='flex items-center shadow-2xl shadow-rose-500 border  rounded-xl w-[486px] px-4 py-4 mb-5 gap-2 bg-white'>
                                         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

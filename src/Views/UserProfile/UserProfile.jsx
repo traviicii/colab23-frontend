@@ -12,12 +12,27 @@ export default function UserProfile() {
         '2-5 hours/week', '5-10 hours/week', '10-20 hours/week', '20-40 hours/week'
     ];
 
+    const fieldsOfInterest = [
+        'Fintech', 'Education', 'Non-Profit', 'SaaS', 'Healthcare',
+        'Sustainability', 'Security', 'Enterprise', 'Marketplace', 'E-Commerce',
+        'B2C', 'Retail', 'B2B', 'Blockchain', 'Real Estate',
+        'API', 'Artificial Intel', 'Big Data', 'DevOps', 'Deep Tech',
+        'Cloud Computing', 'Agriculture', 'Environmental', 'Mental Health',
+        'Home Improvement', 'Community', 'Entertainment', 'Productivity', 'Art / Design', 'Other...'
+    ];
+
+    const adjectivesList = [
+        'Organized', 'Creative', 'Innovative', 'Introverted', 'Enthusiastic', 'Driven', 'Social',
+        'Adaptable', 'Direct'
+    ];
+
     const navigate = useNavigate();
 
     const user = useSelector((state) => state.user)
 
     const [editing, setEditing] = useState(false)
 
+    //////////////  Beginning of editing states and functions ///////////////////////////
     const [email, setEmail] = useState(user.data.email)
     const [password, setPassword] = useState('')
     const [passwordShown, setPasswordShown] = useState(false);
@@ -44,6 +59,48 @@ export default function UserProfile() {
     };
 
     const [hoursWk, setHoursWk] = useState(user.data.hours_wk)
+    const [interests, setInterests] = useState(user.data.interests)
+    const addInterest = (event) => {
+        const newInterest = event.target.value;
+        if (newInterest && !interests.includes(newInterest)) {
+            setInterests([...interests, newInterest]);
+        }
+    };
+    const removeInterest = (interestToRemove) => {
+        setInterests(interests.filter(interest => interest !== interestToRemove));
+    };
+
+    // filter out the interests that are already selected from the fieldsOfInterest array to display in the dropdown
+    const availableInterests = fieldsOfInterest.filter(interest => !interests.includes(interest));
+
+    const [adjectives, setAdjectives] = useState(user.data.adjectives)
+
+    const handleAddAdjective = (event) => {
+        const newAdjective = event.target.value;
+        if (!adjectives.includes(newAdjective) && adjectives.length < 3) {
+            setAdjectives([...adjectives, newAdjective]);
+        }
+    };
+
+    const handleRemoveAdjective = (adjectiveToRemove) => {
+        setAdjectives(adjectives.filter(adjective => adjective !== adjectiveToRemove));
+    };
+
+
+    const cancelEdit = () => {
+        setEditing(false)
+        setEmail(user.data.email)
+        setLocation(user.data.location)
+        setTimezone(user.data.timezone)
+        setPrevRole(user.data.prev_role)
+        setPrevExp(user.data.prev_exp)
+        setAvailability(user.data.availability)
+        setHoursWk(user.data.hours_wk)
+        setInterests(user.data.interests)
+        setAdjectives(user.data.adjectives)
+    }
+
+    ////////////// End of editing states and functions ///////////////////////////
 
     // Toggle editing mode
     const toggleEditing = () => {
@@ -63,7 +120,7 @@ export default function UserProfile() {
     }
 
     const showInterests = () => {
-        return user.data.interests?.map((interest) => <button className="white-button w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-2 border-rose-300">{interest}</button>)
+        return interests?.map((interest) => <button className="white-button w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-2 border-rose-300">{interest}</button>)
     }
 
     const showAvailability = () => {
@@ -71,7 +128,7 @@ export default function UserProfile() {
     }
 
     const showAdjectives = () => {
-        return user.data.adjectives?.map((adjective) => <li style={{ listStyleType: 'disc', marginLeft: '25px' }}>{adjective}</li>)
+        return adjectives?.map((adjective) => <li style={{ listStyleType: 'disc', marginLeft: '25px' }}>{adjective}</li>)
     }
 
     return (
@@ -112,12 +169,21 @@ export default function UserProfile() {
                     {/* edit button */}
                     <div>
                         {editing === true ?
-                            <button onClick={() => toggleEditing()} className='w-[225px] h-10 px-3.5 py-2 rounded-lg flex justify-center items-center border-2 border-gray-800 gap-2'>
-                                <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.5 4.79347L11.7062 1.99972C11.6138 1.90637 11.5038 1.83227 11.3826 1.78169C11.2614 1.73112 11.1314 1.70508 11 1.70508C10.8686 1.70508 10.7386 1.73112 10.6174 1.78169C10.4962 1.83227 10.3862 1.90637 10.2937 1.99972L2.79375 9.49972C2.70056 9.5922 2.62662 9.70223 2.5762 9.82345C2.52578 9.94467 2.49988 10.0747 2.5 10.206V12.9997C2.5 13.2649 2.60536 13.5193 2.79289 13.7068C2.98043 13.8944 3.23478 13.9997 3.5 13.9997H6.29375C6.42504 13.9998 6.55505 13.9739 6.67627 13.9235C6.79749 13.8731 6.90752 13.7992 7 13.706L14.5 6.20597C14.6855 6.01771 14.7895 5.76402 14.7895 5.49972C14.7895 5.23542 14.6855 4.98173 14.5 4.79347ZM6.29375 12.9997H3.5V10.206L9 4.70597L11.7937 7.49972L6.29375 12.9997ZM12.5 6.79347L9.70625 3.99972L11 2.70597L13.7937 5.49972L12.5 6.79347Z" fill="#ED4068" />
-                                </svg>
-                                <p>Save</p>
-                            </button>
+                            <div className='space-y-2'>
+                                <button onClick={() => cancelEdit()} className='hover:bg-rose-300 w-[225px] h-10 px-3.5 py-2 rounded-lg flex justify-center items-center border-2 border-gray-800 gap-2'>
+                                    <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M35.4166 20C35.4166 24.0888 33.7923 28.0101 30.9011 30.9012C28.01 33.7924 24.0887 35.4167 19.9999 35.4167V37.9167C29.8949 37.9167 37.9166 29.895 37.9166 20H35.4166ZM19.9999 35.4167C15.9112 35.4167 11.9899 33.7924 9.09869 30.9012C6.2075 28.0101 4.58325 24.0888 4.58325 20H2.08325C2.08325 29.895 10.1049 37.9167 19.9999 37.9167V35.4167ZM4.58325 20C4.58325 15.9113 6.2075 11.99 9.09869 9.09878C11.9899 6.20759 15.9112 4.58334 19.9999 4.58334V2.08334C10.1049 2.08334 2.08325 10.105 2.08325 20H4.58325ZM25.8333 23.75C23.2916 23.75 20.854 22.7403 19.0568 20.9431C17.2596 19.1459 16.2499 16.7083 16.2499 14.1667H13.7499C13.7499 17.3714 15.023 20.4448 17.289 22.7109C19.5551 24.9769 22.6286 26.25 25.8333 26.25V23.75ZM34.0416 19.115C33.1893 20.5299 31.9855 21.7002 30.5472 22.5124C29.1089 23.3245 27.485 23.7509 25.8333 23.75V26.25C27.9157 26.2511 29.963 25.7138 31.7765 24.6903C33.5899 23.6667 35.108 22.1917 36.1833 20.4083L34.0416 19.115ZM16.2499 14.1667C16.2492 12.515 16.6756 10.8911 17.4878 9.45286C18.2999 8.01459 19.4702 6.81079 20.8849 5.95834L19.5916 3.81834C17.8084 4.89333 16.3334 6.41109 15.3099 8.22429C14.2863 10.0375 13.7489 12.0845 13.7499 14.1667H16.2499ZM19.9999 4.58334C19.8309 4.57936 19.6703 4.50866 19.5533 4.38668C19.4817 4.31707 19.4339 4.22668 19.4166 4.12834C19.4099 4.07668 19.4133 3.92668 19.5916 3.81834L20.8849 5.95834C21.7233 5.45168 21.9933 4.52334 21.8949 3.79334C21.7916 3.03501 21.1949 2.08334 19.9999 2.08334V4.58334ZM36.1833 20.4083C36.0732 20.5867 35.9233 20.59 35.8716 20.5833C35.7733 20.5661 35.6829 20.5182 35.6133 20.4467C35.4913 20.3296 35.4206 20.169 35.4166 20H37.9166C37.9166 18.805 36.9649 18.2083 36.2066 18.105C35.4766 18.0067 34.5482 18.2767 34.0416 19.115L36.1833 20.4083Z" fill="black" />
+                                    </svg>
+
+                                    <p>Cancel Changes</p>
+                                </button>
+                                <button onClick={() => toggleEditing()} className='hover:bg-[#D7F7F9] w-[225px] h-10 px-3.5 py-2 rounded-lg flex justify-center items-center border-2 border-gray-800 gap-2'>
+                                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.5 4.79347L11.7062 1.99972C11.6138 1.90637 11.5038 1.83227 11.3826 1.78169C11.2614 1.73112 11.1314 1.70508 11 1.70508C10.8686 1.70508 10.7386 1.73112 10.6174 1.78169C10.4962 1.83227 10.3862 1.90637 10.2937 1.99972L2.79375 9.49972C2.70056 9.5922 2.62662 9.70223 2.5762 9.82345C2.52578 9.94467 2.49988 10.0747 2.5 10.206V12.9997C2.5 13.2649 2.60536 13.5193 2.79289 13.7068C2.98043 13.8944 3.23478 13.9997 3.5 13.9997H6.29375C6.42504 13.9998 6.55505 13.9739 6.67627 13.9235C6.79749 13.8731 6.90752 13.7992 7 13.706L14.5 6.20597C14.6855 6.01771 14.7895 5.76402 14.7895 5.49972C14.7895 5.23542 14.6855 4.98173 14.5 4.79347ZM6.29375 12.9997H3.5V10.206L9 4.70597L11.7937 7.49972L6.29375 12.9997ZM12.5 6.79347L9.70625 3.99972L11 2.70597L13.7937 5.49972L12.5 6.79347Z" fill="#ED4068" />
+                                    </svg>
+                                    <p>Save</p>
+                                </button>
+                            </div>
                             :
                             <button onClick={() => toggleEditing()} className='w-[225px] h-10 px-3.5 py-2 rounded-lg flex justify-center items-center border-2 border-gray-800 gap-2'>
                                 <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -232,25 +298,25 @@ export default function UserProfile() {
                                         :
                                         showAvailability()
                                     }
-                                    {editing ? 
-                                    <div className="flex">
-                                        <p className='whitespace-nowrap mr-2'>Hours per week:</p>
-                                    <select
-                                        className="rounded-lg border border-black p-1"
-                                        value={hoursWk}
-                                        onChange={(e) => setHoursWk(e.target.value)}
-                                    >
-                                        <option value="" disabled>Select hours per week</option>
-                                        {hoursPerWeekOptions.map((option, index) => (
-                                            <option key={index} value={option}>
-                                                {option}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                :
-                                    <li>{hoursWk}</li>
-                                }
+                                    {editing ?
+                                        <div className="flex">
+                                            <p className='whitespace-nowrap mr-2'>Hours per week:</p>
+                                            <select
+                                                className="rounded-lg border border-black p-1"
+                                                value={hoursWk}
+                                                onChange={(e) => setHoursWk(e.target.value)}
+                                            >
+                                                <option value="" disabled>Select hours per week</option>
+                                                {hoursPerWeekOptions.map((option, index) => (
+                                                    <option key={index} value={option}>
+                                                        {option}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                        :
+                                        <li>{hoursWk}</li>
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -292,7 +358,48 @@ export default function UserProfile() {
                                     <p className='font-bold'>Interested in:</p>
                                     <div className="interest-buttons flex flex-wrap mt-4 mb-4 w-full">
                                         {/* Display buttons for interests */}
-                                        {showInterests()}
+                                        {editing ? (
+                                            // Dropwdown for editing
+                                            <>
+                                                <select onChange={addInterest} value="" className="mb-2 rounded-lg border border-black p-1">
+                                                    <option value="" disabled>Add interest</option>
+                                                    {availableInterests.map(interest => (
+                                                        <option key={interest} value={interest}>{interest}</option>
+                                                    ))}
+                                                </select>
+
+                                                <div className="flex flex-wrap  mb-4 w-full">
+                                                    {interests.map(interest => (
+                                                        <button
+                                                            key={interest}
+                                                            className="flex items-center w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-2 border-rose-300"
+                                                            onClick={() => removeInterest(interest)}
+                                                        >
+                                                            <p>{interest}</p>
+                                                            <div className='ml-1'>
+                                                                <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M28.75 28.75L11.25 11.25M28.75 11.25L11.25 28.75" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </div>
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </>
+                                        ) :
+                                            // Normally display interests when not editing
+                                            <div className="flex flex-wrap  mb-4 w-full">
+                                                {interests.map(interest => (
+                                                    <div
+                                                        key={interest}
+                                                        className="flex items-center w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-2 border-rose-300"
+
+                                                    >
+                                                        {interest}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        }
+
                                     </div>
                                 </div>
                             </div>
@@ -303,13 +410,32 @@ export default function UserProfile() {
                     <div className="bottom bg-white flex justify-center w-full py-8 ">
                         <div className="w-10/12 flex mb-20 mt-10" style={{ minHeight: '250px' }}>
 
-                            {/* About */}
+                            {/* Adjectives + About */}
                             <div className="py-12 px-6 w-96 rounded-l-2xl" style={{ backgroundColor: '#fae8c2' }}>
-                                <h2 className="text-2xl font-semibold mb-4">About Me:</h2>
+                                <h2 className="text-2xl font-semibold mb-1">About Me:</h2>
+
+                                {/* Adjectives */}
+                                {editing ? <p><b>Adjectives</b> (3 max):</p> : ''}
+                                {editing && adjectives.length < 3 && (
+                                    <select onChange={handleAddAdjective} value="" className="mb-2 rounded-lg border border-black p-1">
+                                        <option value="" disabled>Add Adjective</option>
+                                        {adjectivesList.filter(a => !adjectives.includes(a)).map(a => (
+                                            <option key={a} value={a}>{a}</option>
+                                        ))}
+                                    </select>
+                                )}
                                 <ol>
-                                    {/* Display a list of qualities */}
-                                    {showAdjectives()}
+                                    {adjectives?.map((adjective) => (
+                                        <li key={adjective} style={{ listStyleType: 'disc', marginLeft: '25px' }}>
+                                            {adjective}
+                                            {editing && (
+                                                <button onClick={() => handleRemoveAdjective(adjective)} className="ml-2 text-red-500">X</button>
+                                            )}
+                                        </li>
+                                    ))}
                                 </ol>
+
+                                {/* About */}
                                 <p className='mt-8'>{user.data.about}</p>
                             </div>
 
@@ -334,7 +460,7 @@ export default function UserProfile() {
                                     </div>
 
                                     <h2 className="text-2xl font-semibold mt-4">Want to Learn:</h2>
-                                    <div className="interest-buttons mt-4">
+                                    <div className="mt-4">
                                         <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">Fintech</button>
                                         <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">Education</button>
                                         <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">Non-Profit</button>

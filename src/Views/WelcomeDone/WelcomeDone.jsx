@@ -22,6 +22,7 @@ export default function WelcomeDone() {
     const aboutYouForm = useSelector((state) => state.aboutYouForm)
     const availabilityForm = useSelector((state) => state.availabilityForm)
     const skillsTools = useSelector((state) => state.skillsTools)
+    
     //////////////////////////////
 
     const createNewUser = async () => {

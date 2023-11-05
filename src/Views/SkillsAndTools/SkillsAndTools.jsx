@@ -146,7 +146,7 @@ export default function SkillsAndTools() {
                     </p>
 
                     {/* Grid of Product Design Skills */}
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4 items-center">
                         {productDesignSkills.map((skill, index) => (
                             <div key={index}
                                 style={{ backgroundColor: skillsTools.designSkills.includes(skill) ? '#ecafbd' : 'white' }}
@@ -164,7 +164,7 @@ export default function SkillsAndTools() {
                     </p>
 
                     {/* Grid of Software Developer Skills */}
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4 items-center">
                         {softwareDeveloperSkills.map((skill, index) => (
                             <div key={index}
                                 style={{ backgroundColor: skillsTools.developerSkills.includes(skill) ? '#ecafbd' : 'white' }}
@@ -183,7 +183,7 @@ export default function SkillsAndTools() {
                     </p>
 
                     {/* Grid of Product Management Skills */}
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4 items-center">
                         {productManagementSkills.map((skill, index) => (
                             <div key={index}
                                 style={{ backgroundColor: skillsTools.managementSkills.includes(skill) ? '#ecafbd' : 'white' }}

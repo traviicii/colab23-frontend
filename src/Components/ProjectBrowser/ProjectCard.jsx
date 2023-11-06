@@ -9,8 +9,8 @@ export default function ProjectCard({ project }) {
     }
 
     return (
-        <div className='mx-3 my-3 w-96'>
-            <div className="w-full bg-white border border-gray-200 rounded-lg shadow-xl" style={{ backgroundColor: '#f8e1e6' }}>
+        <div className='mx-8 my-5 w-2/5'>
+            <div className="w-full bg-white border border-gray-200 rounded-lg shadow-xl" style={{ backgroundColor: '#f8e1e6', minHeight: '600px' }}>
             <Link to={`/project-profile/${project.id}`}>
                     <img className="rounded-t-lg w-full" src="https://picsum.photos/400/150" alt="" />
                 </Link>

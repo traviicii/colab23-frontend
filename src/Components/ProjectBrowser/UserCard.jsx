@@ -15,8 +15,8 @@ export default function UserCard({ user }) {
     }
 
     return (
-        <div className='mx-3 my-3 w-96'>
-            <div className="w-full border border-gray-200 rounded-lg shadow-xl" style={{ backgroundColor: '#f9e8c3' }}>
+        <div className='mx-8 my-5 w-2/5'>
+            <div className="w-full border border-gray-200 rounded-lg shadow-xl" style={{ backgroundColor: '#f9e8c3', minHeight: '600px' }}>
 
                 <div className='flex justify-center'>
                     <div className="flex justify-center items-center rounded-full drop-shadow-lg w-40 h-40 mt-6 px-3 py-6" style={{ backgroundColor: `${randomColor(colors)}` }}>

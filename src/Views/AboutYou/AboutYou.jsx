@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setAdjectives, setDescription, setFieldsOfInterest } from '../../Actions';
+import { addToast, setAdjectives, setDescription, setFieldsOfInterest } from '../../Actions';
 
 export default function AboutYou() {
   const fieldsOfInterest = [
@@ -53,6 +53,8 @@ export default function AboutYou() {
       setSelectedFields(selectedFields.filter(selectedField => selectedField !== field));
     } else if (selectedFields.length < 5) {
       setSelectedFields([...selectedFields, field]);
+    } else {
+      dispatch(addToast("You can only select a maximum of 5 fields of interest!", "error"))
     }
   };
 
@@ -64,6 +66,8 @@ export default function AboutYou() {
     } else if (adjectivesState.length < 3) {
       // Select the adjective if not already selected and there is space for more
       setAdjectivesState([...adjectivesState, selectedAdjective]);
+    } else {
+      dispatch(addToast("You can only select a maximum of 3 adjectives!", "error"))
     }
   };
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { FiSearch, FiX } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDesignSkills, setDeveloperSkills, setManagementSkills, setOtherSkills, setWantedSkills } from '../../Actions';
+import { addToast, setDesignSkills, setDeveloperSkills, setManagementSkills, setOtherSkills, setWantedSkills } from '../../Actions';
 
 export default function SkillsAndTools() {
     const productDesignSkills = [
@@ -68,13 +68,13 @@ export default function SkillsAndTools() {
     };
     
     const handleTagRemove = (tagToRemove) => {
-        const updatedSkillTag = SkillTag.filter((tag) => tag !== tagToRemove);
-        setSkillTag(updatedSkillTag);
+        const updatedSkillTag = skillsTools.wantedSkills.filter((tag) => tag !== tagToRemove);
+        dispatch(setWantedSkills(updatedSkillTag));
     };
     
     const handleAdditionalTagRemove = (tagToRemove) => {
-        const updatedTags = tags.filter((tag) => tag !== tagToRemove);
-        setTags(updatedTags);
+        const updatedTags = skillsTools.otherSkills.filter((tag) => tag !== tagToRemove);
+        dispatch(setOtherSkills(updatedTags));
     };
 
     const handleEnterButtonClicked = () => {
@@ -94,6 +94,10 @@ export default function SkillsAndTools() {
 
     const navigate = useNavigate();
     const navigateAboutYou = () => {
+        if (skillsTools.designSkills == '' && skillsTools.developerSkills == '' && skillsTools.managementSkills == '' && skillsTools.wantedSkills == '') {
+            dispatch(addToast("Please fill out at least one skill within Product Design, Software Development, or Product Management and at least one skill you'd like to gain.", "error"))
+            return;
+        }
         navigate('/about-you');
     }
 
@@ -199,9 +203,9 @@ export default function SkillsAndTools() {
 
                     {/* New input box for additional skills */}
                     <div>
-                    <h6 className="text-md md:text-lg text-left mt-4">Enter any skills you would like to mention.</h6>
+                    <h6 className="text-md md:text-lg text-left mt-4">Enter any other skills you would like to mention.</h6>
                     <div className="tag-list inline-block mb-1">
-                        {tags.map((tag, index) => (
+                        {skillsTools.otherSkills.map((tag, index) => (
                         <div key={index} className="tag inline-block bg-blue-500 px-2 py-1 m-1 rounded-full text-sm" style={{ backgroundColor: '#ecafbd' }}>
                             {tag}
                             <button className='ml-2' onClick={() => handleAdditionalTagRemove(tag)}>X</button>
@@ -230,7 +234,7 @@ export default function SkillsAndTools() {
                         Enter any skills you would like to gain.
                     </h6>
                     <div className="tag-list inline-block">
-                    {SkillTag.map((tag, index) => (
+                    {skillsTools.wantedSkills.map((tag, index) => (
                         <div key={index} className="tag inline-block bg-blue-500 px-2 py-1 m-1 rounded-full text-sm" style={{ backgroundColor: '#ecafbd' }}>
                             {tag}
                             <button className='ml-2' onClick={() => handleTagRemove(tag)}>X</button>

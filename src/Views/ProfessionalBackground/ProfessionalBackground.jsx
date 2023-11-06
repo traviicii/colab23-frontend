@@ -137,7 +137,7 @@ export default function ProfessionalBackground() {
 
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1">
-              How much experience do you have in the product role you selected above?
+            Which of the following describes your role on a product team?
             </label>
             <div className="relative">
       <div className="custom-select-wrapper">

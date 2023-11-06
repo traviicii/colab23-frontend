@@ -42,6 +42,11 @@ export default function SignIn() {
                     dispatch(setUserProjectResources(data.project_resources))
                     dispatch(setUserProjectLinks(data.project_links))
                     dispatch(setUserProjectInspiration(data.project_inspiration))
+                    if (data.notifications){
+                        data.notifications.forEach(notification => {
+                            dispatch(addToast(notification.content))
+                        })
+                    }
                     navigate('/dashboard')
                 } else{
                     navigate('/dashboard-unpopulated')

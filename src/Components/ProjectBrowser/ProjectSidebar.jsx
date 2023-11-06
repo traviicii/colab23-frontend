@@ -138,7 +138,7 @@ export default function ProjectSidebar({ openModal }) {
     <div className='h-full' style={{ overflowY: 'auto', backgroundColor: '#bcbbc2' }}>
       <aside id="sidebar-multi-level-sidebar" className="transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
         <div className="pb-40" style={{ backgroundColor: '#bcbbc2' }}>
-          <p className="text-4xl pt-10 pl-12 mb-4">Teams</p>
+          <p className="text-4xl pt-10 pl-12 mb-4">Explore</p>
           <div className="mb-2 text-center">
             <div className="flex flex-col items-center">
               <button onClick={openModal} className="m-2 px-10 py-2 text-white rounded-lg border border-black hover:bg-gray-200 mt-4 mb-6" style={{ backgroundColor: '#ed4168' }}>

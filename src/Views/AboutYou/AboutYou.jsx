@@ -164,13 +164,14 @@ export default function AboutYou() {
           <h6 className="text-sm md:text-md text-left mb-2 font-bold">3. Add a short description about yourself for potential teammates to get to know you. (optional)</h6>
           <p className="text-sm text-gray-500 mb-2">Your background, goals, fun facts...</p>
           <div className="mb-2">
-            <textarea
-              className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-              placeholder="Enter some details about you"
-              rows="4"
-              value={descriptionState}
-              onChange={handleDescriptionChange} />
-          </div>
+          <textarea
+            className="shadow appearance-none border-2 border-black rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
+            placeholder="Enter some details about you"
+            rows="4"
+            value={descriptionState}
+            onChange={handleDescriptionChange}
+            style={{ resize: 'none' }}/>
+        </div>
           <div className="flex items-center justify-between mt-6">
             <button
               className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg focus:outline-none" style={{ backgroundColor: '#ed4168' }}

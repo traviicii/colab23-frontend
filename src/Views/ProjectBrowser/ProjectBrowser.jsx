@@ -65,7 +65,7 @@ export default function ProjectBrowser() {
 
   return (
     <div className="flex">
-      <div className="w-1/4" style={{ display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '400px' }}>
         <ProjectSidebar openModal={toggleModal} />
         <CreateProjectModal isOpen={isModalOpen} closeModal={toggleModal} />
       </div>

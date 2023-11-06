@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ProjectCard from './ProjectCard';
 import UserCard from './UserCard';
@@ -151,6 +151,15 @@ export default function ProjectDisplay({ projects, users }) {
   const matchingUsers = filterUsers();
 
 
+  const [selectedFilter, setSelectedFilter] = useState(
+    peopleOrProjects === 'People' ? 'People' : 'Projects'
+  );
+
+    // Update selectedFilter when peopleOrProjects changes
+    useEffect(() => {
+      setSelectedFilter(peopleOrProjects === 'People' ? 'People' : 'Projects');
+    }, [peopleOrProjects]);
+
 
 
   // Function to render the matching projects
@@ -171,10 +180,10 @@ export default function ProjectDisplay({ projects, users }) {
   };
 
   return (
-    <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column' }} className=''>
-      <div className="flex flex-wrap pl-2">
-        {(peopleOrProjects === 'Projects' || !peopleOrProjects) && showProjects()}
-        {(peopleOrProjects === 'People' || !peopleOrProjects) && showMatchingUsers()}
+    <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column' }}>
+      <div className="flex flex-wrap pl-2 mt-4 mb-28" style={{ minHeight: '100vh' }}>
+        {selectedFilter === 'Projects' && showProjects()}
+        {selectedFilter === 'People' && showMatchingUsers()}
       </div>
     </div>
   );

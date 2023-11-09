@@ -165,7 +165,7 @@ export default function ProjectProfile() {
 
                 }
 
-                <p>{member.first_name} {member.last_name}</p>
+                <p className='whitespace-nowrap'>{member.first_name} {member.last_name}</p>
             </div>
         ))
     }
@@ -228,14 +228,14 @@ export default function ProjectProfile() {
                             }}></div>
 
                             {/* Center of Middle */}
-                            <div className='w-1/3'>
+                            <div className='w-1/2'>
 
                                 <p>Project Admin: <Link to={`/individualteammember/${admin.id}`}><p className='underline font-bold text-rose-500'>{admin.first_name} {admin.last_name}, {admin.prod_role}</p></Link></p>
                                 <p className='mb-4'>Admin Time Zone: <span className='font-bold'>{admin.timezone}</span></p>
 
                                 <div className='industries w-full'>
                                     <p className='mt-6 w-full'>Industries:</p>
-                                    <div className="flex space-x-2 mt-4 mb-4">
+                                    <div className="flex flex-wrap space-x-2 mt-4 mb-4">
                                         {showIndustries()}
                                     </div>
                                 </div>
@@ -354,17 +354,18 @@ export default function ProjectProfile() {
                                 <div className='flex space-x-2'>
 
                                     {showMembers()}
-                                    {Array.from({ length: calculateRemainingRoles('devs') }, (_, i) => (
+                                    {Array.from({ length: project.devs_needed }, (_, i) => (
                                         <div key={i} className="flex justify-center items-center flex-col">
                                             <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="30" cy="30" r="29" stroke="#135279" stroke-width="2" />
-                                                <path d="M13.3333 21.6667V15H46.6666V21.6667H43.3333V18.3333H16.6666V21.6667H13.3333ZM23.3333 45V41.6667H13.3333V35H16.6666V38.3333H43.3333V35H46.6666V41.6667H36.6666V45H23.3333ZM17.9999 28.3333L22.3333 24L19.9999 21.6667L13.3333 28.3333L19.9999 35L22.3333 32.6667L17.9999 28.3333ZM41.9999 28.3333L37.6666 32.6667L39.9999 35L46.6666 28.3333L39.9999 21.6667L37.6666 24L41.9999 28.3333Z" fill="#135279" />
+                                                <circle cx="30" cy="30" r="29" stroke="#626171" stroke-width="2" />
+                                                <path d="M13.3333 21.6667V15H46.6666V21.6667H43.3333V18.3333H16.6666V21.6667H13.3333ZM23.3333 45V41.6667H13.3333V35H16.6666V38.3333H43.3333V35H46.6666V41.6667H36.6666V45H23.3333ZM17.9999 28.3333L22.3333 24L19.9999 21.6667L13.3333 28.3333L19.9999 35L22.3333 32.6667L17.9999 28.3333ZM41.9999 28.3333L37.6666 32.6667L39.9999 35L46.6666 28.3333L39.9999 21.6667L37.6666 24L41.9999 28.3333Z" fill="#626171" />
                                             </svg>
+
 
                                             <p>Developer</p>
                                         </div>
                                     ))}
-                                    {Array.from({ length: calculateRemainingRoles('pms') }, (_, i) => (
+                                    {Array.from({ length: project.pms_needed }, (_, i) => (
                                         <div key={i} className="flex justify-center items-center flex-col">
                                             <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="30" cy="30" r="29" stroke="#ED4068" stroke-width="2" />
@@ -374,12 +375,13 @@ export default function ProjectProfile() {
                                             <p>Manager</p>
                                         </div>
                                     ))}
-                                    {Array.from({ length: calculateRemainingRoles('designers') }, (_, i) => (
+                                    {Array.from({ length: project.designers_needed }, (_, i) => (
                                         <div key={i} className="flex justify-center items-center flex-col">
                                             <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="30" cy="30" r="29" stroke="#F9E8C3" stroke-width="2" />
-                                                <path d="M21.6666 36.6667C22.5833 36.6667 23.3333 37.4167 23.3333 38.3333C23.3333 40.1667 21.8333 41.6667 19.9999 41.6667C19.7166 41.6667 19.4499 41.6667 19.1666 41.5833C19.6833 40.6667 19.9999 39.5667 19.9999 38.3333C19.9999 37.4167 20.7499 36.6667 21.6666 36.6667ZM41.1166 15C40.6833 15 40.2666 15.1667 39.9333 15.4833L24.9999 30.4167L29.5833 35L44.5166 20.0667C45.1666 19.4167 45.1666 18.3333 44.5166 17.7167L42.2833 15.4833C41.9499 15.15 41.5333 15 41.1166 15ZM21.6666 33.3333C18.8999 33.3333 16.6666 35.5667 16.6666 38.3333C16.6666 40.5167 14.7333 41.6667 13.3333 41.6667C14.8666 43.7 17.4999 45 19.9999 45C23.6833 45 26.6666 42.0167 26.6666 38.3333C26.6666 35.5667 24.4333 33.3333 21.6666 33.3333Z" fill="#F9E8C3" />
+                                                <circle cx="30" cy="30" r="29" stroke="#626171" stroke-width="2" />
+                                                <path d="M21.6666 36.6667C22.5833 36.6667 23.3333 37.4167 23.3333 38.3333C23.3333 40.1667 21.8333 41.6667 19.9999 41.6667C19.7166 41.6667 19.4499 41.6667 19.1666 41.5833C19.6833 40.6667 19.9999 39.5667 19.9999 38.3333C19.9999 37.4167 20.7499 36.6667 21.6666 36.6667ZM41.1166 15C40.6833 15 40.2666 15.1667 39.9333 15.4833L24.9999 30.4167L29.5833 35L44.5166 20.0667C45.1666 19.4167 45.1666 18.3333 44.5166 17.7167L42.2833 15.4833C41.9499 15.15 41.5333 15 41.1166 15ZM21.6666 33.3333C18.8999 33.3333 16.6666 35.5667 16.6666 38.3333C16.6666 40.5167 14.7333 41.6667 13.3333 41.6667C14.8666 43.7 17.4999 45 19.9999 45C23.6833 45 26.6666 42.0167 26.6666 38.3333C26.6666 35.5667 24.4333 33.3333 21.6666 33.3333Z" fill="#626171" />
                                             </svg>
+
 
                                             <p>Designer</p>
                                         </div>

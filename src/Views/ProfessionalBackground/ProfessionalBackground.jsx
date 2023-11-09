@@ -28,7 +28,7 @@ export default function ProfessionalBackground() {
         setSelectedOption(selectedValue);
     
         // Show checkbox if specific dropdown options are selected
-        if (selectedValue === 'option2' || selectedValue === 'option3' || selectedValue === 'option4') {
+        if (selectedValue === '2-5 years' || selectedValue === '5-10 years' || selectedValue === '10+') {
             setShowCheckbox(true);
         } else {
             setShowCheckbox(false);
@@ -118,11 +118,12 @@ export default function ProfessionalBackground() {
           <p className="text-md md:text-lg font-semibold text-center">
             Let's start by getting some info about your work experience
           </p>
-          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
+          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your public profile</h4>
 
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1">
               If you are currently switching careers, what is your previous/current role?
+              <span style={{ color: '#ed4168' }}>*</span>
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none border-2 border-black mb-6"
@@ -132,23 +133,25 @@ export default function ProfessionalBackground() {
               onChange={handlePreviousRole}/>
           </div>
 
-          <div className="border-t-2 border-black my-4 mb-10"></div>
+          <div className="border border-black mt-4 mb-8"></div>
 
 
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1">
             Which of the following describes your role on a product team?
+            <span style={{ color: '#ed4168' }}>*</span>
             </label>
             <div className="relative">
       <div className="custom-select-wrapper">
         <select
           className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6 border-2 border-black"
           defaultValue="initial"
+          value={professionalFormData.productRole}
           onChange={handleRoleSelectChange} >
-                <option value="initial" disabled>Select Product Manager, Designer, Developer</option>
-                <option value="option2">Product Manager</option>
-                <option value="option3">Designer</option>
-                <option value="option4">Developer</option>
+                <option value="initial">Select Product Manager, Designer, Developer</option>
+                <option value="Product Manager">Product Manager</option>
+                <option value="Designer">Designer</option>
+                <option value="Developer">Developer</option>
         </select>
       </div>
       {showRoleArrow && (
@@ -167,18 +170,18 @@ export default function ProfessionalBackground() {
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1">
               How much experience do you have in the product role you selected above?
-            </label>
+              <span style={{ color: '#ed4168' }}>*</span></label>
             <div className="relative">
       <div className="custom-select-wrapper">
-        <select
+      <select
           className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6 border-2 border-black"
-          defaultValue="initial"
-          onChange={handleYearsSelectChange}>
-          <option value="initial" disabled>Select # of Years</option>
-          <option value="option1">0-2 years</option>
-          <option value="option2">2-5 years</option>
-          <option value="option3">5-10 years</option>
-          <option value="option4">10+ years</option>
+          onChange={handleYearsSelectChange}
+          value={professionalFormData.productExperience}>
+          <option value="initial">Select # of Years</option>
+          <option value="0-2 years">0-2 years</option>
+          <option value="2-5 years">2-5 years</option>
+          <option value="5-10 years">5-10 years</option>
+          <option value="10+ years">10+ years</option>
         </select>
       </div>
       {showArrow && (

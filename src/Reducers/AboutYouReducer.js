@@ -1,9 +1,10 @@
-import { SET_ADJECTIVES, SET_DESCRIPTION, SET_FIELDS_OF_INTEREST } from '../Actions';
+import { SET_ADJECTIVES, SET_DESCRIPTION, SET_FIELDS_OF_INTEREST, SET_OTHER_INTERESTS } from '../Actions';
   
   const initialState = {
     adjectives: [],
     description: '',
     fieldsOfInterest: [],
+    otherInterests: [],
   };
   
   const aboutYouReducer = (state = initialState, action) => {
@@ -14,6 +15,8 @@ import { SET_ADJECTIVES, SET_DESCRIPTION, SET_FIELDS_OF_INTEREST } from '../Acti
         return { ...state, description: action.payload };
       case SET_FIELDS_OF_INTEREST:
         return { ...state, fieldsOfInterest: action.payload };
+      case SET_OTHER_INTERESTS:
+        return { ...state, otherInterests: action.payload };
       default:
         return state;
     }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from './Components/Navbar/Navbar';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Welcome from './Views/Welcome/Welcome';
 import './index.css';
 import Footer from './Components/Footer/Footer';
@@ -50,6 +50,19 @@ const appStyle = {
 export default function App() {
 
   const user = useSelector((state) => state.user);
+  const location = useLocation();
+  const { pathname } = location;
+
+  const shouldNotRenderFooter = !(
+    pathname === '/signin' ||
+    pathname === '/personal-details' ||
+    pathname === '/professional-background' ||
+    pathname === '/skills-and-tools' ||
+    pathname === '/about-you' ||
+    pathname === '/your-availability' ||
+    pathname === '/review-details' ||
+    pathname === '/welcome-done'
+  );
 
   return (
     <div style={appStyle}>
@@ -79,7 +92,7 @@ export default function App() {
       </Routes>
 
       
-      <Footer />
+      {shouldNotRenderFooter && <Footer />}
     </div>
   )
 }

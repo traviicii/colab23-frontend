@@ -118,11 +118,12 @@ export default function PersonalDetails() {
           <p className="text-md md:text-lg text-center font-semibold">
             Let's start by getting some basics
           </p>
-          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
+          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your public profile</h4>
 
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="firstName">
               What is your first name?
+              <span style={{ color: '#ed4168' }}>*</span>
             </label>
             <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="firstName"
@@ -134,6 +135,7 @@ export default function PersonalDetails() {
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="lastName">
               What is your last name?
+              <span style={{ color: '#ed4168' }}>*</span>
             </label>
             <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="lastName"
@@ -146,6 +148,7 @@ export default function PersonalDetails() {
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="email">
               Enter your email address
+              <span style={{ color: '#ed4168' }}>*</span>
             </label>
             <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="email"
@@ -171,6 +174,7 @@ export default function PersonalDetails() {
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="password">
               Select a password (8 characters minimum)
+              <span style={{ color: '#ed4168' }}>*</span>
             </label>
             <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="password"
@@ -183,6 +187,7 @@ export default function PersonalDetails() {
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="confirmPassword">
               Re-type your password
+              <span style={{ color: '#ed4168' }}>*</span>
             </label>
             <input className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-4 border-2 border-black"
               id="confirmPassword"

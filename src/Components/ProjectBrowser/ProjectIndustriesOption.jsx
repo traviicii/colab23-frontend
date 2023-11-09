@@ -12,23 +12,33 @@ export default function ProjectIndustriesOption({ selectedFields, showIndustries
   
     return (
     <li>
-    <button type="button" className="flex items-center w-2/3 p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 ml-10" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-        <span className="flex-1  text-left whitespace-nowrap" onClick={toggleProjectIndustryButtons}>Industries</span>
+    <button type="button" className="flex items-center px-4  p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 ml-10" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example" onClick={toggleProjectIndustryButtons}>
+        <span className="text-left whitespace-nowrap font-bold mr-10 text-xl">Industries</span>
         <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 4 4 4-4" />
         </svg>
     </button>
     {showIndustriesButtons && (
-    <div className="ml-12 mt-4 grid grid-cols-3 gap-x-0 gap-y-4 pb-8">
+    <div className="ml-12 mt-4 grid grid-cols-3 gap-x-0 gap-y-4 pb-8 w-4/5">
         {fieldsOfInterests.map((field, index) => (
-        <div
-            key={index}
-            style={{ backgroundColor: selectedFields.includes(field) ? 'white' : '#bcbbc2' }}
-            className="rounded-lg w-3/4 py-3 text-center cursor-pointer border-2 border-white text-xs"
-            onClick={() => toggleField(field)}
-        >
-            {field}
-        </div>
+            <button
+    key={index}
+    style={{
+        backgroundColor: selectedFields.includes(field) ? 'white' : '#bcbbc2'
+    }}
+    className="rounded-lg w-3/4 py-3 text-center cursor-pointer border border-black text-xs"
+    onClick={() => toggleField(field)}
+    onMouseEnter={(event) => {
+        event.target.style.backgroundColor = 'white';
+    }}
+    onMouseLeave={(event) => {
+        event.target.style.backgroundColor = selectedFields.includes(field) ? 'white' : '#bcbbc2';
+    }}
+>
+    {field}
+</button>
+
+
         ))}
     </div>
     )}

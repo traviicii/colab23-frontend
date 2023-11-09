@@ -20,11 +20,19 @@ export default function ReviewDetails() {
     <div className="personal-details-container" style={{ backgroundColor: '#bcbbc2' }}>
       <div className="flex items-center justify-center">
         <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10 bg-white">
-          <div className="mb-4 ml-20 mr-20">
-            <div className="w-full bg-gray-200 h-2 rounded-full mr-20">
-              <div className="bg-blue-500 h-2 rounded-full" style={{ width: '100%', backgroundColor: '#ed4168' }}></div>
+        <div className="mb-4 flex items-center">
+            <button className="hover:underline text-lg mr-4" onClick={() => navigate("/your-availability")} style={{ display: 'flex', alignItems: 'center' }}>
+                <svg fill="#000000" width="20" height="20" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
+                    <polygon fillRule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41" />
+                </svg>
+                Back
+            </button>
+
+                {/* progress bar */}
+                <div className="w-full bg-gray-200 h-2 rounded-full mr-20 ml-10">
+                    <div className="bg-blue-500 h-2 rounded-full" style={{ width: '100%', backgroundColor: '#ed4168' }}></div>
+                </div>
             </div>
-          </div>
           <p className="text-xl md:text-2xl text-center text-500 mb-8">
             Review Your Details
           </p>
@@ -73,7 +81,7 @@ export default function ReviewDetails() {
                 {currentSkills
                 .filter(skill => skill && skill.trim() !== '')
                 .map((skill, index) => (
-                    <div key={index} className="rounded-lg p-2 text-center cursor-pointer border border-gray-300" style={{ backgroundColor: '#f8e1e6' }}>
+                    <div key={index} className="rounded-lg p-2 text-center cursor-pointer border-gray-300" style={{ backgroundColor: '#f8e1e6' }}>
                     {skill}
                     </div>
                 ))}
@@ -90,7 +98,7 @@ export default function ReviewDetails() {
                     {skillsTools.wantedSkills
                         .filter(skill => skill && skill.trim() !== '')
                         .map((skill, index) => (
-                            <div key={index} className="rounded-lg p-2 text-center cursor-pointer border border-gray-300 text-black" style={{ backgroundColor: '#f8e1e6' }}>
+                            <div key={index} className="rounded-lg p-2 text-center cursor-pointer border-gray-300 text-black" style={{ backgroundColor: '#f8e1e6' }}>
                                 {skill}
                             </div>
                         ))}
@@ -111,7 +119,7 @@ export default function ReviewDetails() {
                 </p>
                 <div className="grid grid-cols-3 gap-4">
                     {aboutYou.fieldsOfInterest.map((field, index) => (
-                        <div key={index} className="rounded-lg p-2 text-center cursor-pointer border border-gray-300" style={{ backgroundColor: '#f8e1e6' }}>
+                        <div key={index} className="rounded-lg p-2 text-center cursor-pointer border-gray-300" style={{ backgroundColor: '#f8e1e6' }}>
                             {field}
                         </div>
                         ))}

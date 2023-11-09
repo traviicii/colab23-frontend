@@ -8,7 +8,7 @@ export default function SkillsAndTools() {
     const productDesignSkills = [
         'Qualitative Research', 'Market Research', 'Branding', 'Visual Design', 'Graphic Design',
         'Management', 'Sketching', 'Wireframing', 'Prototyping', 'Copy Writing', 'Information Arch',
-        'Usability Testing', 'Figma', 'Figjam', 'Micro', 'Adobe Sketch', 'InVision', 'ProtoPie',
+        'Usability Testing', 'Figma', 'Figjam', 'Miro', 'Adobe Sketch', 'InVision', 'ProtoPie',
         'Adobe PhotoShop', 'Adobe Illustrator', 'Quantitative Research'
     ];
 
@@ -135,21 +135,24 @@ export default function SkillsAndTools() {
                         Tell us about your current skillset and toolkit
                     </p>
 
-                    <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
+                    <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your public profile</h4>
 
                     <h6 className="text-md md:text-lg text-left mb-10 font-semibold">
                         What are some skills you possess? Select as many as you like, from any category
+                        <span style={{ color: '#ed4168' }}>*</span>
                     </h6>
+                    
 
                     <p className="text-md text-left font-semibold mb-6">
                         Product Design
                     </p>
+                    
 
                     {/* Grid of Product Design Skills */}
                     <div className="grid grid-cols-3 gap-4 items-center">
                         {productDesignSkills.map((skill, index) => (
                             <div key={index}
-                                style={{ backgroundColor: skillsTools.designSkills.includes(skill) ? '#ecafbd' : 'white' }}
+                                style={{ backgroundColor: skillsTools.designSkills.includes(skill) ? '#F8E1E6' : 'white' }}
                                 className="rounded-lg p-2 text-center cursor-pointer border border-gray-300"
                                 onClick={() => toggleSkill(skill, skillsTools.designSkills, setDesignSkills)}>
                                 {skill}
@@ -157,7 +160,7 @@ export default function SkillsAndTools() {
                         ))}
                     </div>
 
-                    <div className="border-t-2 border-black my-10 mb-10"></div>
+                    <div className="border border-black mt-8 mb-8"></div>
 
                     <p className="text-md text-left font-semibold mb-6">
                         Software Developer
@@ -167,7 +170,7 @@ export default function SkillsAndTools() {
                     <div className="grid grid-cols-3 gap-4 items-center">
                         {softwareDeveloperSkills.map((skill, index) => (
                             <div key={index}
-                                style={{ backgroundColor: skillsTools.developerSkills.includes(skill) ? '#ecafbd' : 'white' }}
+                                style={{ backgroundColor: skillsTools.developerSkills.includes(skill) ? '#F8E1E6' : 'white' }}
                                 className="rounded-lg p-2 text-center cursor-pointer border border-gray-300"
                                 onClick={() => toggleSkill(skill, skillsTools.developerSkills, setDeveloperSkills)}>
                                 {skill}
@@ -176,7 +179,7 @@ export default function SkillsAndTools() {
                     </div>
 
 
-                    <div className="border-t-2 border-black my-10 mb-10"></div>
+                    <div className="border border-black mt-8 mb-8"></div>
 
                     <p className="text-md text-left font-semibold mb-6">
                         Product Management
@@ -186,7 +189,7 @@ export default function SkillsAndTools() {
                     <div className="grid grid-cols-3 gap-4 items-center">
                         {productManagementSkills.map((skill, index) => (
                             <div key={index}
-                                style={{ backgroundColor: skillsTools.managementSkills.includes(skill) ? '#ecafbd' : 'white' }}
+                                style={{ backgroundColor: skillsTools.managementSkills.includes(skill) ? '#F8E1E6' : 'white' }}
                                 className="rounded-lg p-2 text-center cursor-pointer border border-gray-300"
                                 onClick={() => toggleSkill(skill, skillsTools.managementSkills, setManagementSkills)}>
                                 {skill}
@@ -195,14 +198,14 @@ export default function SkillsAndTools() {
                     </div>
 
 
-                    <div className="border-t-2 border-black my-10 mb-10"></div>
+                    <div className="border border-black mt-8 mb-8"></div>
 
                     {/* New input box for additional skills */}
                     <div>
                     <h6 className="text-md md:text-lg text-left mt-4">Enter any skills you would like to mention.</h6>
-                    <div className="tag-list inline-block mb-1">
-                        {tags.map((tag, index) => (
-                        <div key={index} className="tag inline-block bg-blue-500 px-2 py-1 m-1 rounded-full text-sm" style={{ backgroundColor: '#ecafbd' }}>
+                    <div className="tag-list inline-block space-x-3 mb-2">
+                        {skillsTools.otherSkills.map((tag, index) => (
+                        <div key={index} className="tag inline-block bg-blue-500 px-2 py-1 rounded-full text-sm" style={{ backgroundColor: '#ecafbd' }}>
                             {tag}
                             <button className='ml-2' onClick={() => handleAdditionalTagRemove(tag)}>X</button>
                         </div>
@@ -215,23 +218,23 @@ export default function SkillsAndTools() {
                         onKeyDown={handleInputAdditionalKeydown}
                         placeholder="Other Skills"
                         />
-                        <button onClick={handleEnterButtonClicked} className="bg-blue-500 text-white py-2 px-4 rounded border border-blue-500 ml-2" style={{ backgroundColor: '#ed4168' }}>
+                        <button onClick={handleEnterButtonClicked} className="bg-blue-500 text-white py-2 px-4 rounded border ml-2" style={{ backgroundColor: '#ed4168' }}>
                         Enter
                         </button>
                     </div>
                     </div>
 
                 
-                    <div className="border-t-2 border-black mt-4 mb-4"></div>
+                    <div className="border border-black mt-8 mb-8"></div>
 
                     {/* New skill input and tag display */}
                     <div>
                     <h6 className="text-md md:text-lg text-left mt-4">
                         Enter any skills you would like to gain.
                     </h6>
-                    <div className="tag-list inline-block">
-                    {SkillTag.map((tag, index) => (
-                        <div key={index} className="tag inline-block bg-blue-500 px-2 py-1 m-1 rounded-full text-sm" style={{ backgroundColor: '#ecafbd' }}>
+                    <div className="tag-list inline-block space-x-3 mb-2">
+                    {skillsTools.wantedSkills.map((tag, index) => (
+                        <div key={index} className="tag inline-block px-2 py-1 rounded-full text-sm" style={{ backgroundColor: '#ecafbd' }}>
                             {tag}
                             <button className='ml-2' onClick={() => handleTagRemove(tag)}>X</button>
                         </div>
@@ -240,7 +243,7 @@ export default function SkillsAndTools() {
                     <div className="input-container flex items-center mb-6">
                     <input type="text" value={inputValue} onChange={handleInputChange}
                         onKeyDown={handleInputKeydown} placeholder="Enter a Subject" className="shadow appearance-none border-2 border-black rounded py-2 px-2 md:px-3 text-gray-700 focus:outline-none flex-grow" />
-                    <button onClick={handleEnterButtonClick} className="bg-blue-500 text-white py-2 px-4 rounded border border-blue-500 ml-2" style={{ backgroundColor: '#ed4168' }}>Enter</button>
+                    <button onClick={handleEnterButtonClick} className="bg-blue-500 text-white py-2 px-4 rounded border  ml-2" style={{ backgroundColor: '#ed4168' }}>Enter</button>
                     </div>
                     </div>
 

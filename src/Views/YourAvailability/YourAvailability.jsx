@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocation, setTimezone, setHoursPerWeek, setAvailability } from '../../Actions';
+import './YourAvailability.css'
 
 export default function YourAvailability() {
     const dispatch = useDispatch();
@@ -9,14 +10,33 @@ export default function YourAvailability() {
 
     const availabilityForm = useSelector((state) => state.availabilityForm)
 
-    const [localAvailability, setLocalAvailability] = useState({
-        'Early Morning': false,
-        'Late Mornings': false,
-        'Early Afternoons': false,
-        'Late Afternoons': false,
-        'Evenings': false,
-        'Nights': false,
+  // Initialize localAvailability state with values from Redux
+  const [localAvailability, setLocalAvailability] = useState({
+    'Early Morning': availabilityForm.availability.includes('Early Morning'),
+    'Late Mornings': availabilityForm.availability.includes('Late Mornings'),
+    'Early Afternoons': availabilityForm.availability.includes('Early Afternoons'),
+    'Late Afternoons': availabilityForm.availability.includes('Late Afternoons'),
+    'Evenings': availabilityForm.availability.includes('Evenings'),
+    'Nights': availabilityForm.availability.includes('Nights'),
+  });
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+
+    // Update local state
+    setLocalAvailability({
+      ...localAvailability,
+      [name]: checked,
     });
+
+    // Create an array of selected checkboxes
+    const selectedAvailability = Object.keys(localAvailability).filter(
+      (key) => localAvailability[key]
+    );
+
+    // Dispatch the user input data to Redux
+    dispatch(setAvailability(selectedAvailability));
+  };
 
     // Dropdown options
     const timezoneOptions = [
@@ -42,13 +62,6 @@ export default function YourAvailability() {
         dispatch(setHoursPerWeek(e.target.value));
     };
 
-    const handleCheckboxChange = (event) => {
-        const { name, checked } = event.target;
-        setLocalAvailability({
-            ...localAvailability,
-            [name]: checked,
-        });
-    };
     
     const navigateWelcomeDone = () => {
 
@@ -87,23 +100,25 @@ export default function YourAvailability() {
                         Tell your teammates about your schedule constraints.
                     </p>
 
-                    <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
+                    <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your public profile</h4>
 
                     <h6 className="text-md md:text-lg text-left mb-4">
-                        1. Where are you located?
+                        Where are you located?
+                        <span style={{ color: '#ed4168' }}>*</span>
                     </h6>
 
                     <div className="mb-2">
-                        <input type="text" className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6" placeholder="Enter your city, country" value={availabilityForm.location} onChange={handleLocationChange} />
+                        <input type="text" className="shadow appearance-none border-black border-2 rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6" placeholder="Enter your city, country" value={availabilityForm.location} onChange={handleLocationChange} />
                     </div>
 
                     <h6 className="text-md md:text-lg text-left mb-4">
-                        2. What timezone are you in?
+                        What timezone are you in?
+                        <span style={{ color: '#ed4168' }}>*</span>
                     </h6>
 
                     <div className="mb-2">
                         <select
-                            className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
+                            className="shadow appearance-none border-black border-2 rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
                             value={availabilityForm.timezone}
                             onChange={handleTimezoneChange}
                         >
@@ -117,12 +132,13 @@ export default function YourAvailability() {
                     </div>
 
                     <h6 className="text-md md:text-lg text-left mb-4">
-                        3. How many hours per week can you dedicate?
+                        How many hours per week can you dedicate?
+                        <span style={{ color: '#ed4168' }}>*</span>
                     </h6>
 
                     <div className="mb-2">
                         <select
-                            className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
+                            className="shadow appearance-none border-black border-2 rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
                             value={availabilityForm.hoursPerWeek}
                             onChange={handleHoursPerWeekChange}
                         >
@@ -136,7 +152,8 @@ export default function YourAvailability() {
                     </div>
 
                     <h6 className="text-md md:text-lg text-left mb-2">
-                        4. What are the general hours that you are available?
+                        What are the general hours that you are available?
+                        <span style={{ color: '#ed4168' }}>*</span>
                     </h6>
 
                     <p className="text-sm text-gray-500 mb-2">Select all that apply</p>
@@ -172,8 +189,7 @@ export default function YourAvailability() {
                         <button
                             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg focus:outline-none" style={{ backgroundColor: '#ed4168' }}
                             type="button"
-                            onClick={navigateWelcomeDone}
-                            >
+                            onClick={navigateWelcomeDone}>
                             Continue
                         </button>
                     </div>

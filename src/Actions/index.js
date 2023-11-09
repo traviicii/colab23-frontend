@@ -106,6 +106,7 @@ export const setWantedSkills = (wantedSkills) => ({
 export const SET_ADJECTIVES = 'SET_ADJECTIVES';
 export const SET_DESCRIPTION = 'SET_DESCRIPTION';
 export const SET_FIELDS_OF_INTEREST = 'SET_FIELDS_OF_INTEREST';
+export const SET_OTHER_INTERESTS = 'SET_OTHER_INTERESTS';
 
 export const setAdjectives = (adjectives) => ({
   type: SET_ADJECTIVES,
@@ -119,6 +120,11 @@ export const setDescription = (description) => ({
 
 export const setFieldsOfInterest = (fieldsOfInterest) => ({
   type: SET_FIELDS_OF_INTEREST,
+  payload: fieldsOfInterest,
+});
+
+export const setOtherInterests = (fieldsOfInterest) => ({
+  type: SET_OTHER_INTERESTS,
   payload: fieldsOfInterest,
 });
 

@@ -62,7 +62,7 @@ export default function WelcomeDone() {
     }
 
     return (
-        <div className="professional-background-container" style={{ backgroundColor: '#bcbbc2' }}>
+        <div className="professional-background-container h-screen" style={{ backgroundColor: '#bcbbc2' }}>
             <div className="flex items-center justify-center">
                 <div className="shadow-2xl rounded-xl w-4/5 md:w-4/5 lg:w-3/5 xl:w-2/5 px-4 md:px-6 py-8 md:py-10 bg-white mb-60">
                     <div className="mb-4 flex items-center">

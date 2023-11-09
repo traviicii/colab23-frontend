@@ -180,8 +180,8 @@ export default function ProjectDisplay({ projects, users }) {
   };
 
   return (
-    <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column' }}>
-      <div className="flex flex-wrap pl-2 mt-4 mb-28" style={{ minHeight: '100vh' }}>
+    <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', width: '100%' }}>
+      <div className="flex flex-wrap pl-2 ml-6 mt-4 mb-28" style={{ minHeight: '1600px' }}>
         {selectedFilter === 'Projects' && showProjects()}
         {selectedFilter === 'People' && showMatchingUsers()}
       </div>

@@ -208,7 +208,6 @@ export default function PersonalDetails() {
             <div className="flex items-center justify-between mt-6">
               <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg focus:outline-none" style={{ backgroundColor: '#ed4168' }}
                 type="submit"
-              // onClick={checkUser}
               >
                 Continue
               </button>

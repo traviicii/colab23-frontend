@@ -33,7 +33,7 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="min-h-screen pl-20 pr-20 pt-20 pb-60 bg-gradient-to-b from-[#1D3F65] to-rose-500">
+        <div className="min-h-screen pl-20 pr-20 pt-20 pb-60 bg-gradient-to-b from-[#1D3F65] to-[#C62A57]">
             <h1 className="text-5xl font-bold pb-5 text-white">Hey, {user.data.first_name}!</h1>
             <p className="text-3xl text-white">You're working on <button className='underline text-rose-300' onClick={() => navigate(`/project-profile/${user.project.id}`)}>{user.project.name}</button>!</p>
             <p className="text-3xl text-white">Let's take a look at what's going on...</p>

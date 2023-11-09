@@ -40,8 +40,8 @@
 
   .overlay-image {
     position: absolute;
-    top: 40%;
-    left: 48%;
+    top: 42%;
+    left: 47%;
     transform: translate(-50%, -50%);
     max-width: 50%;
     max-height: 50%;

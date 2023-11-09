@@ -40,7 +40,7 @@ export default function YourAvailability() {
 
     // Dropdown options
     const timezoneOptions = [
-        'UTC-11: Samoa Standard Time', 'UTC-10 Hawaii-Aleutian Standard Time', 'UTC-9: Alaska Standard Time (AKST)', 'UTC-8: Pacific Standard Time (PST)', 'UTC-7: Mountain Standard Time (MST)', 'UTC-6: Central Standard Time (CST)', 'UTC-5: Eastern Standard Time (EST)', 'UTC-Atlantic Standard Time (AST)'
+        'UTC-11: Samoa Standard Time', 'UTC-10: Hawaii-Aleutian Standard Time', 'UTC-9: Alaska Standard Time (AKST)', 'UTC-8: Pacific Standard Time (PST)', 'UTC-7: Mountain Standard Time (MST)', 'UTC-6: Central Standard Time (CST)', 'UTC-5: Eastern Standard Time (EST)', 'UTC-Atlantic Standard Time (AST)'
     ];
 
     const hoursPerWeekOptions = [
@@ -160,27 +160,27 @@ export default function YourAvailability() {
 
                     <div className="mb-2">
                         <label className="block mb-1">
-                            <input type="checkbox" name="Early Morning" checked={localAvailability['Early Morning']} onChange={handleCheckboxChange} className="mr-2" />
+                            <input type="checkbox" name="Early Morning" checked={localAvailability['Early Morning']} onChange={handleCheckboxChange} className="mr-2 accent-pink-500" />
                             Early Morning, 6am-9am
                         </label>
                         <label className="block mb-1">
-                            <input type="checkbox" name="Late Mornings" checked={localAvailability['Late Mornings']} onChange={handleCheckboxChange} className="mr-2" />
+                            <input type="checkbox" name="Late Mornings" checked={localAvailability['Late Mornings']} onChange={handleCheckboxChange} className="mr-2 accent-pink-500" />
                             Late Mornings, 9am-12pm
                         </label>
                         <label className="block mb-1">
-                            <input type="checkbox" name="Early Afternoons" checked={localAvailability['Early Afternoons']} onChange={handleCheckboxChange} className="mr-2" />
+                            <input type="checkbox" name="Early Afternoons" checked={localAvailability['Early Afternoons']} onChange={handleCheckboxChange} className="mr-2 accent-pink-500" />
                             Early Afternoons, 12pm-3pm
                         </label>
                         <label className="block mb-1">
-                            <input type="checkbox" name="Late Afternoons" checked={localAvailability['Late Afternoons']} onChange={handleCheckboxChange} className="mr-2" />
+                            <input type="checkbox" name="Late Afternoons" checked={localAvailability['Late Afternoons']} onChange={handleCheckboxChange} className="mr-2 accent-pink-500" />
                             Late Afternoons, 3pm-6pm
                         </label>
                         <label className="block mb-1">
-                            <input type="checkbox" name="Evenings" checked={localAvailability['Evenings']} onChange={handleCheckboxChange} className="mr-2" />
+                            <input type="checkbox" name="Evenings" checked={localAvailability['Evenings']} onChange={handleCheckboxChange} className="mr-2 accent-pink-500" />
                             Evenings, 6pm-9pm
                         </label>
                         <label className="block mb-10">
-                            <input type="checkbox" name="Nights" checked={localAvailability['Nights']} onChange={handleCheckboxChange} className="mr-2" />
+                            <input type="checkbox" name="Nights" checked={localAvailability['Nights']} onChange={handleCheckboxChange} className="mr-2 accent-pink-500" />
                             Nights, 9pm-12am
                         </label>
                     </div>

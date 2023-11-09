@@ -95,7 +95,7 @@ export default function SkillsAndTools() {
     const navigate = useNavigate();
     const navigateAboutYou = () => {
         if (skillsTools.designSkills == '' && skillsTools.developerSkills == '' && skillsTools.managementSkills == '' && skillsTools.wantedSkills == '') {
-            dispatch(addToast("Please fill out at least one skill within Product Design, Software Development, or Product Management and at least one skill you'd like to gain.", "error"))
+            dispatch(addToast("Please fill out at least one skill within Product Design, Software Development, or Product Management.", "error"))
             return;
         }
         navigate('/about-you');

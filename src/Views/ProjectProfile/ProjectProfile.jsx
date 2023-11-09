@@ -22,7 +22,7 @@ export default function ProjectProfile() {
         setMenuOpen(!isMenuOpen);
     };
 
-    // Reference to the task menu for click outside detection
+    // Reference to the kebab menu for click outside detection
     const menuRef = useRef(null);
     useEffect(() => {
         // Function to close the menu when clicking outside
@@ -145,8 +145,8 @@ export default function ProjectProfile() {
             <div className="">
 
                 {/* Top Section */}
-                <div className='top w-3/4 ml-36 mb-10 space-y-6 flex items-center'>
-                    <div className='space-y-6'>
+                <div className='top w-3/4 ml-36 mb-4 space-y-6 flex items-center'>
+                    <div className='space-y-4'>
                         <button
                             className="hover:underline text-lg mr-4 w-3/4 pt-4"
                             onClick={() => navigate("/project-browser")}
@@ -159,7 +159,7 @@ export default function ProjectProfile() {
                         </button>
                         <div className='space-y-4'>
 
-                            <h1 className='text-2xl font-bold'>{project.name}</h1>
+                            <h1 className='text-4xl font-bold'>{project.name}</h1>
                             <div>
                                 <button disabled className="px-8 py-1 rounded border-2 border-rose-300">{project.complete === false ? "Open" : "Closed"}</button>
                             </div>
@@ -212,7 +212,11 @@ export default function ProjectProfile() {
                                     // If proj_id == user's project ID then show edit details and kebab
                                     user.project.id == project_id ?
                                         <div className='flex'>
-                                            <button className='flex justify-center items-center border rounded-xl w-full py-4 mb-4 text-white bg-[#ed4168]' >Edit Details</button>
+                                            {user.data.is_admin == true ?
+                                                <button className='flex justify-center items-center border rounded-xl w-full py-4 mb-4 text-white bg-[#ed4168]' >Edit Details</button>
+                                                :
+                                                <button onClick={toggleMenu} className='flex justify-center items-center border rounded-xl w-full py-4 mb-4 text-white bg-[#ed4168]' >Project Options</button>
+                                            }
                                             {/* Kebab menu */}
                                             <div className="relative mt-1" ref={menuRef}>
                                                 <div

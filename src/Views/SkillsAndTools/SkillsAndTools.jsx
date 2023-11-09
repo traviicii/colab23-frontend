@@ -8,7 +8,7 @@ export default function SkillsAndTools() {
     const productDesignSkills = [
         'Qualitative Research', 'Market Research', 'Branding', 'Visual Design', 'Graphic Design',
         'Management', 'Sketching', 'Wireframing', 'Prototyping', 'Copy Writing', 'Information Arch',
-        'Usability Testing', 'Figma', 'Figjam', 'Micro', 'Adobe Sketch', 'InVision', 'ProtoPie',
+        'Usability Testing', 'Figma', 'Figjam', 'Miro', 'Adobe Sketch', 'InVision', 'ProtoPie',
         'Adobe PhotoShop', 'Adobe Illustrator', 'Quantitative Research'
     ];
 

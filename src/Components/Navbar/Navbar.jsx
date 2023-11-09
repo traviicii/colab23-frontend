@@ -1,20 +1,37 @@
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css'
 
 export default function Navbar() {
 
   const navigate = useNavigate();
+  const location = useLocation();
   const navigateToSignIn = () => {
     navigate('/signin')
   }
 
+   // Define the paths where you want to hide the Sign In / Sign Up button
+   const pathsToHideButton = 
+      ['/signin',
+      '/personal-details',
+      '/professional-background',
+      '/skills-and-tools',
+      '/about-you',
+      '/your-availability',
+      '/review-details',
+      '/welcome-done'];
+
+   // Check if the current location matches any of the paths to hide the button
+   const shouldHideButton = pathsToHideButton.includes(location.pathname);
+
   return (
     <nav className="flex justify-around items-center text-gray-800 py-2 h-10" id='nav-wrapper'>
 
-      <div className="link-wrapper w-1/4 ml-10">
+    {!shouldHideButton && (
+      <div className="link-wrapper w-1/5 ml-44">
 
       </div>
+      )}
 
       <div className="mx-auto text-center text-3xl">
         <h1>
@@ -43,12 +60,13 @@ export default function Navbar() {
         </h1>
       </div>
 
-      <div className="ml-auto mr-20" id="auth-link">
-        <button onClick={navigateToSignIn} className="signup-button" style={{ backgroundColor: '#ed4168', width: '200px', boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.8)' }}>
-          Sign In / Sign Up
-        </button>
-      </div>
-
+      {!shouldHideButton && (
+        <div className=" ml-auto mr-20" id="auth-link">
+          <button onClick={navigateToSignIn} className="signup-button" style={{ backgroundColor: '#ed4168', width: '200px', boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.8)' }}>
+            Sign In / Sign Up
+          </button>
+        </div>
+        )}
 
     </nav>
   );

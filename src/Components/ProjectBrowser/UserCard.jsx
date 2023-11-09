@@ -15,7 +15,7 @@ export default function UserCard({ user }) {
     }
 
     return (
-        <div className='mx-8 my-5 w-2/5'>
+        <div className='mx-6 my-5 w-5/12'>
             <div className="w-full border border-gray-200 rounded-lg shadow-xl" style={{ backgroundColor: '#f9e8c3', minHeight: '600px' }}>
 
                 <div className='flex justify-center'>

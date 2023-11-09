@@ -9,6 +9,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+
     const navigate = useNavigate()
 
     const [activeDisplay, setActiveDisplay] = useState('task');

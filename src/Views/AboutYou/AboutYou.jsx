@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addToast, setAdjectives, setDescription, setFieldsOfInterest } from '../../Actions';
+import { addToast, setAdjectives, setDescription, setFieldsOfInterest, setOtherInterests } from '../../Actions';
 
 export default function AboutYou() {
   const fieldsOfInterest = [
@@ -20,23 +20,23 @@ export default function AboutYou() {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const aboutYou = useSelector((state) => state.aboutYouForm)
 
   const [selectedFields, setSelectedFields] = useState([]);
   const [adjectivesState, setAdjectivesState] = useState([]);
-  const [descriptionState, setDescriptionState] = useState('');
+  const [descriptionState, setDescriptionState] = useState(aboutYou.description);
   const [showOtherInterests, setShowOtherInterests] = useState(false);
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const [InterestTag, setInterestTag] = useState([]);
 
 
-    const handleTagRemove = (tagToRemove) => {
-        const updatedTags = tags.filter((tag) => tag !== tagToRemove);
-        setTags(updatedTags);
-      };
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
       const handleInputChange = (e) => {
         setInputValue(e.target.value);
-      };
+      }};
     
       const handleInputKeydown = (e) => {
         if (e.key === 'Enter' && inputValue.trim() !== '') {
@@ -57,7 +57,21 @@ export default function AboutYou() {
       dispatch(addToast("You can only select a maximum of 5 fields of interest!", "error"))
     }
   };
+    
 
+    // Function to toggle skill selection
+    const toggleSkill = (skill, state, stateFunc) => {
+      if (state.includes(skill)) {
+        dispatch(stateFunc(state.filter(selectedSkill => selectedSkill !== skill)));
+      } else if (skill === 'Other...') {
+        setShowOtherInterests(true);
+        dispatch(stateFunc([...state, skill]));
+      } else {
+        dispatch(stateFunc([...state, skill]));
+      }
+      console.log(aboutYou);
+    };
+      
   const handleAdjectiveSelect = (selectedAdjective) => {
     if (adjectivesState.includes(selectedAdjective)) {
       // Deselect the adjective
@@ -76,15 +90,38 @@ export default function AboutYou() {
   };
 
   const navigateYourAvailability = () => {
-    dispatch(setFieldsOfInterest(selectedFields));
-    dispatch(setAdjectives(adjectivesState));
     dispatch(setDescription(descriptionState));
+    dispatch(setOtherInterests(InterestTag))
     navigate('/your-availability');
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+
+  const handleEnterButtonClick = () => {
+    // Handle adding the tag when the "Enter" button is clicked for skills to gain
+    const newTag = inputValue.trim();
+    if (newTag) {
+        setInterestTag([...InterestTag, newTag]);
+        dispatch(setOtherInterests([...aboutYou.otherInterests, newTag]));
+        setInputValue('');
+    }
+};
+
+const handleInterestsTagRemove = (tagToRemove) => {
+  const updatedInterestTag = InterestTag.filter((tag) => tag !== tagToRemove);
+  setInterestTag(updatedInterestTag);
+};
+
+const handleInterestsInputKeydown = (e) => {
+  if (e.key === 'Enter' && inputValue.trim() !== '') {
+      setInterestTag([...InterestTag, inputValue.trim()]);
+      setInputValue('');
+      dispatch(setOtherInterests([...aboutYou.otherInterests, inputValue.trim()]));
+  }
+};
 
   return (
     <div className="professional-background-container" style={{ backgroundColor: '#bcbbc2' }}>
@@ -106,65 +143,70 @@ export default function AboutYou() {
           <p className="text-md md:text-lg text-center font-semibold">
             Tell your teammates a little bit more about yourself!
           </p>
-          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
+          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your public profile</h4>
 
-          <h6 className="text-sm md:text-md text-left mb-2 font-bold">Select the fields you are most interested in for potential teammates to learn more about your interests.</h6>
+          <h6 className="text-sm md:text-md text-left mb-2 font-bold">Select the fields you are most interested in for potential teammates to learn more about your interests.
+          <span style={{ color: '#ed4168' }}>*</span></h6>
+          
 
-          <p className='mb-6 text-gray-500'>Select up to 5</p>
+          <p className='text-sm mb-6 text-gray-500'>Select up to 5</p>
           <div className="grid grid-cols-3 gap-4">
             {fieldsOfInterest.map((field, index) => (
               <div key={index} style={{
                   backgroundColor:
-                    selectedFields.includes(field) ? '#ecafbd' : 'white'
+                  aboutYou.fieldsOfInterest.includes(field) ? '#F8E1E6' : 'white'
                 }}
                 className="rounded-lg p-2 text-center cursor-pointer border border-gray-300"
-                onClick={() => toggleField(field)}>
+                onClick={() => toggleSkill(field, aboutYou.fieldsOfInterest, setFieldsOfInterest)}>
                 {field}
               </div>
             ))}
           </div>
 
           {/* New input box for other interests */}
-          {showOtherInterests && (
-            <div>
-              <h6 className="text-md md:text-lg text-left mt-4">Please enter your other interests</h6>
-                  <div className="tag-list inline-block mb-1">
-                    {tags.map((tag, index) => (
-                    <div key={index} className="tag inline-block bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
-                        {tag}
-                        <button className='ml-2' onClick={() => handleTagRemove(tag)}>X</button>
+          {aboutYou.fieldsOfInterest.includes('Other...') && (
+                <div>
+                  <h6 className="text-md md:text-lg text-left mt-4">
+                        Enter any interests you would like to gain.
+                    </h6>
+                      <div className="tag-list inline-block">
+                      {aboutYou.otherInterests.map((tag, index) => (
+                        <div key={index} className="tag inline-block bg-blue-500 px-2 py-1 m-1 rounded-full text-sm" style={{ backgroundColor: '#ecafbd' }}>
+                            {tag}
+                            <button className='ml-2' onClick={() => handleInterestsTagRemove(tag)}>X</button>
+                        </div>
+                        ))}
                       </div>
-                      ))}
-                    </div>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6"
-                type="text" value={inputValue} onChange={handleInputChange}
-                onKeyDown={handleInputKeydown}
-                placeholder="Other Interests"
-              />
-            </div>
+                      <div className="input-container flex items-center mb-6">
+                      <input type="text" value={inputValue} onChange={handleInputChange}
+                        onKeyDown={handleInterestsInputKeydown} placeholder="Enter an Interest" className="shadow appearance-none border-2 border-black rounded py-2 px-2 md:px-3 text-gray-700 focus:outline-none flex-grow" />
+                      <button onClick={handleEnterButtonClick} className="bg-blue-500 text-white py-2 px-4 rounded border border-blue-500 ml-2" style={{ backgroundColor: '#ed4168' }}>Enter</button>
+                  </div>
+                </div>
           )}
 
-          <hr className="border-t-4 border-gray-300 my-6" />
-          <h6 className="text-sm md:text-md text-left mb-2 font-bold">Select 3 adjectives you identify with for potential teammates to understand more about you.</h6>
+        <div className="border border-black mt-8 mb-8"></div>
+
+          <h6 className="text-sm md:text-md text-left mb-2 font-bold">Select 3 adjectives you identify with for potential teammates to understand more about you.
+          <span style={{ color: '#ed4168' }}>*</span></h6>
           <div className="mb-2">
           <div className="grid grid-cols-3 gap-4">
             {adjectivesList.map((adjective, index) => (
               <div
                 key={index}
                 style={{
-                  backgroundColor: adjectivesState.includes(adjective) ? '#ecafbd' : 'white'
+                  backgroundColor: aboutYou.adjectives.includes(adjective) ? '#F8E1E6' : 'white'
                 }}
                 className="rounded-lg p-2 text-center cursor-pointer border border-gray-300"
-                onClick={() => handleAdjectiveSelect(adjective)}
-              >
+                onClick={() => toggleSkill(adjective, aboutYou.adjectives, setAdjectives)}>
                 {adjective}
               </div>
             ))}
           </div>
         </div>
 
-          <hr className="border-t-4 border-gray-300 my-6" />
+        <div className="border border-black mt-8 mb-8"></div>
+
           <h6 className="text-sm md:text-md text-left mb-2 font-bold">3. Add a short description about yourself for potential teammates to get to know you. (optional)</h6>
           <p className="text-sm text-gray-500 mb-2">Your background, goals, fun facts...</p>
           <div className="mb-2">
@@ -187,5 +229,6 @@ export default function AboutYou() {
         </div>
       </div>
     </div>
-  );
-}
+    )
+  };
+

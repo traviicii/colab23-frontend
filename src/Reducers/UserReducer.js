@@ -1,4 +1,4 @@
-import { SET_PROJECT_TEAM, SET_PROJECT, SET_PROJECT_RESOURCES, SET_DATA, SET_PROJECT_LINKS, SET_PROJECT_INSPIRATION } from '../Actions';
+import { LOGOUT, SET_PROJECT_TEAM, SET_PROJECT, SET_PROJECT_RESOURCES, SET_DATA, SET_PROJECT_LINKS, SET_PROJECT_INSPIRATION } from '../Actions';
 
 const initialState = {
   project_team: [],
@@ -23,6 +23,8 @@ const userReducer = (state = initialState, action) => {
       return { ...state, project_links: action.payload };
     case SET_PROJECT_INSPIRATION:
       return { ...state, project_inspiration: action.payload }
+    case LOGOUT:
+      return initialState; // Reset to initial state on logout
     default:
       return state;
   }

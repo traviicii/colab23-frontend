@@ -17,9 +17,9 @@ export default function TeamMember( {member} ) {
     return (
         <div className="w-1/4 bg-white p-4 rounded-lg shadow-lg text-center mx-4" >
             <Link to={`/individualteammember/${member.id}`}><div className="random-color-square mb-4 w-30 h-48 rounded" style={{ background: generateRandomGradient() }}></div></Link>
-            <Link to={`/individualteammember/${member.id}`}><h2 className="text-xl font-semibold">{member.first_name} {member.last_name}</h2></Link>
-            <h3 className="text-gray-600">Role: {member.prod_role}</h3>
-            <h3 className="text-gray-600">Email: {member.email}</h3>
+            <Link to={`/individualteammember/${member.id}`}><p className="text-xl font-semibold">{member.first_name} {member.last_name}</p></Link>
+            <p className="text-lg text-gray-600">Role: {member.prod_role}</p>
+            <p className="text-lg text-gray-600">Email: {member.email}</p>
             <button onClick={() => window.location = `mailto:${member.email}`} className='rounded-lg border border-rose-500 w-full h-[40px] py-4 mt-2 font-bold rounded' style={{display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
                     <g id="Send Message">

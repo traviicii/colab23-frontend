@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../Actions';
+import { persistor } from '../../store';
 
 export default function NavbarLoggedIn() {
 
@@ -22,6 +24,18 @@ export default function NavbarLoggedIn() {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, []);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    // Dispatch the logout action
+    dispatch(logout());
+
+    // Purge the persisted state
+    await persistor.purge();
+    navigate('/')
+  };
 
 
   return (
@@ -192,7 +206,7 @@ export default function NavbarLoggedIn() {
                       <path d="M34.4167 19.4167L29.7667 14.7667C29.6508 14.6476 29.5019 14.5658 29.3393 14.5318C29.1766 14.4978 29.0075 14.5131 28.8536 14.5757C28.6997 14.6383 28.5679 14.7455 28.4752 14.8834C28.3826 15.0214 28.3332 15.1838 28.3333 15.35V18.3333H16.6667C15.75 18.3333 15 19.0833 15 20C15 20.9167 15.75 21.6667 16.6667 21.6667H28.3333V24.65C28.3333 25.4 29.2333 25.7667 29.75 25.2333L34.4 20.5833C34.7333 20.2667 34.7333 19.7333 34.4167 19.4167Z" fill="black" />
                     </svg>
 
-                    <p className='ml-2'>Logout</p>
+                    <button onClick={handleLogout} className='ml-2'>Logout</button>
                   </NavLink>
                 </div>
               </div>

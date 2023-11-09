@@ -36,7 +36,7 @@ export default function IndividualTeamMember() {
       if (data.status === 'ok') {
         console.log(data)
         setMember(data.user)
-        if (data.project){
+        if (data.project) {
           setProject(data.project)
         }
       }
@@ -59,7 +59,7 @@ export default function IndividualTeamMember() {
   }
 
   const showInterests = () => {
-    return member.interests?.map((interest) => <button className="white-button w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-grey border-2">{interest}</button>)
+    return member.interests?.map((interest) => <button className="flex items-center w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-2 border-rose-300">{interest}</button>)
   }
 
   const showAvailability = () => {
@@ -146,14 +146,13 @@ export default function IndividualTeamMember() {
             </div>
 
             {/* email, interested in */}
-            <div className='flex justify-center w-1/4 pt-12 px-6'>
+            <div className='flex justify-center w-1/4 pt-8'>
               <div className='message w-full mt-10'>
-                <button onClick={() => window.location = `mailto:${member.email}`} className='border rounded w-full py-4 mb-4 font-bold rounded' style={{ backgroundColor: '#d7f7f9', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" className='mr-2'>
-                    <g id="Send Message">
-                      <path id="Vector 67" d="M17.8212 1.43106L2.36655 6.38543L9.58171 9.67058M17.8212 1.43106L12.8669 16.8857L9.58171 9.67058M17.8212 1.43106L9.58171 9.67058" stroke="black" />
-                    </g>
+                <button onClick={() => window.location = `mailto:${member.email}`} className='border bg-[#ED4068] text-white rounded w-full py-4 mb-4 font-bold rounded-xl' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <svg className='mr-2' width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.8212 1.43082L2.36655 6.38519L9.58171 9.67033M17.8212 1.43082L12.8669 16.8855L9.58171 9.67033M17.8212 1.43082L9.58171 9.67033" stroke="white" />
                   </svg>
+
                   Send an Email
                 </button>
 
@@ -189,7 +188,7 @@ export default function IndividualTeamMember() {
               {/* Currently working on */}
               <div className="py-12 px-6 w-96" style={{ backgroundColor: '#f3d187' }}>
                 <h2 className="text-2xl font-semibold mb-4">Currently Working On:</h2>
-                {member.current_project_id ? <p><Link to={`/project-profile/${member.current_project_id}`} className='mt-4 font-bold underline'>{project ? project.name : '' }</Link> <br></br> - Project Admin: {project? project.admin_name : ''}</p> : `${member.first_name} isn't involved in a project currently!`}
+                {member.current_project_id ? <p><Link to={`/project-profile/${member.current_project_id}`} className='mt-4 font-bold underline'>{project ? project.name : ''}</Link> <br></br> - Project Admin: {project ? project.admin_name : ''}</p> : `${member.first_name} isn't involved in a project currently!`}
                 <p className='mt-4 font-bold'>About the project:</p>
                 {project.description}
                 {/* <ul>

@@ -36,9 +36,12 @@ export default function ReviewDetails() {
           <p className="text-xl md:text-2xl text-center text-500 mb-8">
             Review Your Details
           </p>
-          <h2 className="text-md md:text-lg text-center font-bold mb-6">
+          <p className="text-md md:text-lg text-center font-bold mb-1">
             Does everything look good?
-          </h2>
+          </p>
+          <p className="text-md md:text-lg text-center mb-6">
+          If not, go back to make any changes.
+          </p>
           <p className="text-md text-left font-semibold mb-6">
                 Your Professional Background
             </p>

@@ -22,7 +22,7 @@ export default function ProjectProfile() {
         setMenuOpen(!isMenuOpen);
     };
 
-    // Reference to the task menu for click outside detection
+    // Reference to the kebab menu for click outside detection
     const menuRef = useRef(null);
     useEffect(() => {
         // Function to close the menu when clicking outside
@@ -125,8 +125,19 @@ export default function ProjectProfile() {
         }
     }
 
+    // This is a utility function that calculates the difference in days
+    const calculateDaysPassed = (dateString) => {
+        const now = new Date(); // current date and time
+        const receivedDate = new Date(dateString); // convert your datetime string to a date object
+
+        const differenceInTime = now.getTime() - receivedDate.getTime(); // difference in milliseconds
+        const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24)); // convert milliseconds to days
+
+        return differenceInDays;
+    };
+
     const showIndustries = () => {
-        return project.industries?.map((industry) => <button className="white-button px-8 py-1 rounded border-2" style={{ borderColor: "darkgrey" }}>{industry}</button>)
+        return project.industries?.map((industry) => <button className="flex items-center w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-2 border-rose-300">{industry}</button>)
     }
 
     return (
@@ -134,8 +145,8 @@ export default function ProjectProfile() {
             <div className="">
 
                 {/* Top Section */}
-                <div className='top w-3/4 ml-36 mb-10 space-y-6 flex justify-between items-center'>
-                    <div className='space-y-6'>
+                <div className='top w-3/4 ml-36 mb-4 space-y-6 flex items-center'>
+                    <div className='space-y-4'>
                         <button
                             className="hover:underline text-lg mr-4 w-3/4 pt-4"
                             onClick={() => navigate("/project-browser")}
@@ -146,94 +157,30 @@ export default function ProjectProfile() {
                             </svg>
                             Back
                         </button>
-                        <div>
-                            <h1 className='text-2xl font-bold'>{project.name}</h1>
-                        </div>
-                    </div>
+                        <div className='space-y-4'>
 
-                    <div>
-                        {user.project.id == project_id ?
-                            // Kebab menu
-                            <div className="relative" ref={menuRef}>
-                                <div
-                                    className="kebab-menu cursor-pointer hover-bg-gray-100"
-                                    onClick={toggleMenu}>
-                                    <svg
-                                        width="30px"
-                                        height="30px"
-                                        viewBox="0 0 24 24"
-                                        version="1.1"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <title>Kebab-Menu</title>
-                                        <g id="Kebab-Menu" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"><rect id="Container" x="0" y="0" width="24" height="24"></rect>
-                                            <path d="M12,6 C12.5522847,6 13,5.55228475 13,5 C13,4.44771525 12.5522847,4 12,4 C11.4477153,4 11,4.44771525 11,5 C11,5.55228475 11.4477153,6 12,6 Z" id="shape-03" stroke="#030819" strokeWidth="2" strokeLinecap="round" strokeDasharray="0,0"></path>
-                                            <path d="M12,13 C12.5522847,13 13,12.5522847 13,12 C13,11.4477153 12.5522847,11 12,11 C11.4477153,11 11,11.4477153 11,12 C11,12.5522847 11.4477153,13 12,13 Z" id="shape-03" stroke="#030819" strokeWidth="2" strokeLinecap="round" strokeDasharray="0,0"></path>
-                                            <path d="M12,20 C12.5522847,20 13,19.5522847 13,19 C13,18.4477153 12.5522847,18 12,18 C11.4477153,18 11,18.4477153 11,19 C11,19.5522847 11.4477153,20 12,20 Z" id="shape-03" stroke="#030819" strokeWidth="2" strokeLinecap="round" strokeDasharray="0,0"></path>
-                                        </g>
-                                    </svg>
-                                </div>
-                                {isMenuOpen && (
-                                    user.data.is_admin == true ?
-
-                                        <div className="menu-dropdown absolute whitespace-nowrap z-10 mt-2 right-0 w-fit bg-white border border-stone-600 rounded-lg shadow-lg">
-                                            <ul className="p-2">
-                                                <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
-                                                    <button >Assign New Project Admin</button>
-                                                </li>
-
-                                                <div className="w-[184px] h-[0px] border border-black"></div>
-
-                                                <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
-                                                    <button >Edit Project</button>
-                                                </li>
-
-                                                <div className="w-[184px] h-[0px] border border-black"></div>
-
-                                                <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
-                                                    <button >Mark Project Complete</button>
-                                                </li>
-
-                                                <div className="w-[184px] h-[0px] border border-black"></div>
-
-                                                <li className="flex justify-center flex-col cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
-                                                    <button className='flex justify-center'>
-                                                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M9.5 3V4H4.5V6H5.5V19C5.5 19.5304 5.71071 20.0391 6.08579 20.4142C6.46086 20.7893 6.96957 21 7.5 21H17.5C18.0304 21 18.5391 20.7893 18.9142 20.4142C19.2893 20.0391 19.5 19.5304 19.5 19V6H20.5V4H15.5V3H9.5ZM7.5 6H17.5V19H7.5V6ZM9.5 8V17H11.5V8H9.5ZM13.5 8V17H15.5V8H13.5Z" fill="#ED4068" />
-                                                        </svg>
-                                                        <p className='ml-1 text-rose-500'>Delete Project</p>
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        :
-
-                                        <div className="menu-dropdown absolute z-10 mt-2 right-0 w-fit bg-white border border-gray-200 rounded shadow-lg">
-                                            <ul className="p-2">
-                                                <li className="cursor-pointer hover-bg-gray-100 p-2" onClick={toggleMenu}>
-                                                    <button >Leave Project</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                )}
+                            <h1 className='text-4xl font-bold'>{project.name}</h1>
+                            <div>
+                                <button disabled className="px-8 py-1 rounded border-2 border-rose-300">{project.complete === false ? "Open" : "Closed"}</button>
                             </div>
-                            :
-                            ''
-                        }
+                            <div>
+                                <p className='text-2xl'>Duration: {project.duration}</p>
+                                <p className='text-2xl'>Posted: {calculateDaysPassed(user.project.date_created)} days ago</p>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
                 {/* Middle Section */}
                 <div className='middle-bottom-wrapper flex flex-col justify-center items-center py-4 w-full mx-auto' style={{ backgroundColor: '#f8e1e6' }}>
 
-                    <div className='middle flex items-center w-10/12'>
+                    <div className='middle flex w-10/12'>
 
                         {/* Gradient and center middle sections */}
                         <div className='flex'>
                             {/* Div for radial color gradient */}
-                            <div className="image w-1/3 mr-6" style={{
+                            <div className="w-1/3 mr-6" style={{
                                 width: '320px',
                                 height: '320px',
                                 background: `radial-gradient(circle at center, #13557c, #35d2e0)`
@@ -241,18 +188,13 @@ export default function ProjectProfile() {
 
                             {/* Center of Middle */}
                             <div className='w-1/3'>
-                                <div>
-                                    <div>
-                                        <h3 className='text-2xl'># of weeks {project.duration}</h3>
-                                        <h4 className='text-2xl'>Posted: x days ago</h4>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button className="white-button px-8 py-1 rounded border-2" style={{ borderColor: "darkgrey" }}>{project.complete === false ? "Open" : "Closed"}</button>
-                                </div>
-                                <div className='industries'>
-                                    <p className='mt-6'>Industries:</p>
-                                    <div className="interest-buttons space-x-2 mt-4 mb-4">
+
+                                <p>Project Admin: <Link to={`/individualteammember/${admin.id}`}><p className='underline font-bold text-rose-500'>{admin.first_name} {admin.last_name}, {admin.prod_role}</p></Link></p>
+                                <p className='mb-4'>Admin Time Zone: <span className='font-bold'>{admin.timezone}</span></p>
+
+                                <div className='industries w-full'>
+                                    <p className='mt-6 w-full'>Industries:</p>
+                                    <div className="flex space-x-2 mt-4 mb-4">
                                         {showIndustries()}
                                     </div>
                                 </div>
@@ -261,16 +203,92 @@ export default function ProjectProfile() {
 
                         {/* Right Side of Middle */}
                         <div className='flex justify-center w-1/3'>
-                            <div className='message w-full'>
+
+                            {/* Reuest to join, edit project details, are you sure popup, and project team */}
+                            <div className='w-full'>
 
                                 {/* Request to join and Are you sure popup for joining */}
                                 {areYouSure === false ?
-                                    // Don't show request to join if the user is involved with the project, otherwise show it
+                                    // If proj_id == user's project ID then show edit details and kebab
                                     user.project.id == project_id ?
-                                        ''
+                                        <div className='flex'>
+                                            {user.data.is_admin == true ?
+                                                <button className='flex justify-center items-center border rounded-xl w-full py-4 mb-4 text-white bg-[#ed4168]' >Edit Details</button>
+                                                :
+                                                <button onClick={toggleMenu} className='flex justify-center items-center border rounded-xl w-full py-4 mb-4 text-white bg-[#ed4168]' >Project Options</button>
+                                            }
+                                            {/* Kebab menu */}
+                                            <div className="relative mt-1" ref={menuRef}>
+                                                <div
+                                                    className="kebab-menu cursor-pointer hover-bg-gray-100"
+                                                    onClick={toggleMenu}>
+                                                    <svg
+                                                        width="20px"
+                                                        height="20px"
+                                                        viewBox="0 0 24 24"
+                                                        version="1.1"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <title>Kebab-Menu</title>
+                                                        <g id="Kebab-Menu" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"><rect id="Container" x="0" y="0" width="24" height="24"></rect>
+                                                            <path d="M12,6 C12.5522847,6 13,5.55228475 13,5 C13,4.44771525 12.5522847,4 12,4 C11.4477153,4 11,4.44771525 11,5 C11,5.55228475 11.4477153,6 12,6 Z" id="shape-03" stroke="#030819" strokeWidth="2" strokeLinecap="round" strokeDasharray="0,0"></path>
+                                                            <path d="M12,13 C12.5522847,13 13,12.5522847 13,12 C13,11.4477153 12.5522847,11 12,11 C11.4477153,11 11,11.4477153 11,12 C11,12.5522847 11.4477153,13 12,13 Z" id="shape-03" stroke="#030819" strokeWidth="2" strokeLinecap="round" strokeDasharray="0,0"></path>
+                                                            <path d="M12,20 C12.5522847,20 13,19.5522847 13,19 C13,18.4477153 12.5522847,18 12,18 C11.4477153,18 11,18.4477153 11,19 C11,19.5522847 11.4477153,20 12,20 Z" id="shape-03" stroke="#030819" strokeWidth="2" strokeLinecap="round" strokeDasharray="0,0"></path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                {isMenuOpen && (
+                                                    user.data.is_admin == true ?
+
+                                                        <div className="menu-dropdown absolute whitespace-nowrap z-10 mt-2 right-0 w-fit bg-white border border-stone-600 rounded-lg shadow-lg">
+                                                            <ul className="p-2">
+                                                                <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
+                                                                    <button >Assign New Project Admin</button>
+                                                                </li>
+
+                                                                <div className="w-[184px] h-[0px] border border-black"></div>
+
+                                                                <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
+                                                                    <button >Edit Project</button>
+                                                                </li>
+
+                                                                <div className="w-[184px] h-[0px] border border-black"></div>
+
+                                                                <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
+                                                                    <button >Mark Project Complete</button>
+                                                                </li>
+
+                                                                <div className="w-[184px] h-[0px] border border-black"></div>
+
+                                                                <li className="flex justify-center flex-col cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
+                                                                    <button className='flex justify-center'>
+                                                                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M9.5 3V4H4.5V6H5.5V19C5.5 19.5304 5.71071 20.0391 6.08579 20.4142C6.46086 20.7893 6.96957 21 7.5 21H17.5C18.0304 21 18.5391 20.7893 18.9142 20.4142C19.2893 20.0391 19.5 19.5304 19.5 19V6H20.5V4H15.5V3H9.5ZM7.5 6H17.5V19H7.5V6ZM9.5 8V17H11.5V8H9.5ZM13.5 8V17H15.5V8H13.5Z" fill="#ED4068" />
+                                                                        </svg>
+                                                                        <p className='ml-1 text-rose-500'>Delete Project</p>
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+
+                                                        :
+
+                                                        <div className="menu-dropdown absolute z-10 mt-2 right-0 w-fit bg-white border border-gray-200 rounded shadow-lg">
+                                                            <ul className="p-2">
+                                                                <li className="cursor-pointer hover-bg-gray-100 p-2" onClick={toggleMenu}>
+                                                                    <button >Leave Project</button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+
+                                                )}
+                                            </div>
+                                            {/* //////// End of kebab /////////////////// */}
+                                        </div>
                                         :
-                                        <button className='border rounded-xl w-full py-4 mb-4 text-white' style={{ backgroundColor: '#ed4168', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={() => setAreYouSure(true)}>Request to Join</button>
+                                        <button className='flex justify-center items-center border rounded-xl w-full py-4 mb-4 text-white bg-[#ed4168]' onClick={() => setAreYouSure(true)}>Request to Join</button>
                                     :
+                                    // If the user isn't involved with this project
                                     <div className='flex items-center shadow-2xl shadow-rose-500 border  rounded-xl w-[486px] px-4 py-4 mb-5 gap-2 bg-white'>
                                         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M8.99799 14.7447L8.66667 14.2477V14.7403C8.50645 14.7214 8.33588 14.6787 8.15687 14.6088C7.60345 14.3926 7.02609 13.9314 6.59666 13.2483C6.17262 12.5658 6.01165 11.8455 6.06051 11.2535C6.10943 10.6609 6.35628 10.2556 6.69062 10.0473C7.02613 9.83831 7.49924 9.79508 8.05143 10.0111C8.60345 10.227 9.17806 10.6879 9.60237 11.3701C10.0285 12.0553 10.1912 12.7723 10.1443 13.3614C10.0977 13.9465 9.85531 14.3558 9.51524 14.5753C9.36767 14.6663 9.19366 14.7254 8.99799 14.7447ZM17.3094 10.0473C17.6437 10.2556 17.8906 10.6609 17.9395 11.2536C17.9883 11.8455 17.8274 12.5658 17.4034 13.2483C16.9739 13.9314 16.3966 14.3926 15.8431 14.6088C15.2915 14.8242 14.8199 14.782 14.4848 14.5753C14.1447 14.3558 13.9023 13.9465 13.8557 13.3614C13.8088 12.7723 13.9715 12.0553 14.3976 11.3701C14.8219 10.6879 15.3965 10.227 15.9486 10.0111C16.5008 9.79508 16.9739 9.83831 17.3094 10.0473ZM12 20.8333C12.8639 20.8333 13.8409 20.4094 14.7465 19.8432C15.6812 19.2588 16.6561 18.449 17.5402 17.523C18.4246 16.5967 19.2379 15.5333 19.8344 14.4314C20.4267 13.3372 20.8333 12.1528 20.8333 11C20.8333 6.57863 16.7621 3.16667 12 3.16667C7.23787 3.16667 3.16667 6.57863 3.16667 11C3.16667 12.1528 3.57328 13.3372 4.16559 14.4314C4.76209 15.5333 5.57541 16.5967 6.45976 17.523C7.34394 18.449 8.31883 19.2588 9.25353 19.8432C10.1591 20.4094 11.1361 20.8333 12 20.8333ZM12 2.83333C17.1252 2.83333 21.1667 6.58122 21.1667 11C21.1667 11.8444 20.8669 12.9114 20.2969 14.0728C19.7324 15.223 18.93 16.4103 17.9929 17.4812C17.0549 18.5531 16.0005 19.4876 14.9433 20.1483C13.8774 20.8146 12.8669 21.1667 12 21.1667C11.1331 21.1667 10.1226 20.8146 9.05667 20.1483C7.99946 19.4876 6.94505 18.5531 6.00715 17.4812C5.07004 16.4103 4.2676 15.223 3.70309 14.0728C3.13306 12.9114 2.83333 11.8444 2.83333 11C2.83333 6.58122 6.87485 2.83333 12 2.83333Z" fill="#ED4068" stroke="#ED4068" strokeWidth="1.66667" />
@@ -288,11 +306,11 @@ export default function ProjectProfile() {
                                 }
 
                                 <JoinedProjectModal isOpen={isModalOpen} closeModal={closeModal} />
-                                <p>Project Admin: <Link to={`/individualteammember/${admin.id}`}><p className='underline font-bold'>{admin.first_name} {admin.last_name}, {admin.prod_role}</p></Link></p>
-                                <p className='mb-4'>Admin Time Zone: <span className='font-bold'>{admin.timezone}</span></p>
-                                <p className='mb-4'>Project Team:</p>
-                                <div className='flex space-x-2'>
 
+
+                                <p className='mb-4'>Project Team:</p>
+                                {/* team icons. Revise this section */}
+                                <div className='flex space-x-2'>
                                     <svg width="100" height="100" viewBox="0 0 103 105" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="51.5" cy="30.7875" r="30" fill="#ED4068" />
                                         <path d="M38.1667 44.1209C37.25 44.1209 36.465 43.7942 35.8117 43.1409C35.1583 42.4876 34.8322 41.7031 34.8333 40.7876V20.7876C34.8333 19.8709 35.16 19.0859 35.8133 18.4326C36.4667 17.7792 37.2511 17.4531 38.1667 17.4542H48.1667L51.5 20.7876H64.8333C65.75 20.7876 66.535 21.1142 67.1883 21.7676C67.8417 22.4209 68.1678 23.2053 68.1667 24.1209V29.6209C67.6389 29.3987 67.09 29.2526 66.52 29.1826C65.95 29.1126 65.3878 29.1198 64.8333 29.2042V24.1209H50.125L46.7917 20.7876H38.1667V40.7876H51.6667L51.5 40.9542V44.1209H38.1667ZM54.8333 47.4542V42.3292L64.0417 33.1626C64.2917 32.9126 64.5694 32.732 64.875 32.6209C65.1806 32.5098 65.4861 32.4542 65.7917 32.4542C66.125 32.4542 66.4444 32.517 66.75 32.6426C67.0556 32.7681 67.3333 32.9553 67.5833 33.2042L69.125 34.7459C69.3472 34.9959 69.5211 35.2737 69.6467 35.5792C69.7722 35.8848 69.8344 36.1903 69.8333 36.4959C69.8333 36.8014 69.7778 37.1142 69.6667 37.4342C69.5556 37.7542 69.375 38.0387 69.125 38.2876L59.9583 47.4542H54.8333ZM57.3333 44.9542H58.9167L63.9583 39.8709L63.2083 39.0792L62.4167 38.3292L57.3333 43.3709V44.9542ZM63.2083 39.0792L62.4167 38.3292L63.9583 39.8709L63.2083 39.0792Z" fill="black" />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setAdjectives, setDescription, setFieldsOfInterest, setOtherInterests } from '../../Actions';
+import { addToast, setAdjectives, setDescription, setFieldsOfInterest, setOtherInterests } from '../../Actions';
 
 export default function AboutYou() {
   const fieldsOfInterest = [
@@ -34,6 +34,28 @@ export default function AboutYou() {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
+      const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+      }};
+    
+      const handleInputKeydown = (e) => {
+        if (e.key === 'Enter' && inputValue.trim() !== '') {
+          setTags([...tags, inputValue.trim()]);
+          setInputValue('');
+        }
+      };
+
+
+  const toggleField = (field) => {
+    if (field === 'Other...') {
+      setShowOtherInterests(true);
+    } else if (selectedFields.includes(field)) {
+      setSelectedFields(selectedFields.filter(selectedField => selectedField !== field));
+    } else if (selectedFields.length < 5) {
+      setSelectedFields([...selectedFields, field]);
+    } else {
+      dispatch(addToast("You can only select a maximum of 5 fields of interest!", "error"))
+    }
   };
     
 
@@ -45,9 +67,22 @@ export default function AboutYou() {
         setShowOtherInterests(true);
         dispatch(stateFunc([...state, skill]));
       } else {
-          dispatch(stateFunc([...state, skill]));
+        dispatch(stateFunc([...state, skill]));
       }
-      console.log(aboutYou)
+      console.log(aboutYou);
+    };
+      
+  const handleAdjectiveSelect = (selectedAdjective) => {
+    if (adjectivesState.includes(selectedAdjective)) {
+      // Deselect the adjective
+      const updatedAdjectives = adjectivesState.filter((adj) => adj !== selectedAdjective);
+      setAdjectivesState(updatedAdjectives);
+    } else if (adjectivesState.length < 3) {
+      // Select the adjective if not already selected and there is space for more
+      setAdjectivesState([...adjectivesState, selectedAdjective]);
+    } else {
+      dispatch(addToast("You can only select a maximum of 3 adjectives!", "error"))
+    }
   };
 
   const handleDescriptionChange = (event) => {
@@ -194,5 +229,6 @@ const handleInterestsInputKeydown = (e) => {
         </div>
       </div>
     </div>
-  );
-}
+    )
+  };
+

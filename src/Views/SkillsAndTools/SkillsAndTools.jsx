@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { FiSearch, FiX } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDesignSkills, setDeveloperSkills, setManagementSkills, setOtherSkills, setWantedSkills } from '../../Actions';
+import { addToast, setDesignSkills, setDeveloperSkills, setManagementSkills, setOtherSkills, setWantedSkills } from '../../Actions';
 
 export default function SkillsAndTools() {
     const productDesignSkills = [
@@ -68,13 +68,13 @@ export default function SkillsAndTools() {
     };
     
     const handleTagRemove = (tagToRemove) => {
-        const updatedSkillTag = SkillTag.filter((tag) => tag !== tagToRemove);
-        setSkillTag(updatedSkillTag);
+        const updatedSkillTag = skillsTools.wantedSkills.filter((tag) => tag !== tagToRemove);
+        dispatch(setWantedSkills(updatedSkillTag));
     };
     
     const handleAdditionalTagRemove = (tagToRemove) => {
-        const updatedTags = tags.filter((tag) => tag !== tagToRemove);
-        setTags(updatedTags);
+        const updatedTags = skillsTools.otherSkills.filter((tag) => tag !== tagToRemove);
+        dispatch(setOtherSkills(updatedTags));
     };
 
     const handleEnterButtonClicked = () => {
@@ -94,6 +94,10 @@ export default function SkillsAndTools() {
 
     const navigate = useNavigate();
     const navigateAboutYou = () => {
+        if (skillsTools.designSkills == '' && skillsTools.developerSkills == '' && skillsTools.managementSkills == '' && skillsTools.wantedSkills == '') {
+            dispatch(addToast("Please fill out at least one skill within Product Design, Software Development, or Product Management and at least one skill you'd like to gain.", "error"))
+            return;
+        }
         navigate('/about-you');
     }
 

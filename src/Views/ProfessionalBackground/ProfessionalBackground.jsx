@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setPreviousRole, setMentorshipStatus, setProductRole, setProductExperience } from '../../Actions';
+import { setPreviousRole, setMentorshipStatus, setProductRole, setProductExperience, addToast } from '../../Actions';
 import './ProfessionalBackground.css';
 
 
@@ -57,7 +57,16 @@ export default function ProfessionalBackground() {
     }
   
     // Handle continue button click
-    const handleContinue = () => {
+    const handleContinue = (e) => {
+          // Prevent the default form submission behavior
+    e.preventDefault();
+
+    // Check if the form data is valid 
+    if (professionalFormData.previousRole == '' || professionalFormData.productRole == '' || professionalFormData.productExperience == '') {
+      // You could set an error state here and display an error message to the user
+      dispatch(addToast('Please fill out all required fields.', "error"));
+      return;
+    }
         // Dispatch Redux actions to update the store with professional background data
         dispatch(setPreviousRole(professionalFormData.previousRole));
         dispatch(setMentorshipStatus(professionalFormData.isMentor));
@@ -120,12 +129,15 @@ export default function ProfessionalBackground() {
           </p>
           <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your public profile</h4>
 
+        {/* Beginning of form */}
+        <form onSubmit={handleContinue}>
           <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-1">
               If you are currently switching careers, what is your previous/current role?
               <span style={{ color: '#ed4168' }}>*</span>
             </label>
             <input
+              required="required"
               className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none border-2 border-black mb-6"
               type="text"
               placeholder="Your Previous Role/Title"
@@ -144,6 +156,7 @@ export default function ProfessionalBackground() {
             <div className="relative">
       <div className="custom-select-wrapper">
         <select
+          required="required"
           className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6 border-2 border-black"
           defaultValue="initial"
           value={professionalFormData.productRole}
@@ -174,6 +187,7 @@ export default function ProfessionalBackground() {
             <div className="relative">
       <div className="custom-select-wrapper">
       <select
+          required="required"
           className="shadow appearance-none border rounded w-full py-2 px-2 md:px-3 text-gray-700 focus:outline-none mb-6 border-2 border-black"
           onChange={handleYearsSelectChange}
           value={professionalFormData.productExperience}>
@@ -222,6 +236,7 @@ export default function ProfessionalBackground() {
               Continue
             </button>
           </div>
+          </form>
         </div>
       </div>
     </div>

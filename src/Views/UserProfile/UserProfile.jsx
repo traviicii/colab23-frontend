@@ -26,6 +26,23 @@ export default function UserProfile() {
         'Adaptable', 'Direct'
     ];
 
+    const productDesignSkills = [
+        'Qualitative Research', 'Market Research', 'Branding', 'Visual Design', 'Graphic Design',
+        'Management', 'Sketching', 'Wireframing', 'Prototyping', 'Copy Writing', 'Information Arch',
+        'Usability Testing', 'Figma', 'Figjam', 'Miro', 'Adobe Sketch', 'InVision', 'ProtoPie',
+        'Adobe PhotoShop', 'Adobe Illustrator', 'Quantitative Research'
+    ];
+
+    const softwareDeveloperSkills = [
+        'HTML / CSS', 'JavaScript', 'Python', 'Backend', 'Frontend', 'Testing / Debugging',
+        'Responsive Design', 'Git / Github', 'CMS', 'React', 'Flask', 'Redux'
+    ];
+
+    const productManagementSkills = [
+        'Agile', 'Roadmapping', 'Analytics', 'Sprint Planning', 'Forecasting',
+        'Scrum', 'Trello', 'Asana', 'A/B Testing'
+    ];
+
     const navigate = useNavigate();
 
     const user = useSelector((state) => state.user)
@@ -100,6 +117,82 @@ export default function UserProfile() {
         setAdjectives(user.data.adjectives)
     }
 
+    const [about, setAbout] = useState(user.data.about)
+    const [designSkills, setDesignSkills] = useState(user.data.design_skills)
+    const [managementSkills, setManagementSkills] = useState(user.data.management_skills)
+    const [developerSkills, setDeveloperSkills] = useState(user.data.developer_skills)
+    const addDesignSkill = (event) => {
+        const newSkill = event.target.value;
+        if (!designSkills.includes(newSkill)) {
+            setDesignSkills([...designSkills, newSkill]);
+        }
+    };
+
+    const removeDesignSkill = (skillToRemove) => {
+        setDesignSkills(designSkills.filter(skill => skill !== skillToRemove));
+    };
+
+    const renderDesignSkillDropdown = () => {
+        const availableDesignSkills = productDesignSkills.filter(skill => !designSkills.includes(skill));
+        return (
+            <select onChange={addDesignSkill} value="" className="mb-2 rounded-lg border border-black p-1">
+                <option value="" disabled>Add design skill</option>
+                {availableDesignSkills.map(skill => (
+                    <option key={skill} value={skill}>{skill}</option>
+                ))}
+            </select>
+        );
+    };
+
+    const addManagementSkill = (event) => {
+        const newSkill = event.target.value;
+        if (!managementSkills.includes(newSkill)) {
+            setManagementSkills([...managementSkills, newSkill]);
+        }
+    };
+
+    const removeManagementSkill = (skillToRemove) => {
+        setManagementSkills(managementSkills.filter(skill => skill !== skillToRemove));
+    };
+
+    const renderManagementSkillDropdown = () => {
+        const availableManagementSkills = productManagementSkills.filter(skill => !managementSkills.includes(skill));
+        return (
+            <select onChange={addManagementSkill} value="" className="mb-2 rounded-lg border border-black p-1">
+                <option value="" disabled>Add management skill</option>
+                {availableManagementSkills.map(skill => (
+                    <option key={skill} value={skill}>{skill}</option>
+                ))}
+            </select>
+        );
+    };
+
+    const addDeveloperSkill = (event) => {
+        const newSkill = event.target.value;
+        if (!developerSkills.includes(newSkill)) {
+            setDeveloperSkills([...developerSkills, newSkill]);
+        }
+    };
+
+    const removeDeveloperSkill = (skillToRemove) => {
+        setDeveloperSkills(developerSkills.filter(skill => skill !== skillToRemove));
+    };
+
+    const renderDeveloperSkillDropdown = () => {
+        const availableDeveloperSkills = softwareDeveloperSkills.filter(skill => !developerSkills.includes(skill));
+        return (
+            <select onChange={addDeveloperSkill} value="" className="mb-2 rounded-lg border border-black p-1">
+                <option value="" disabled>Add developer skill</option>
+                {availableDeveloperSkills.map(skill => (
+                    <option key={skill} value={skill}>{skill}</option>
+                ))}
+            </select>
+        );
+    };
+
+
+
+
     ////////////// End of editing states and functions ///////////////////////////
 
     // Toggle editing mode
@@ -108,16 +201,61 @@ export default function UserProfile() {
     }
 
     const showDeveloperSkills = () => {
-        return user.data.developer_skills?.map((skill) => <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">{skill}</button>)
-    }
+        return developerSkills?.map((skill) => (
+            <div key={skill} className="flex items-center m-1">
+                <button className="bg-opacity-50 px-3 py-1 rounded border-white border">
+                    {skill}
+                    {editing && (
+                        <button
+                            onClick={() => removeDeveloperSkill(skill)}
+                            className="ml-2 text-white"
+                        >
+                            X
+                        </button>
+                    )}
+                </button>
+            </div>
+        ));
+    };
+
 
     const showDesignSkills = () => {
-        return user.data.design_skills?.map((skill) => <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">{skill}</button>)
-    }
+        return designSkills?.map((skill) => (
+            <div key={skill} className="flex items-center m-1">
+                <button className="bg-opacity-50 px-3 py-1 rounded border-white border">
+                    {skill}
+                    {editing && (
+                        <button
+                            onClick={() => removeDesignSkill(skill)}
+                            className="ml-2 text-white"
+                        >
+                            X
+                        </button>
+                    )}
+                </button>
+            </div>
+        ));
+    };
+
 
     const showManagementSkills = () => {
-        return user.data.management_skills?.map((skill) => <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">{skill}</button>)
-    }
+        return managementSkills?.map((skill) => (
+            <div key={skill} className="flex items-center m-1">
+                <button className="bg-opacity-50 px-3 py-1 rounded border-white border">
+                    {skill}
+                    {editing && (
+                        <button
+                            onClick={() => removeManagementSkill(skill)}
+                            className="ml-2 text-white"
+                        >
+                            X
+                        </button>
+                    )}
+                </button>
+            </div>
+        ));
+    };
+
 
     const showInterests = () => {
         return interests?.map((interest) => <button className="white-button w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-2 border-rose-300">{interest}</button>)
@@ -322,18 +460,20 @@ export default function UserProfile() {
                         </div>
 
                         {/* personal details and interested in */}
-                        <div className='flex justify-center w-1/4 pt-12 px-6'>
+                        <div className='flex justify-center w-1/3 pt-12 px-6'>
                             <div className='w-full mt-6'>
 
                                 <div className='space-y-1'>
                                     <p className='font-bold'>Personal Details:</p>
+
+                                    {/* Email */}
                                     <div className='flex items-center'>
                                         <p className='flex mr-2'>Email: </p>
                                         {editing === true ? <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" className='focus:shadow-md rounded-lg border border-black p-1' /> : ` ${email}`}
                                     </div>
                                     <div className='flex items-center'>
-                                        <p className='flex mr-2'>Password: </p>
-                                        {editing === true ?
+                                        {editing && <p className='flex mr-2'>Password: </p>}
+                                        {editing &&
                                             <div style={{ position: 'relative' }}>
                                                 <input type={passwordShown ? "text" : "password"} placeholder='Change password?' value={password} onChange={(e) => setPassword(e.target.value)} className='focus:shadow-md rounded-lg border border-black py-1 px-2' />
                                                 <i
@@ -348,9 +488,7 @@ export default function UserProfile() {
                                                 >
                                                     {passwordShown ? <FaEye /> : <FaEyeSlash />}
                                                 </i>
-                                            </div>
-                                            :
-                                            <p>**********</p>}
+                                            </div>}
                                     </div>
                                 </div>
 
@@ -368,7 +506,8 @@ export default function UserProfile() {
                                                     ))}
                                                 </select>
 
-                                                <div className="flex flex-wrap  mb-4 w-full">
+                                                <div className="flex flex-wrap mb-4 w-full">
+                                                    {/* Show interests */}
                                                     {interests.map(interest => (
                                                         <button
                                                             key={interest}
@@ -436,7 +575,15 @@ export default function UserProfile() {
                                 </ol>
 
                                 {/* About */}
-                                <p className='mt-8'>{user.data.about}</p>
+                                {editing ?
+                                    <div className='mt-8 '>
+                                        <p><b>About Me:</b> (resizable)</p>
+                                        <textarea className='mt-1 focus:shadow-md rounded-lg border border-black py-1 px-2 w-full h-48 resize-y overflow-auto' value={about} onChange={(e) => setAbout(e.target.value)} />
+                                        <p className='text-sm text-right'>{about.length}/500 characters</p>
+                                    </div>
+                                    :
+                                    <p className='mt-8'>{user.data.about}</p>
+                                }
                             </div>
 
                             {/* Currently working on */}
@@ -449,23 +596,38 @@ export default function UserProfile() {
 
                             {/* Skills */}
                             <div className="w-1/2 py-12 px-6 rounded-r-2xl " style={{ backgroundColor: '#ebb237' }}>
-                                <ol>
+
+                                <div>
+                                    <h2 className="text-2xl font-semibold mb-4">Skills:</h2>
                                     <div>
-                                        <h2 className="text-2xl font-semibold mb-4">Skills:</h2>
-                                        <div className="interest-buttons">
+                                        {/* Display buttons for developer skills */}
+                                        {editing && renderDeveloperSkillDropdown()}
+                                        <div className='flex flex-wrap mb-2'>
                                             {showDeveloperSkills()}
+                                        </div>
+
+                                        {/* Display buttons for design skills */}
+                                        {editing && renderDesignSkillDropdown()}
+                                        <div className='flex flex-wrap mb-2'>
                                             {showDesignSkills()}
+                                        </div>
+
+
+                                        {/* Display buttons for management skills */}
+                                        {editing && renderManagementSkillDropdown()}
+                                        <div className='flex flex-wrap'>
                                             {showManagementSkills()}
                                         </div>
                                     </div>
+                                </div>
 
-                                    <h2 className="text-2xl font-semibold mt-4">Want to Learn:</h2>
-                                    <div className="mt-4">
-                                        <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">Fintech</button>
-                                        <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">Education</button>
-                                        <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">Non-Profit</button>
-                                    </div>
-                                </ol>
+                                <h2 className="text-2xl font-semibold mt-4">Want to Learn:</h2>
+                                <div className="mt-4">
+                                    <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">Fintech</button>
+                                    <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">Education</button>
+                                    <button className="bg-opacity-50 px-3 py-1 m-1 rounded border-white border">Non-Profit</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>

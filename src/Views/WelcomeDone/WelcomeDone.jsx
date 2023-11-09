@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setUserID, setUserProject, setUserToken, setUserData } from '../../Actions';
+import { setUserID, setUserProject, setUserToken, setUserData, addToast } from '../../Actions';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
@@ -48,11 +48,12 @@ export default function WelcomeDone() {
                 console.log(data)
                 //navigate to dashboard
                 dispatch(setUserData(data.user))
-
+                dispatch(addToast(data.message))
                 navigate('/dashboard-unpopulated')
             }
             else {
                 console.log(data.message)
+                dispatch(addToast(data.message, "error"))
             }
         } 
         catch {

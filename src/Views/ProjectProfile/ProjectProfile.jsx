@@ -45,6 +45,8 @@ export default function ProjectProfile() {
 
     // Toggle are you sure box
     const [areYouSure, setAreYouSure] = useState(false)
+    const [areYouSure2, setAreYouSure2] = useState(false)
+
 
     useEffect(() => { getProject() }, [])
 
@@ -152,7 +154,7 @@ export default function ProjectProfile() {
                 </svg>
 
                 }
-                {member.prod_role === 'Manager' && <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {member.prod_role === 'Product Manager' && <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="30" cy="30" r="30" fill="#ED4068" />
                     <path d="M16.6666 43.3333C15.7499 43.3333 14.9649 43.0067 14.3116 42.3533C13.6583 41.7 13.3321 40.9155 13.3333 40V20C13.3333 19.0833 13.6599 18.2983 14.3133 17.645C14.9666 16.9917 15.751 16.6655 16.6666 16.6667H26.6666L29.9999 20H43.3333C44.2499 20 45.0349 20.3267 45.6883 20.98C46.3416 21.6333 46.6677 22.4178 46.6666 23.3333V28.8333C46.1388 28.6111 45.5899 28.465 45.0199 28.395C44.4499 28.325 43.8877 28.3322 43.3333 28.4167V23.3333H28.6249L25.2916 20H16.6666V40H30.1666L29.9999 40.1667V43.3333H16.6666ZM33.3333 46.6667V41.5417L42.5416 32.375C42.7916 32.125 43.0694 31.9444 43.3749 31.8333C43.6805 31.7222 43.986 31.6667 44.2916 31.6667C44.6249 31.6667 44.9444 31.7294 45.2499 31.855C45.5555 31.9805 45.8333 32.1678 46.0833 32.4167L47.6249 33.9583C47.8471 34.2083 48.021 34.4861 48.1466 34.7917C48.2721 35.0972 48.3344 35.4028 48.3333 35.7083C48.3333 36.0139 48.2777 36.3267 48.1666 36.6467C48.0555 36.9667 47.8749 37.2511 47.6249 37.5L38.4583 46.6667H33.3333ZM35.8333 44.1667H37.4166L42.4583 39.0833L41.7083 38.2917L40.9166 37.5417L35.8333 42.5833V44.1667ZM41.7083 38.2917L40.9166 37.5417L42.4583 39.0833L41.7083 38.2917Z" fill="#F8E1E6" />
                 </svg>
@@ -176,9 +178,6 @@ export default function ProjectProfile() {
         return totalNeeded - filledRoles;
     };
 
-    const showRemainingRoles = () => {
-        return
-    }
 
 
     return (
@@ -200,13 +199,13 @@ export default function ProjectProfile() {
                         </button>
                         <div className='space-y-4'>
 
-                            <h1 className='text-4xl font-bold'>{project.name}</h1>
+                            <p className='text-4xl font-bold'>{project.name}</p>
                             <div>
                                 <button disabled className="px-8 py-1 rounded border-2 border-rose-300">{project.complete === false ? "Open" : "Closed"}</button>
                             </div>
                             <div>
                                 <p className='text-2xl'>Duration: {project.duration}</p>
-                                <p className='text-2xl'>Posted: {calculateDaysPassed(user.project.date_created)} days ago</p>
+                                <p className='text-2xl'>Posted: {calculateDaysPassed(project.date_created)} days ago</p>
                             </div>
 
                         </div>
@@ -222,8 +221,8 @@ export default function ProjectProfile() {
                         <div className='flex'>
                             {/* Div for radial color gradient */}
                             <div className="w-1/3 mr-6" style={{
-                                width: '320px',
-                                height: '320px',
+                                width: '277px',
+                                height: '277px',
                                 background: `radial-gradient(circle at center, #13557c, #35d2e0)`
                             }}></div>
 
@@ -243,7 +242,7 @@ export default function ProjectProfile() {
                         </div>
 
                         {/* Right Side of Middle */}
-                        <div className='flex justify-center w-1/3'>
+                        <div className='flex justify-center w-1/3 ml-4'>
 
                             {/* Reuest to join, edit project details, are you sure popup, and project team */}
                             <div className='w-full'>
@@ -354,6 +353,8 @@ export default function ProjectProfile() {
                                 <div className='flex space-x-2'>
 
                                     {showMembers()}
+
+                                    {/* Show members still needed */}
                                     {Array.from({ length: project.devs_needed }, (_, i) => (
                                         <div key={i} className="flex justify-center items-center flex-col">
                                             <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -399,28 +400,39 @@ export default function ProjectProfile() {
                     <div className="bottom bg-white flex justify-center w-10/12 py-8">
                         <div className="w-full flex mt-10" style={{ minHeight: '250px' }}>
                             <div className="w-1/2 p-4 rounded-l-lg text-white pt-12" style={{ backgroundColor: '#626171' }}>
-                                <h2 className="text-2xl font-semibold mb-4">Project Description:</h2>
+                                <p className="text-2xl font-semibold mb-4">Project Description:</p>
                                 <p>{project.description}</p>
                             </div>
                             <div className="w-1/2 p-4 rounded-r-lg " style={{ backgroundColor: '#bcbbc2' }}>
                                 <ol>
                                     <div className='flex flex-col justify-center h-full pt-6 '>
-                                        <h2 className="text-2xl font-semibold mb-4">Looking For: </h2>
+                                        <p className="text-2xl font-semibold mb-4">Looking For: </p>
                                         {project.looking_for}
-                                        {/* <li className='mb-2' style={{ listStyleType: 'disc', marginLeft: '25px' }}>People who are interested in:</li>
-                                        <div className="interest-buttons">
-                                            <button className="bg-opacity-50 px-8 py-1 m-1 rounded border-black border">Fintech</button>
-                                            <button className="bg-opacity-50 px-8 py-1 m-1 rounded border-black border">Education</button>
-                                            <button className="bg-opacity-50 px-8 py-1 m-1 rounded border-black border">Non-Profit</button>
-                                            <li className='mt-2 mb-1' style={{ listStyleType: 'disc', marginLeft: '25px' }}>Available for #xx hours / week</li>
-                                            <li style={{ listStyleType: 'disc', marginLeft: '25px' }}>Experience with xyz things</li>
-                                        </div> */}
+                                        
                                     </div>
                                 </ol>
                             </div>
                         </div>
                     </div>
-                    <button className='bg-opacity-50 px-40 py-2 mt-10 mb-20 rounded border-black border font-bold' onClick={openModal}>Request to Join</button>
+                    {areYouSure2 ?
+                        <div className='flex items-center shadow-2xl shadow-rose-500 border  rounded-xl w-[486px] px-4 py-4 mb-5 gap-2 bg-white'>
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.99799 14.7447L8.66667 14.2477V14.7403C8.50645 14.7214 8.33588 14.6787 8.15687 14.6088C7.60345 14.3926 7.02609 13.9314 6.59666 13.2483C6.17262 12.5658 6.01165 11.8455 6.06051 11.2535C6.10943 10.6609 6.35628 10.2556 6.69062 10.0473C7.02613 9.83831 7.49924 9.79508 8.05143 10.0111C8.60345 10.227 9.17806 10.6879 9.60237 11.3701C10.0285 12.0553 10.1912 12.7723 10.1443 13.3614C10.0977 13.9465 9.85531 14.3558 9.51524 14.5753C9.36767 14.6663 9.19366 14.7254 8.99799 14.7447ZM17.3094 10.0473C17.6437 10.2556 17.8906 10.6609 17.9395 11.2536C17.9883 11.8455 17.8274 12.5658 17.4034 13.2483C16.9739 13.9314 16.3966 14.3926 15.8431 14.6088C15.2915 14.8242 14.8199 14.782 14.4848 14.5753C14.1447 14.3558 13.9023 13.9465 13.8557 13.3614C13.8088 12.7723 13.9715 12.0553 14.3976 11.3701C14.8219 10.6879 15.3965 10.227 15.9486 10.0111C16.5008 9.79508 16.9739 9.83831 17.3094 10.0473ZM12 20.8333C12.8639 20.8333 13.8409 20.4094 14.7465 19.8432C15.6812 19.2588 16.6561 18.449 17.5402 17.523C18.4246 16.5967 19.2379 15.5333 19.8344 14.4314C20.4267 13.3372 20.8333 12.1528 20.8333 11C20.8333 6.57863 16.7621 3.16667 12 3.16667C7.23787 3.16667 3.16667 6.57863 3.16667 11C3.16667 12.1528 3.57328 13.3372 4.16559 14.4314C4.76209 15.5333 5.57541 16.5967 6.45976 17.523C7.34394 18.449 8.31883 19.2588 9.25353 19.8432C10.1591 20.4094 11.1361 20.8333 12 20.8333ZM12 2.83333C17.1252 2.83333 21.1667 6.58122 21.1667 11C21.1667 11.8444 20.8669 12.9114 20.2969 14.0728C19.7324 15.223 18.93 16.4103 17.9929 17.4812C17.0549 18.5531 16.0005 19.4876 14.9433 20.1483C13.8774 20.8146 12.8669 21.1667 12 21.1667C11.1331 21.1667 10.1226 20.8146 9.05667 20.1483C7.99946 19.4876 6.94505 18.5531 6.00715 17.4812C5.07004 16.4103 4.2676 15.223 3.70309 14.0728C3.13306 12.9114 2.83333 11.8444 2.83333 11C2.83333 6.58122 6.87485 2.83333 12 2.83333Z" fill="#ED4068" stroke="#ED4068" strokeWidth="1.66667" />
+                            </svg>
+
+
+                            <div className='gap-2'>
+                                <p><b>Are you sure?</b> Click the button to embark on this mission.</p>
+                                <button onClick={() => addUserToProject()} className="w-full h-10 px-3.5 py-1 mt-2 bg-rose-500 rounded shadow border border-rose-500 justify-center items-center gap-2 inline-flex">
+                                    <div className="text-white text-base font-semibold font-['Outfit']">Embark!</div>
+                                </button>
+                            </div>
+
+                        </div>
+                        :
+                        <button className='bg-opacity-50 px-40 py-2 mt-10 mb-20 rounded border-black border font-bold' onClick={() => setAreYouSure2(true)}>Request to Join</button>
+
+                    }
                 </div>
             </div>
         </div>

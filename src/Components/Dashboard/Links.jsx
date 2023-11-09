@@ -12,6 +12,7 @@ export default function Links({ item, title, section, type, getResources }) {
 
     // State to store input values for each section
     const [inputValues, setInputValues] = useState(section);
+    const [name, setName] = useState(title)
 
     // Function to start editing for a specific section
     const startEditing = () => {
@@ -37,7 +38,7 @@ export default function Links({ item, title, section, type, getResources }) {
             body: JSON.stringify({
                 type: type,
                 resource_id: item.id,
-                title: title,
+                title: name,
                 content: inputValues
             })
         }
@@ -81,12 +82,17 @@ export default function Links({ item, title, section, type, getResources }) {
 
     return (
         <div className="project-listing flex mt-8">
-            <p className="text-left flex items-center w-28">{title}:</p>
+            {editingState ? 
+            <div className='flex items-center w-fit'>
+            <input value={name} onChange={(e) => setName(e.target.value)} className="text-left w-24 mr-1 flex items-center border border-black rounded-lg "/><p>:</p>
+            </div>
+            :
+            <p className="text-left flex items-center w-28">{title}:</p>}
             {editingState ? (
-                // Input box and "Save" button when editing
+                // Input boxes and "Save"/"Delete" button when editing
                 <div className="flex items-center">
                     <input
-                        className='ml-2'
+                        className='ml-2 border border-black rounded-lg pl-2'
                         type="text"
                         value={inputValues}
                         onChange={(e) => setInputValues(e.target.value)}

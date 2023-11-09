@@ -115,6 +115,7 @@ export default function UserProfile() {
         setHoursWk(user.data.hours_wk)
         setInterests(user.data.interests)
         setAdjectives(user.data.adjectives)
+        setAbout(user.data.about)
     }
 
     const [about, setAbout] = useState(user.data.about)
@@ -257,16 +258,41 @@ export default function UserProfile() {
     };
 
 
-    const showInterests = () => {
-        return interests?.map((interest) => <button className="white-button w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-2 border-rose-300">{interest}</button>)
-    }
+    // const showInterests = () => {
+    //     return interests?.map((interest) => <button className="white-button w-auto p-2 h-10 m-1 text-base whitespace-nowrap rounded-md border-2 border-rose-300">{interest}</button>)
+    // }
 
     const showAvailability = () => {
         return availability?.map((availability) => <li>{availability}</li>)
     }
 
-    const showAdjectives = () => {
-        return adjectives?.map((adjective) => <li style={{ listStyleType: 'disc', marginLeft: '25px' }}>{adjective}</li>)
+    // const showAdjectives = () => {
+    //     return adjectives?.map((adjective) => <li style={{ listStyleType: 'disc', marginLeft: '25px' }}>{adjective}</li>)
+    // }
+
+    const showRoleIcon = () => {
+        const role = user.data.prod_role
+        if (role == "Product Manager"){
+            return <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="30" fill="#ED4068"/>
+            <path d="M16.6666 43.3333C15.7499 43.3333 14.9649 43.0067 14.3116 42.3533C13.6583 41.7 13.3321 40.9155 13.3333 40V20C13.3333 19.0833 13.6599 18.2983 14.3133 17.645C14.9666 16.9917 15.751 16.6655 16.6666 16.6667H26.6666L29.9999 20H43.3333C44.2499 20 45.0349 20.3267 45.6883 20.98C46.3416 21.6333 46.6677 22.4178 46.6666 23.3333V28.8333C46.1388 28.6111 45.5899 28.465 45.0199 28.395C44.4499 28.325 43.8877 28.3322 43.3333 28.4167V23.3333H28.6249L25.2916 20H16.6666V40H30.1666L29.9999 40.1667V43.3333H16.6666ZM33.3333 46.6667V41.5417L42.5416 32.375C42.7916 32.125 43.0694 31.9444 43.3749 31.8333C43.6805 31.7222 43.986 31.6667 44.2916 31.6667C44.6249 31.6667 44.9444 31.7294 45.2499 31.855C45.5555 31.9805 45.8333 32.1678 46.0833 32.4167L47.6249 33.9583C47.8471 34.2083 48.021 34.4861 48.1466 34.7917C48.2721 35.0972 48.3344 35.4028 48.3333 35.7083C48.3333 36.0139 48.2777 36.3267 48.1666 36.6467C48.0555 36.9667 47.8749 37.2511 47.6249 37.5L38.4583 46.6667H33.3333ZM35.8333 44.1667H37.4166L42.4583 39.0833L41.7083 38.2917L40.9166 37.5417L35.8333 42.5833V44.1667ZM41.7083 38.2917L40.9166 37.5417L42.4583 39.0833L41.7083 38.2917Z" fill="#F8E1E6"/>
+            </svg>
+            
+        } 
+        else if (role == "Designer") {
+            return <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="30" fill="#EBB237"/>
+            <path d="M21.6666 36.6667C22.5833 36.6667 23.3333 37.4167 23.3333 38.3333C23.3333 40.1667 21.8333 41.6667 19.9999 41.6667C19.7166 41.6667 19.4499 41.6667 19.1666 41.5833C19.6833 40.6667 19.9999 39.5667 19.9999 38.3333C19.9999 37.4167 20.7499 36.6667 21.6666 36.6667ZM41.1166 15C40.6833 15 40.2666 15.1667 39.9333 15.4833L24.9999 30.4167L29.5833 35L44.5166 20.0667C45.1666 19.4167 45.1666 18.3333 44.5166 17.7167L42.2833 15.4833C41.9499 15.15 41.5333 15 41.1166 15ZM21.6666 33.3333C18.8999 33.3333 16.6666 35.5667 16.6666 38.3333C16.6666 40.5167 14.7333 41.6667 13.3333 41.6667C14.8666 43.7 17.4999 45 19.9999 45C23.6833 45 26.6666 42.0167 26.6666 38.3333C26.6666 35.5667 24.4333 33.3333 21.6666 33.3333Z" fill="#F9E8C3"/>
+            </svg>
+            
+        }
+        else if (role == "Developer") {
+            return <svg width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="30" fill="#135279"/>
+            <path d="M13.3333 21.6667V15H46.6666V21.6667H43.3333V18.3333H16.6666V21.6667H13.3333ZM23.3333 45V41.6667H13.3333V35H16.6666V38.3333H43.3333V35H46.6666V41.6667H36.6666V45H23.3333ZM17.9999 28.3333L22.3333 24L19.9999 21.6667L13.3333 28.3333L19.9999 35L22.3333 32.6667L17.9999 28.3333ZM41.9999 28.3333L37.6666 32.6667L39.9999 35L46.6666 28.3333L39.9999 21.6667L37.6666 24L41.9999 28.3333Z" fill="#D7F7F9"/>
+            </svg>
+            
+        }
     }
 
     return (
@@ -296,11 +322,8 @@ export default function UserProfile() {
                         <div className='flex items-center'>
 
                             {/* Display user role icon */}
-                            <svg width="50" height="50" viewBox="0 0 60 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="30" cy="30.2" r="29" fill="#ED4068" stroke="#ED4068" strokeWidth="2" />
-                                <path d="M16.6666 43.5334C15.75 43.5334 14.965 43.2067 14.3116 42.5534C13.6583 41.9 13.3322 41.1156 13.3333 40.2V20.2C13.3333 19.2834 13.66 18.4984 14.3133 17.845C14.9666 17.1917 15.7511 16.8656 16.6666 16.8667H26.6666L30 20.2H43.3333C44.25 20.2 45.035 20.5267 45.6883 21.18C46.3416 21.8334 46.6678 22.6178 46.6666 23.5334V29.0334C46.1389 28.8111 45.59 28.665 45.02 28.595C44.45 28.525 43.8878 28.5323 43.3333 28.6167V23.5334H28.625L25.2916 20.2H16.6666V40.2H30.1666L30 40.3667V43.5334H16.6666ZM33.3333 46.8667V41.7417L42.5416 32.575C42.7916 32.325 43.0694 32.1445 43.375 32.0334C43.6805 31.9223 43.9861 31.8667 44.2917 31.8667C44.625 31.8667 44.9444 31.9295 45.25 32.055C45.5555 32.1806 45.8333 32.3678 46.0833 32.6167L47.625 34.1584C47.8472 34.4084 48.0211 34.6861 48.1466 34.9917C48.2722 35.2973 48.3344 35.6028 48.3333 35.9084C48.3333 36.2139 48.2778 36.5267 48.1666 36.8467C48.0555 37.1667 47.875 37.4511 47.625 37.7L38.4583 46.8667H33.3333ZM35.8333 44.3667H37.4167L42.4583 39.2834L41.7083 38.4917L40.9166 37.7417L35.8333 42.7834V44.3667ZM41.7083 38.4917L40.9166 37.7417L42.4583 39.2834L41.7083 38.4917Z" fill="black" />
-                            </svg>
-                            <p className='ml-2'># of Years: {user.data.prod_exp}</p>
+                            {showRoleIcon()}
+                            <p className='ml-2'>{user.data.prod_exp}</p>
                         </div>
                     </div>
 

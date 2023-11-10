@@ -39,9 +39,9 @@ export default function Welcome() {
     <div style={{ backgroundColor: '#1f1d34' }}>
       <div className='flex items-center flex-col justify-center text-white'>
     <div className="flex items-center justify-center pt-20 text-white" id='welcome-wrapper'>
-      <div className="w-3/4 text-center" >
+      <div className="w-4/5 text-center" >
 
-        <div className='mb-8 text-left text-4xl w-3/4 text-5xl' style={{ fontFamily: 'Oswald, sans-serif' }}>
+        <div className='mb-14 text-center text-4xl mx-auto w-3/4 text-4xl' style={{ fontFamily: 'Oswald, sans-serif' }}>
           <p>Your Team Awaits!</p>
         </div>
 
@@ -52,7 +52,7 @@ export default function Welcome() {
               className="overlay-image"/>
           </div>
 
-        <div className="text-left text-2xl">
+        <div className="text-left text-xl">
           <p>
             Cultivate your skills as an early-career product manager, developer or designer!
           </p>

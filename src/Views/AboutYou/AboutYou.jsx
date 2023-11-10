@@ -59,31 +59,36 @@ export default function AboutYou() {
   };
     
 
-    // Function to toggle skill selection
-    const toggleSkill = (skill, state, stateFunc) => {
-      if (state.includes(skill)) {
-        dispatch(stateFunc(state.filter(selectedSkill => selectedSkill !== skill)));
-      } else if (skill === 'Other...') {
-        setShowOtherInterests(true);
-        dispatch(stateFunc([...state, skill]));
-      } else {
-        dispatch(stateFunc([...state, skill]));
-      }
-      console.log(aboutYou);
-    };
-      
-  const handleAdjectiveSelect = (selectedAdjective) => {
-    if (adjectivesState.includes(selectedAdjective)) {
-      // Deselect the adjective
-      const updatedAdjectives = adjectivesState.filter((adj) => adj !== selectedAdjective);
-      setAdjectivesState(updatedAdjectives);
-    } else if (adjectivesState.length < 3) {
-      // Select the adjective if not already selected and there is space for more
-      setAdjectivesState([...adjectivesState, selectedAdjective]);
-    } else {
-      dispatch(addToast("You can only select a maximum of 3 adjectives!", "error"))
+// Function to toggle skill selection
+const toggleSkill = (skill, state, stateFunc) => {
+  if (state.includes(skill)) {
+    // Deselect the skill
+    dispatch(stateFunc(state.filter(selectedSkill => selectedSkill !== skill)));
+  } else if (state.length < 3) {
+    // Select the skill if not already selected and there is space for more
+    if (skill === 'Other...') {
+      setShowOtherInterests(true);
     }
-  };
+    dispatch(stateFunc([...state, skill]));
+  } else {
+    // Notify the user about the maximum limit
+    dispatch(addToast("You can only select a maximum of 3 skills!", "error"));
+  }
+  console.log(aboutYou);
+};
+      
+  // const handleAdjectiveSelect = (selectedAdjective) => {
+  //   if (adjectivesState.includes(selectedAdjective)) {
+  //     // Deselect the adjective
+  //     const updatedAdjectives = adjectivesState.filter((adj) => adj !== selectedAdjective);
+  //     setAdjectivesState(updatedAdjectives);
+  //   } else if (adjectivesState.length < 3) {
+  //     // Select the adjective if not already selected and there is space for more
+  //     setAdjectivesState([...adjectivesState, selectedAdjective]);
+  //   } else {
+  //     dispatch(addToast("You can only select a maximum of 3 adjectives!", "error"))
+  //   }
+  // };
 
   const handleDescriptionChange = (event) => {
     setDescriptionState(event.target.value);

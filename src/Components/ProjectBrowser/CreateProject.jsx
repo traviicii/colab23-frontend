@@ -275,7 +275,7 @@ export default function CreateProject({ chosenProject, closeModal }) {
                             Share any other important details or requirements.
                         </p>
                         <textarea
-                            placeholder="Anything else?"
+                            placeholder="Share details."
                             value={additionalInfo}
                             onChange={handleAdditionalInfoChange}
                             className="w-full border-2 border-black rounded p-2 h-28 focus:ring focus:ring-blue-300"

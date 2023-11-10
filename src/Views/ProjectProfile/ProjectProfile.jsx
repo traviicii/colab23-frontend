@@ -125,7 +125,36 @@ export default function ProjectProfile() {
         }
         catch {
             console.log("Couldn't add you to the project. Log in and try again?")
-            dispatch(addToast("Couldn't add you to the project. Log in and try again?"), "error")
+            dispatch(addToast("Couldn't add you to the project. Log in and try again?", "error"))
+        }
+    }
+
+    const deleteProject = async () => {
+
+        const token = user.data.apitoken
+        const url = BACK_END_URL + `/api/deleteproject/${user.data.id}/${project_id}`
+        const options = {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (data.status === 'ok') {
+                console.log(data)
+                dispatch(addToast(data.message, "success"))
+                navigate('/dashboard-unpopulated')
+            }
+            else{
+                dispatch(addToast(data.message, "error"))
+            }
+        }
+        catch {
+            console.log("Couldn't delete project.")
+            dispatch(addToast("Hmm something isn't right... Your project couldn't be deleted.", "error"))
         }
     }
 
@@ -301,7 +330,7 @@ export default function ProjectProfile() {
                                                                 <div className="w-[184px] h-[0px] border border-black"></div>
 
                                                                 <li className="flex justify-center flex-col cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
-                                                                    <button className='flex justify-center'>
+                                                                    <button onClick={() => deleteProject()} className='flex justify-center'>
                                                                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                             <path d="M9.5 3V4H4.5V6H5.5V19C5.5 19.5304 5.71071 20.0391 6.08579 20.4142C6.46086 20.7893 6.96957 21 7.5 21H17.5C18.0304 21 18.5391 20.7893 18.9142 20.4142C19.2893 20.0391 19.5 19.5304 19.5 19V6H20.5V4H15.5V3H9.5ZM7.5 6H17.5V19H7.5V6ZM9.5 8V17H11.5V8H9.5ZM13.5 8V17H15.5V8H13.5Z" fill="#ED4068" />
                                                                         </svg>

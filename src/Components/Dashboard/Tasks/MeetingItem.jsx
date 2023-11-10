@@ -107,7 +107,7 @@ export default function MeetingItem({ meeting }) {
             </svg>
           </div>
           {isMenuOpen && (
-            <div className="menu-dropdown absolute z-10 mt-2 right-0 w-20 bg-white border border-gray-200 rounded shadow-lg">
+            <div className="menu-dropdown absolute whitespace-nowrap z-10 mt-2 right-0 w-fit bg-white border border-stone-600 rounded-lg shadow-lg">
               <ul className="p-2">
                 <li className="cursor-pointer hover:bg-gray-100 p-2" onClick={toggleMenu}>
                   <button onClick={() => deleteMeeting()}>Delete</button>

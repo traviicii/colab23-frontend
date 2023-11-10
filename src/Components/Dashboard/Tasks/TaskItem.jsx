@@ -83,7 +83,7 @@ export default function TaskItem({ task, taskId, onComplete }) {
       <div className="flex items-center">
         <input
           type="checkbox"
-          className="mr-2"
+          className="mr-2 accent-pink-500"
           onChange={() => {
             setIsChecked(true)
             updateTaskCompleted()

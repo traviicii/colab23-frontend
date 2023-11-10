@@ -158,6 +158,32 @@ export default function ProjectProfile() {
         }
     }
 
+    const leaveProject = async () => {
+
+        const token = user.data.apitoken
+        const url = BACK_END_URL + `/api/removeprojectuser/${user.data.id}`
+        const options = {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (data.status === 'ok') {
+                console.log(data)
+                dispatch(addToast(data.message, "success"))
+                dispatch(setUserData(data.user))
+                navigate('/dashboard-unpopulated')
+            }
+        }
+        catch {
+            console.log("Couldn't remove user from project.")
+        }
+    }
+
     // This is a utility function that calculates the difference in days
     const calculateDaysPassed = (dateString) => {
         const now = new Date(); // current date and time
@@ -312,19 +338,19 @@ export default function ProjectProfile() {
                                                         <div className="menu-dropdown absolute whitespace-nowrap z-10 mt-2 right-0 w-fit bg-white border border-stone-600 rounded-lg shadow-lg">
                                                             <ul className="p-2">
                                                                 <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
-                                                                    <button >Assign New Project Admin</button>
+                                                                    <button className='line-through'>Assign New Project Admin</button>
                                                                 </li>
 
                                                                 <div className="w-[184px] h-[0px] border border-black"></div>
 
                                                                 <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
-                                                                    <button >Edit Project</button>
+                                                                    <button className='line-through'>Edit Project</button>
                                                                 </li>
 
                                                                 <div className="w-[184px] h-[0px] border border-black"></div>
 
                                                                 <li className="flex justify-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg" onClick={toggleMenu}>
-                                                                    <button >Mark Project Complete</button>
+                                                                    <button className='line-through'>Mark Project Complete</button>
                                                                 </li>
 
                                                                 <div className="w-[184px] h-[0px] border border-black"></div>
@@ -343,9 +369,9 @@ export default function ProjectProfile() {
                                                         :
 
                                                         <div className="menu-dropdown absolute z-10 mt-2 right-0 w-fit bg-white border border-gray-200 rounded shadow-lg">
-                                                            <ul className="p-2">
+                                                            <ul className="p-2 absolute whitespace-nowrap z-10 mt-2 right-0 w-fit bg-white border border-stone-600 rounded-lg shadow-lg">
                                                                 <li className="cursor-pointer hover-bg-gray-100 p-2" onClick={toggleMenu}>
-                                                                    <button >Leave Project</button>
+                                                                    <button onClick={() => leaveProject()} >Leave Project</button>
                                                                 </li>
                                                             </ul>
                                                         </div>

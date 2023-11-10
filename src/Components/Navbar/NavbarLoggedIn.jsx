@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../Actions';
+import { logout, setUserData } from '../../Actions';
 import { persistor } from '../../store';
 
 export default function NavbarLoggedIn() {
@@ -33,6 +33,7 @@ export default function NavbarLoggedIn() {
     dispatch(logout());
 
     // Purge the persisted state
+    dispatch(setUserData({}))
     await persistor.purge();
     navigate('/')
   };
@@ -200,13 +201,13 @@ export default function NavbarLoggedIn() {
 
                   <div className="w-[90%] h-[0px]  border border-b-black"></div>
                   
-                  <NavLink to="/link1" className="flex items-center block px-4 py-1 text-black rounded-md hover:bg-gray-300">
+                  <NavLink onClick={handleLogout} className="flex items-center block px-4 py-1 text-black rounded-md hover:bg-gray-300">
                     <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M8.33333 8.33333H18.3333C19.25 8.33333 20 7.58333 20 6.66667C20 5.75 19.25 5 18.3333 5H8.33333C6.5 5 5 6.5 5 8.33333V31.6667C5 33.5 6.5 35 8.33333 35H18.3333C19.25 35 20 34.25 20 33.3333C20 32.4167 19.25 31.6667 18.3333 31.6667H8.33333V8.33333Z" fill="black" />
                       <path d="M34.4167 19.4167L29.7667 14.7667C29.6508 14.6476 29.5019 14.5658 29.3393 14.5318C29.1766 14.4978 29.0075 14.5131 28.8536 14.5757C28.6997 14.6383 28.5679 14.7455 28.4752 14.8834C28.3826 15.0214 28.3332 15.1838 28.3333 15.35V18.3333H16.6667C15.75 18.3333 15 19.0833 15 20C15 20.9167 15.75 21.6667 16.6667 21.6667H28.3333V24.65C28.3333 25.4 29.2333 25.7667 29.75 25.2333L34.4 20.5833C34.7333 20.2667 34.7333 19.7333 34.4167 19.4167Z" fill="black" />
                     </svg>
 
-                    <button onClick={handleLogout} className='ml-2'>Logout</button>
+                    <p className='ml-2'>Logout</p>
                   </NavLink>
                 </div>
               </div>

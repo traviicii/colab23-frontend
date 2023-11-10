@@ -125,7 +125,7 @@ export default function PersonalDetails() {
           <p className="text-md md:text-lg text-center font-semibold">
             Let's start by getting some basics
           </p>
-          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your personal profile</h4>
+          <h4 className='text-md md:text-lg text-center mb-12'>All info will be displayed on your public profile</h4>
 
           {/* Beginning of form */}
           <form onSubmit={(e) => checkUser(e)}>

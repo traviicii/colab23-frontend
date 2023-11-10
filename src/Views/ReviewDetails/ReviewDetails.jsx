@@ -8,7 +8,7 @@ export default function ReviewDetails() {
   const aboutYou = useSelector((state) => state.aboutYouForm);
   const availabilityForm = useSelector((state) => state.availabilityForm)
 
-  const currentSkills = useSelector((state) => state.skillsTools.designSkills).concat(useSelector((state) => state.skillsTools.developerSkills)).concat(useSelector((state) => state.skillsTools.managementSkills));
+  const currentSkills = useSelector((state) => state.skillsTools.designSkills).concat(useSelector((state) => state.skillsTools.developerSkills)).concat(useSelector((state) => state.skillsTools.managementSkills)).concat(useSelector((state) => state.skillsTools.otherSkills));
 
   const navigate = useNavigate();
 

@@ -307,3 +307,10 @@ export const removeToast = (id) => ({
   type: REMOVE_TOAST,
   payload: id
 });
+
+// Logout action
+export const LOGOUT = 'LOGOUT';
+
+export const logout = () => ({
+  type: LOGOUT
+});

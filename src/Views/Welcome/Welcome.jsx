@@ -1,10 +1,29 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Welcome.css'
 import SignIn from './SignIn';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Welcome() {
   const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user)
+
+  useEffect(() => {
+    // Check if the user object and its data.id property are defined
+    if (user && user.data.id) {
+      if (user.data.current_project_id) {
+        // User is involved in a project, navigate to the project dashboard
+        navigate('/dashboard');
+      } else {
+        // User has no current project, navigate to the unpopulated dashboard
+        navigate('/dashboard-unpopulated');
+      }
+    }
+    // If user or user.data is not defined, do nothing (stay on the homepage)
+  }, [user, navigate]);
+  
+
   const navigateToSignIn = () => {
     navigate('/signin')
   }
@@ -42,7 +61,7 @@ export default function Welcome() {
           </p>
         </div>
         
-        <button onClick={navigateToSignIn} style={{ backgroundColor: '#ed4168' }} className="text-whit py-3 text-lg px-4 mt-10 w-full rounded-md">
+        <button onClick={navigateToSignIn} style={{ backgroundColor: '#ed4168' }} className="text-whit relative z-50 py-3 text-lg px-4 mt-10 w-full rounded-md">
           Let's Get Started!
         </button>
       </div>

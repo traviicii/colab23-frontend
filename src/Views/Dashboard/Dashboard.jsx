@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Task from '../../Components/Dashboard/Tasks/Task';
 import Team from '../../Components/Dashboard/Team';
 import Resources from '../../Components/Dashboard/Resources';
-import ProjectChat from '../../Components/Dashboard/ProjectChat';
 import { useSelector } from 'react-redux';
 import './Dashboard.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
 
@@ -34,7 +33,7 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="h-screen pl-20 pr-20 pt-20 mb-60">
+        <div className="min-h-screen pl-20 pr-20 pt-20 pb-60 bg-gradient-to-b from-[#1D3F65] to-[#CF5A7C]">
             <h1 className="text-5xl font-bold pb-5 text-white">Hey, {user.data.first_name}!</h1>
             <p className="text-3xl text-white">You're working on <button className='underline text-rose-300' onClick={() => navigate(`/project-profile/${user.project.id}`)}>{user.project.name}</button>!</p>
             <p className="text-3xl text-white">Let's take a look at what's going on...</p>

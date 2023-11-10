@@ -61,7 +61,7 @@ export default function Welcome() {
           </p>
         </div>
         
-        <button onClick={navigateToSignIn} style={{ backgroundColor: '#ed4168' }} className="text-whit py-3 text-lg px-4 mt-10 w-full rounded-md">
+        <button onClick={navigateToSignIn} style={{ backgroundColor: '#ed4168' }} className="text-whit relative z-50 py-3 text-lg px-4 mt-10 w-full rounded-md">
           Let's Get Started!
         </button>
       </div>

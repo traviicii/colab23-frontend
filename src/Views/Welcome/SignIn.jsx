@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GoogleAuthProvider, GithubAuthProvider, getAuth, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,10 +13,12 @@ export default function SignIn() {
     const dispatch = useDispatch();
     
     const user = useSelector((state) => state.user);
+    const [isLoading, setIsLoading] = useState(false)
 
     //Traditional user login
     const login = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
 
         const email = e.target.email.value;
         const password = e.target.password.value
@@ -55,6 +57,7 @@ export default function SignIn() {
             else{
                 console.log(data.message)
                 dispatch(addToast(data.message, "error"))
+                setIsLoading(false)
             }
 
         } catch {
@@ -129,7 +132,9 @@ export default function SignIn() {
 
                                 <p className='text-xs underline' style={{ color: '#ed4168' }}>Forgot password?</p>
 
-                                <button type='submit' className='mt-3 py-1 px-10 border rounded w-full bg-zinc-400 text-white' style={{ backgroundColor: '#ed4168' }}>Sign In</button>
+                                <button type='submit' className='flex justify-center items-center gap-x-2 mt-3 py-1 px-10 border rounded w-full bg-zinc-400 text-white' style={{ backgroundColor: '#ed4168' }}>
+                                {isLoading ? <svg className={`${'animate-spin'}`} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" fill="#FFFFFF"/></svg> : ''}
+                                    Sign In</button>
 
                             </form>
                         </div>

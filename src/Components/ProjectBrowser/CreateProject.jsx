@@ -32,6 +32,7 @@ export default function CreateProject({ chosenProject, closeModal }) {
     const [selectedFields, setSelectedFields] = useState([]);
 
     const [areYouSure, setAreYouSure] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const [managersNeeded, setManagersNeeded] = useState(0)
     const [designersNeeded, setDesignersNeeded] = useState(0)
@@ -102,6 +103,7 @@ export default function CreateProject({ chosenProject, closeModal }) {
         if (projectTitle == '') {
             return
         }
+        setIsLoading(true)
         const token = user.data.apitoken
         const url = BACK_END_URL + '/api/createproject'
         const options = {
@@ -136,7 +138,9 @@ export default function CreateProject({ chosenProject, closeModal }) {
             else {
                 console.log(data)
                 dispatch(addToast(data.message, 'error'))
-                closeModal()
+                setIsLoading(false)
+
+                // closeModal()
             }
         }
         catch {
@@ -283,6 +287,7 @@ export default function CreateProject({ chosenProject, closeModal }) {
                     </div>
                 </div>
                 <div className="flex justify-center items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+
                     {areYouSure ?
 
                         <div className='flex justify-center items-center shadow-2xl rounded-xl shadow-rose-400 w-[450px] h-[172px] px-4 py-8'>
@@ -293,7 +298,9 @@ export default function CreateProject({ chosenProject, closeModal }) {
                             </div>
                             <div className=''>
                                 <p><b>Are you sure?</b> Review your details above, and when you’re ready to post your project on the Explore page, click the button to launch.</p>
-                                <button onClick={() => createNewProject()} className='mt-2 w-full text-white focus:ring-4 focus:outline-none bg-[#ed4168]  font-medium rounded-lg text-sm px-5 py-2.5 text-center'>Launch it!</button>
+                                <button onClick={() => createNewProject()} className='flex justify-center items-center gap-x-2 mt-2 w-full text-white focus:ring-4 focus:outline-none bg-[#ed4168]  font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
+                                {isLoading ? <svg className={`${'animate-spin'}`} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" fill="#FFFFFF"/></svg> : ''}
+                                    Launch it!</button>
 
                             </div>
                         </div>
@@ -309,6 +316,7 @@ export default function CreateProject({ chosenProject, closeModal }) {
                             Submit!
                         </button>
                     }
+
                 </div>
             </form>
         </div >
